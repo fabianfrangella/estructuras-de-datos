@@ -26,6 +26,55 @@ maxDelPar (x,y) = if x > y then x else y
 -- Enums
 
 -- Data definitions
+data DiaDeSemana = Lunes | Martes | Miercoles | Jueves | Viernes | Sabado | Domingo deriving (Show, Enum)
+
+{-
+a) primeroYUltimoDia :: (DiaDeSemana, DiaDeSemana)
+Devuelve un par donde la primera componente es el primer día de la semana, y la
+segunda componente es el último día de la semana.
+b) empiezaConM :: DiaDeSemana -> Bool
+Dado un dia de la semana indica si comienza con la letra M.
+c) vieneDespues :: DiaDeSemana -> DiaDeSemana -> Bool
+Dado dos dias de semana, indica si el primero viene después que el segundo.
+d) estaEnElMedio :: DiaDeSemana -> Bool
+Dado un dia de la semana indica si no es ni el primer ni el ultimo dia.
+-}
+
+primeroYUltimoDia :: (DiaDeSemana, DiaDeSemana)
+primeroYUltimoDia = (Lunes, Domingo)
+
+empiezaConM :: DiaDeSemana -> Bool
+empiezaConM Martes = True
+empiezaConM Miercoles = True
+empiezaConM x = False
+
+vieneDespues :: DiaDeSemana -> DiaDeSemana -> Bool
+vieneDespues Lunes Domingo = True
+vieneDespues Martes Lunes = True
+vieneDespues Miercoles Martes = True
+vieneDespues Jueves Miercoles = True
+vieneDespues Viernes Jueves = True
+vieneDespues Sabado Viernes = True
+vieneDespues Domingo Sabado = True
+vieneDespues x y = False
+
+vieneDespuesConSucc :: DiaDeSemana -> DiaDeSemana -> Bool
+vieneDespuesConSucc x y = sonElMismoDia (succ y) x
+
+sonElMismoDia :: DiaDeSemana -> DiaDeSemana -> Bool
+sonElMismoDia Lunes Lunes = True
+sonElMismoDia Martes Martes = True
+sonElMismoDia Miercoles Miercoles = True
+sonElMismoDia Jueves Jueves = True
+sonElMismoDia Viernes Viernes = True
+sonElMismoDia Sabado Sabado = True
+sonElMismoDia Domingo Domingo = True
+sonElMismoDia x y = False
+
+estaEnElMedio :: DiaDeSemana -> Bool
+estaEnElMedio Lunes = False
+estaEnElMedio Domingo = False
+estaEnElMedio x = True
 
 data Dir = Norte | Sur | Este | Oeste deriving (Show)
 
@@ -162,8 +211,10 @@ cantidadDePokemonesDe :: TipoDePokemon -> Entrenador -> Int
 cantidadDePokemonesDe t e = unoSiEsElMismoTipo (tipo (primerPokemon e)) t + unoSiEsElMismoTipo (tipo (segundoPokemon e)) t
 
 juntarPokemones :: (Entrenador, Entrenador) -> [Pokemon]
-juntarPokemones ((Entr _ pp1 pp2), (Entr _ sp1 sp2)) = [pp1, pp2, sp1, sp2]
+juntarPokemones (e1, e2) = pokemonesDe e1 ++ pokemonesDe e2
 
+pokemonesDe :: Entrenador -> [Pokemon]
+pokemonesDe (Entr _ p1 p2) = [p1, p2]
 {-
 1. Defina las siguientes funciones polimórficas:
 a) loMismo :: a -> a
@@ -219,9 +270,9 @@ elPrimero (a:_) = a
 elPrimero [] = error "No se puede obtener el primero de una lista vacia"
 
 sinElPrimero :: [a] -> [a]
-sinElPrimero (a:b) = b 
+sinElPrimero (a:xs) = xs 
 sinElPrimero [] = error "No se le puede sacar el primero a una lista vacia"
 
 splitHead :: [a] -> (a, [a])
-splitHead (a:b) = (a, b)
+splitHead (a:xs) = (a, xs)
 splitHead [] = error "No se puede splitear una lista vacia"
