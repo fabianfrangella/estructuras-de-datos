@@ -158,14 +158,14 @@ repetir n e = e : repetir (n-1) e
 --Dados un número n y una lista xs, devuelve una lista con los n primeros elementos de xs. Si la lista es vacía, devuelve una lista vacía.
 
 losPrimeros :: Int -> [a] -> [a]
-losPrimeros _ [] = []
+losPrimeros 0 xs = []
 losPrimeros 1 (x:xs) = [x]
 losPrimeros n (x:xs) = x : losPrimeros (n-1) xs
 
 --Dados un número n y una lista xs, devuelve una lista sin los primeros n elementos de lista recibida. Si n es cero, devuelve la lista completa.
 sinLosPrimeros :: Int -> [a] -> [a]
 sinLosPrimeros _ [] = []
-sinLosPrimeros 1 (x:xs) = xs
+sinLosPrimeros n [] = []
 sinLosPrimeros n (x:xs) = sinLosPrimeros(n-1) xs
 
 {-
