@@ -60,12 +60,12 @@ sucesores (x: xs) = succ x : sucesores xs
 -- Dada una lista de booleanos devuelve True si todos sus elementos son True.
 conjuncion :: [Bool] -> Bool
 conjuncion [] = True
-conjuncion (x:xs) = if x then conjuncion xs else False
+conjuncion (x:xs) = x && conjuncion xs
 
--- Dada una lista de booleanos devuelve T rue si alguno de sus elementos es T rue.
+-- Dada una lista de booleanos devuelve True si alguno de sus elementos es T rue.
 disyuncion :: [Bool] -> Bool
 disyuncion [] = False
-disyuncion (x:xs) = if x then True else disyuncion xs
+disyuncion (x:xs) = x || disyuncion xs
 
 -- Dada una lista de listas, devuelve una única lista con todos sus elementos.
 aplanar :: [[a]] -> [a]
@@ -75,12 +75,12 @@ aplanar (x: xs) = x ++ aplanar xs
 -- Dados un elemento e y una lista xs devuelve True si existe un elemento en xs que sea igual a e.
 pertenece :: Eq a => a -> [a] -> Bool
 pertenece e [] = False
-pertenece e xs = if (head xs) == e then True else pertenece e (tail xs)
+pertenece e (x:xs) = x == e || pertenece e xs
 
 -- Dados un elemento e y una lista xs cuenta la cantidad de apariciones de e en xs.
 apariciones :: Eq a => a -> [a] -> Int
 apariciones e [] = 0
-apariciones e xs = if e == (head xs) then 1 + apariciones e (tail xs) else apariciones e (tail xs)
+apariciones e (x:xs) = if e == x then 1 + apariciones e xs else apariciones e xs
 
 --Dados un número n y una lista xs, devuelve todos los elementos de xs que son menores a n.
 losMenoresA :: Int -> [Int] -> [Int]
@@ -304,7 +304,7 @@ tiposDe (x: xs) = tipoDe x : tiposDe xs
 existeTipoEn :: TipoDePokemon -> [Pokemon] -> Bool
 existeTipoEn t [] = False
 existeTipoEn t [a] = sonElMismoTipo t (tipoDe a)
-existeTipoEn t (x:xs) = if sonElMismoTipo t (tipoDe x) then True else existeTipoEn t xs
+existeTipoEn t (x:xs) = sonElMismoTipo t (tipoDe x) || existeTipoEn t xs
 
 {-
 El tipo de dato Rol representa los roles (desarollo o management) de empleados IT dentro
@@ -333,5 +333,7 @@ data Seniority = Junior | SemiSenior | Senior deriving (Show)
 data Proyecto = ConsProyecto String deriving (Show)
 data Rol = Developer Seniority Proyecto | Management Seniority Proyecto deriving (Show)
 data Empresa = ConsEmpresa [Rol] deriving (Show)
+
+--Dada una empresa denota la lista de proyectos en los que trabaja, sin elementos repetidos.
 
 
