@@ -85,12 +85,12 @@ apariciones e (x:xs) = if e == x then 1 + apariciones e xs else apariciones e xs
 --Dados un número n y una lista xs, devuelve todos los elementos de xs que son menores a n.
 losMenoresA :: Int -> [Int] -> [Int]
 losMenoresA n [] = []
-losMenoresA n xs = if n > (head xs) then head xs : losMenoresA n (tail xs) else losMenoresA n (tail xs)
+losMenoresA n (x:xs) = if n > x then x : losMenoresA n xs else losMenoresA n xs
 
 --Dados un número n y una lista de listas, devuelve la lista de aquellas listas que tienen más de n elementos.
 lasDeLongitudMayorA :: Int -> [[a]] -> [[a]]
 lasDeLongitudMayorA n [] = []
-lasDeLongitudMayorA n xs = if longitud (head xs) > n then [head xs] ++ lasDeLongitudMayorA n (tail xs) else lasDeLongitudMayorA n (tail xs)
+lasDeLongitudMayorA n (x:xs) = if longitud x > n then x : lasDeLongitudMayorA n xs else lasDeLongitudMayorA n xs
 
 --Dados una lista y un elemento, devuelve una lista con ese elemento agregado al final de la lista.
 agregarAlFinal :: [a] -> a -> [a]
@@ -121,8 +121,7 @@ zipMaximos (x1: xs1) (x2: xs2) = if x1 > x2 then x1 : zipMaximos xs1 xs2 else x2
 elMinimo :: Ord a => [a] -> a
 elMinimo [] = error "No se puede pedir el minimo de una lista vacia"
 elMinimo [x] = x
-elMinimo (x:xs) = if x < elMinimo xs then x else elMinimo xs
-
+elMinimo (x:xs) = min x (elMinimo xs)
 {-
 Defina las siguientes funciones utilizando recursión sobre números enteros, salvo que se indique
 lo contrario:
