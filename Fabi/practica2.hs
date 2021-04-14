@@ -169,3 +169,169 @@ sinLosPrimeros _ [] = []
 sinLosPrimeros 1 (x:xs) = xs
 sinLosPrimeros n (x:xs) = sinLosPrimeros(n-1) xs
 
+{-
+Definir el tipo de dato Persona, como un nombre y la edad de la persona. Realizar las
+siguientes funciones:
+mayoresA :: Int -> [Persona] -> [Persona]
+Dados una edad y una lista de personas devuelve todas las personas que son mayores
+a esa edad.
+promedioEdad :: [Persona] -> Int
+
+Dada una lista de personas devuelve el promedio de edad entre esas personas. Precon-
+dición: la lista al menos posee una persona.
+
+elMasViejo :: [Persona] -> Persona
+Dada una lista de personas devuelve la persona más vieja de la lista. Precondición: la
+lista al menos posee una persona.
+-}
+
+data Persona = Pers String Int deriving (Show)
+
+carlos = Pers "Carlos" 18
+jorge = Pers "Jorge" 24
+jose = Pers "Jose" 52
+maria = Pers "Maria" 16
+
+personas :: [Persona]
+personas = [carlos,jorge,maria]
+
+mayoresA :: Int -> [Persona] -> [Persona]
+mayoresA _ [] = []
+mayoresA n (x:xs) = if esMayorDe n x then x : mayoresA n xs else mayoresA n xs
+
+esMayorDe :: Int -> Persona -> Bool
+esMayorDe n p = edad p > n
+
+edad :: Persona -> Int
+edad (Pers _ e) = e 
+
+promedioEdad :: [Persona] -> Int
+promedioEdad xs = div (sumatoria (edades xs)) (length xs)
+
+edades :: [Persona] -> [Int]
+edades [] = []
+edades (x:xs) = edad x : edades xs
+
+esMayorQue :: Persona -> Persona -> Bool
+esMayorQue x y = edad x > edad y
+
+elMayor :: Persona -> Persona -> Persona
+elMayor a b = if esMayorQue a b then a else b
+
+elMasViejo :: [Persona] -> Persona
+elMasViejo [a] = a
+elMasViejo [a,b] = elMayor a b
+elMasViejo (x:xs) = elMasViejo (elMayor x (head xs) : tail xs)
+
+{-
+Modificaremos la representación de Entreador y Pokemon de la práctica anterior de la si-
+guiente manera:
+
+data TipoDePokemon = Agua | Fuego | Planta
+data Pokemon = ConsPokemon TipoDePokemon Int
+data Entrenador = ConsEntrenador String [Pokemon]
+Como puede observarse, ahora los entrenadores tienen una cantidad de Pokemon arbitraria.
+Definir en base a esa representación las siguientes funciones:
+cantPokemones :: Entrenador -> Int
+Devuelve la cantidad de pokémon que posee el entrenador.
+cantPokemonesDe :: TipoDePokemon -> Entrenador -> Int
+Devuelve la cantidad de pokémon de determinado tipo que posee el entrenador.
+losQueLeGanan :: TipoDePokemon -> Entrenador -> Entrenador -> Int
+Dados dos entrenadores, indica la cantidad de Pokemon de cierto tipo, que le ganarían
+a los Pokemon del segundo entrenador.
+esMaestroPokemon :: Entrenador -> Bool
+Dado un entrenador, devuelve True si posee al menos un pokémon de cada tipo posible.
+-}
+
+data TipoDePokemon = Agua | Fuego | Planta deriving (Show)
+data Pokemon = ConsPokemon TipoDePokemon Int deriving (Show)
+data Entrenador = ConsEntrenador String [Pokemon] deriving (Show)
+
+charizard = ConsPokemon Fuego 80
+bulbasour = ConsPokemon Agua 60
+plantita = ConsPokemon Planta 40
+aguita = ConsPokemon Agua 20
+
+pokemones = [bulbasour, plantita, aguita]
+ash = ConsEntrenador "Ash Ketchup" [charizard, bulbasour, aguita, plantita]
+
+brook = ConsEntrenador "Ash Ketchup" [charizard, bulbasour]
+
+
+cantPokemones :: Entrenador -> Int
+cantPokemones (ConsEntrenador _ xs) = length xs
+
+cantPokemonesDe :: TipoDePokemon -> Entrenador -> Int
+cantPokemonesDe t (ConsEntrenador _ xs) = cantPokemonesDeTipo t xs
+
+sonElMismoTipo :: TipoDePokemon -> TipoDePokemon -> Bool
+sonElMismoTipo Agua Agua = True
+sonElMismoTipo Planta Planta = True
+sonElMismoTipo Fuego Fuego = True
+sonElMismoTipo x y = False
+
+unoSiSonElMismoTipo :: TipoDePokemon -> TipoDePokemon -> Int
+unoSiSonElMismoTipo Agua Agua = 1
+unoSiSonElMismoTipo Planta Planta = 1
+unoSiSonElMismoTipo Fuego Fuego = 1
+unoSiSonElMismoTipo x y = 0
+
+cantPokemonesDeTipo :: TipoDePokemon -> [Pokemon] -> Int
+cantPokemonesDeTipo t [] = 0
+cantPokemonesDeTipo t xs = unoSiSonElMismoTipo t (tipoDe (head xs)) + cantPokemonesDeTipo t (tail xs)
+
+tipoDe :: Pokemon -> TipoDePokemon
+tipoDe (ConsPokemon t _) = t
+
+--Dados dos entrenadores, indica la cantidad de Pokemon de cierto tipo, que le ganarían a los Pokemon del segundo entrenador.
+--losQueLeGanan :: TipoDePokemon -> Entrenador -> Entrenador -> Int
+
+
+--Dado un entrenador, devuelve True si posee al menos un pokémon de cada tipo posible.
+esMaestroPokemon :: Entrenador -> Bool
+esMaestroPokemon (ConsEntrenador _ xs) = hayUnoDeCadaTipo xs
+
+hayUnoDeCadaTipo :: [Pokemon] -> Bool
+hayUnoDeCadaTipo [] = False
+hayUnoDeCadaTipo [a] = False
+hayUnoDeCadaTipo [a,b] = False
+hayUnoDeCadaTipo xs = existeTipoEn Fuego xs && existeTipoEn Agua xs && existeTipoEn Planta xs
+
+tiposDe :: [Pokemon] -> [TipoDePokemon]
+tiposDe [] = []
+tiposDe (x: xs) = tipoDe x : tiposDe xs
+
+existeTipoEn :: TipoDePokemon -> [Pokemon] -> Bool
+existeTipoEn t [] = False
+existeTipoEn t [a] = sonElMismoTipo t (tipoDe a)
+existeTipoEn t (x:xs) = if sonElMismoTipo t (tipoDe x) then True else existeTipoEn t xs
+
+{-
+El tipo de dato Rol representa los roles (desarollo o management) de empleados IT dentro
+de una empresa de software, junto al proyecto en el que se encuentran. Así, una empresa es
+una lista de personas con diferente rol. La definición es la siguiente:
+data Seniority = Junior | SemiSenior | Senior
+data Proyecto = ConsProyecto String
+data Rol = Developer Seniority Proyecto | Management Seniority Proyecto
+data Empresa = ConsEmpresa [Rol]
+Definir las siguientes funciones sobre el tipo Empresa:
+proyectos :: Empresa -> [Proyecto]
+
+Dada una empresa denota la lista de proyectos en los que trabaja, sin elementos repe-
+tidos.
+
+losDevSenior :: Empresa -> [Proyecto] -> Int
+Dada una empresa indica la cantidad de desarrolladores senior que posee.
+cantQueTrabajanEn :: [Proyecto] -> Empresa -> Int
+Indica la cantidad de empleados que trabajan en alguno de los proyectos dados.
+asignadosPorProyecto :: Empresa -> [(Proyecto, Int)]
+Devuelve una lista de pares que representa a los proyectos (sin repetir) junto con su
+cantidad de personas involucradas.
+-}
+
+data Seniority = Junior | SemiSenior | Senior deriving (Show)
+data Proyecto = ConsProyecto String deriving (Show)
+data Rol = Developer Seniority Proyecto | Management Seniority Proyecto deriving (Show)
+data Empresa = ConsEmpresa [Rol] deriving (Show)
+
+
