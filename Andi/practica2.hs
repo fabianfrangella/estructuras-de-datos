@@ -72,9 +72,21 @@ concatenar (x:xs) ys = x : concatenar xs ys
 --13. reversa :: [a] -> [a]
 --Dada una lista devuelve la lista con los mismos elementos de atrás para adelante. Definida
 --en Haskell como reverse.
+reversa :: [a] -> [a]
+reversa [] = []
+reversa (x:xs) = agregarAlFinal (reversa xs) x
 --14. zipMaximos :: [Int] -> [Int] -> [Int]
 --Dadas dos listas de enteros, devuelve una lista donde el elemento en la posición n es el
 --máximo entre el elemento n de la primera lista y de la segunda lista, teniendo en cuenta que
 --las listas no necesariamente tienen la misma longitud.
+zipMaximos :: [Int] -> [Int] -> [Int]
+zipMaximos [] [] = []
+zipMaximos [x] [] = [x]
+zipMaximos [] [x] = [x]
+zipMaximos (x:xs) (y:ys) = max x y : zipMaximos xs ys
 --15. elMinimo :: Ord a => [a] -> a
 --Dada una lista devuelve el mínimo
+elMinimo :: Ord a => [a] -> a
+elMinimo [] = error "Lista vacia"
+elMinimo [x] = x
+elMinimo (x:xs) = min x (elMinimo xs)
