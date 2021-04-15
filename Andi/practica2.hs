@@ -130,18 +130,39 @@ sinLosPrimeros n (x:xs) =  if n > 0 then sinLosPrimeros (n - 1) xs else x : sinL
 --3. Registros
 --1. Definir el tipo de dato Persona, como un nombre y la edad de la persona. Realizar las
 --siguientes funciones:
+data Persona = P String Int deriving Show
+juan = P "juan" 10
+pedro = P "pedro" 20
+mario = P "mario" 30
+
+--Devuelve la edad de una persona (Practica 1)
+edad :: Persona -> Int
+edad (P name age) = age
+
+personas = juan : pedro : mario : []
 --mayoresA :: Int -> [Persona] -> [Persona]
 --Dados una edad y una lista de personas devuelve todas las personas que son mayores
 --a esa edad.
+mayoresA :: Int -> [Persona] -> [Persona]
+mayoresA n [] = []
+mayoresA n (x:xs) = if edad x > n then x : mayoresA n xs else mayoresA n xs
+
 --promedioEdad :: [Persona] -> Int
---
 --Dada una lista de personas devuelve el promedio de edad entre esas personas. Precon-
 --dición: la lista al menos posee una persona.
---
+
+sumatoriaEdad :: [Persona] -> Int
+sumatoriaEdad [] = 0
+sumatoriaEdad (x:xs) = edad x + sumatoriaEdad xs 
+
+promedioEdad :: [Persona] -> Int
+promedioEdad xs = div (sumatoriaEdad xs) (longitud xs)
 --elMasViejo :: [Persona] -> Persona
 --Dada una lista de personas devuelve la persona más vieja de la lista. Precondición: la
 --lista al menos posee una persona.
---
+elMasViejo :: [Persona] -> Persona
+elMasViejo [x] = x
+elMasViejo (x:xs) = if edad x > edad (elMasViejo xs) then x else elMasViejo xs
 --2. Modificaremos la representación de Entreador y Pokemon de la práctica anterior de la si-
 --guiente manera:
 --
