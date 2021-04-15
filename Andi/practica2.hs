@@ -90,3 +90,92 @@ elMinimo :: Ord a => [a] -> a
 elMinimo [] = error "Lista vacia"
 elMinimo [x] = x
 elMinimo (x:xs) = min x (elMinimo xs)
+
+--2. Recursión sobre números
+--Defina las siguientes funciones utilizando recursión sobre números enteros, salvo que se indique
+--lo contrario:
+--1. factorial :: Int -> Int
+--Dado un número n se devuelve la multiplicación de este número y todos sus anteriores hasta
+--llegar a 0. Si n es 0 devuelve 1. La función es parcial si n es negativo.
+factorial :: Int -> Int
+factorial 0 = 1
+factorial x = x * factorial (x - 1)
+--2. cuentaRegresiva :: Int -> [Int]
+--Dado un número n devuelve una lista cuyos elementos sean los números comprendidos entre
+--n y 1 (incluidos). Si el número es inferior a 1, devuelve la lista vacía.
+cuentaRegresiva :: Int -> [Int]
+cuentaRegresiva 0 = []
+cuentaRegresiva x = x : cuentaRegresiva (x - 1)
+--3. repetir :: Int -> a -> [a]
+--Dado un número n y un elemento e devuelve una lista en la que el elemento e repite n veces.
+repetir :: Int -> a -> [a]
+repetir 0 e = []
+repetir n e = e : repetir (n - 1) e
+--4. losPrimeros :: Int -> [a] -> [a]
+--Dados un número n y una lista xs, devuelve una lista con los n primeros elementos de xs.
+--Si la lista es vacía, devuelve una lista vacía.
+losPrimeros :: Int -> [a] -> [a]
+losPrimeros n [] = []
+losPrimeros 0 [] = []
+losPrimeros 1 (x:xs) = [x]
+losPrimeros n (x:xs) = x : losPrimeros (n - 1) xs
+--5. sinLosPrimeros :: Int -> [a] -> [a]
+--Dados un número n y una lista xs, devuelve una lista sin los primeros n elementos de lista
+--recibida. Si n es cero, devuelve la lista completa.
+sinLosPrimeros :: Int -> [a] -> [a]
+sinLosPrimeros 0 xs = xs
+sinLosPrimeros n [] = []
+sinLosPrimeros n (x:xs) =  if n > 0 then sinLosPrimeros (n - 1) xs else x : sinLosPrimeros (n - 1) xs
+
+--3. Registros
+--1. Definir el tipo de dato Persona, como un nombre y la edad de la persona. Realizar las
+--siguientes funciones:
+--mayoresA :: Int -> [Persona] -> [Persona]
+--Dados una edad y una lista de personas devuelve todas las personas que son mayores
+--a esa edad.
+--promedioEdad :: [Persona] -> Int
+--
+--Dada una lista de personas devuelve el promedio de edad entre esas personas. Precon-
+--dición: la lista al menos posee una persona.
+--
+--elMasViejo :: [Persona] -> Persona
+--Dada una lista de personas devuelve la persona más vieja de la lista. Precondición: la
+--lista al menos posee una persona.
+--
+--2. Modificaremos la representación de Entreador y Pokemon de la práctica anterior de la si-
+--guiente manera:
+--
+--data TipoDePokemon = Agua | Fuego | Planta
+--data Pokemon = ConsPokemon TipoDePokemon Int
+--data Entrenador = ConsEntrenador String [Pokemon]
+--Como puede observarse, ahora los entrenadores tienen una cantidad de Pokemon arbitraria.
+--Definir en base a esa representación las siguientes funciones:
+--cantPokemones :: Entrenador -> Int
+--Devuelve la cantidad de pokémon que posee el entrenador.
+--cantPokemonesDe :: TipoDePokemon -> Entrenador -> Int
+--Devuelve la cantidad de pokémon de determinado tipo que posee el entrenador.
+--losQueLeGanan :: TipoDePokemon -> Entrenador -> Entrenador -> Int
+--Dados dos entrenadores, indica la cantidad de Pokemon de cierto tipo, que le ganarían
+--a los Pokemon del segundo entrenador.
+--esMaestroPokemon :: Entrenador -> Bool
+--Dado un entrenador, devuelve True si posee al menos un pokémon de cada tipo posible.
+--3. El tipo de dato Rol representa los roles (desarollo o management) de empleados IT dentro
+--de una empresa de software, junto al proyecto en el que se encuentran. Así, una empresa es
+--una lista de personas con diferente rol. La definición es la siguiente:
+--data Seniority = Junior | SemiSenior | Senior
+--data Proyecto = ConsProyecto String
+--data Rol = Developer Seniority Proyecto | Management Seniority Proyecto
+--data Empresa = ConsEmpresa [Rol]
+--Definir las siguientes funciones sobre el tipo Empresa:
+--proyectos :: Empresa -> [Proyecto]
+--
+--Dada una empresa denota la lista de proyectos en los que trabaja, sin elementos repe-
+--tidos.
+--
+--losDevSenior :: Empresa -> [Proyecto] -> Int
+--Dada una empresa indica la cantidad de desarrolladores senior que posee.
+--cantQueTrabajanEn :: [Proyecto] -> Empresa -> Int
+--Indica la cantidad de empleados que trabajan en alguno de los proyectos dados.
+--asignadosPorProyecto :: Empresa -> [(Proyecto, Int)]
+--Devuelve una lista de pares que representa a los proyectos (sin repetir) junto con su
+--cantidad de personas involucradas.
