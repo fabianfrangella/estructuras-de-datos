@@ -105,8 +105,7 @@ concatenar (x:xs1) xs = x : (concatenar xs1 xs)
 --Dada una lista devuelve la lista con los mismos elementos de atrás para adelante. Definida en Haskell como reverse.
 reversa :: [a] -> [a]
 reversa [] = []
-reversa [x] = [x]
-reversa xs = last xs : reversa(init xs)
+reversa (x:xs) = [x] ++ reversa xs
 
 --Dadas dos listas de enteros, devuelve una lista donde el elemento en la posición n es el
 --máximo entre el elemento n de la primera lista y de la segunda lista, teniendo en cuenta que
@@ -146,8 +145,8 @@ factorial 0 = 1
 factorial n = n * factorial (n - 1)
 
 cuentaRegresiva :: Int -> [Int]
-cuentaRegresiva 1 = [1]
-cuentaRegresiva n = if n > 1 then n : cuentaRegresiva (n-1) else []
+cuentaRegresiva 0 = []
+cuentaRegresiva n = n : cuentaRegresiva (n-1)
 
 --Dado un número n y un elemento e devuelve una lista en la que el elemento e repite n veces.
 repetir :: Int -> a -> [a]
