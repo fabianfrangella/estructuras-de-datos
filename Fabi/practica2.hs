@@ -332,6 +332,76 @@ data Proyecto = ConsProyecto String deriving (Show)
 data Rol = Developer Seniority Proyecto | Management Seniority Proyecto deriving (Show)
 data Empresa = ConsEmpresa [Rol] deriving (Show)
 
+discas = ConsProyecto "Discas"
+caterpillar = ConsProyecto "Caterpillar"
+quiena = ConsProyecto "Quiena"
+accenture = ConsProyecto "Accenture"
+andy = Developer Senior discas
+juan = Developer Senior discas
+fabi = Developer Senior discas
+fede = Developer Junior quiena
+gonza = Developer SemiSenior caterpillar
+gaston = Management Senior discas
+gabi = Developer Junior accenture
+
+losPibes = [andy,juan,fabi,fede,gonza,gaston, gabi]
+
+maniglie = ConsEmpresa losPibes
+
 --Dada una empresa denota la lista de proyectos en los que trabaja, sin elementos repetidos.
+proyectos :: Empresa -> [Proyecto]
+proyectos (ConsEmpresa []) = []
+proyectos (ConsEmpresa xs) = proyectosSinRepetidos (proyectosPorRoles xs)
 
+empleados :: Empresa -> [Rol]
+empleados (ConsEmpresa xs) = xs 
 
+proyectosSinRepetidos :: [Proyecto] -> [Proyecto]
+proyectosSinRepetidos [] = []
+proyectosSinRepetidos (x:xs) = if (existeProyectoEnLista x xs) then proyectosSinRepetidos xs else x : proyectosSinRepetidos xs
+
+proyectosPorRoles :: [Rol] -> [Proyecto]
+proyectosPorRoles [] = []
+proyectosPorRoles (x:xs) = proyecto x : proyectosPorRoles xs
+
+proyecto :: Rol -> Proyecto
+proyecto (Developer _ p) = p
+proyecto (Management _ p) = p
+
+nombreProyecto :: Proyecto -> String
+nombreProyecto (ConsProyecto nom) = nom
+
+existeProyectoEnLista :: Proyecto -> [Proyecto] -> Bool
+existeProyectoEnLista _ [] = False
+existeProyectoEnLista p (x:xs) = sonElMismoProyecto p x || existeProyectoEnLista p xs
+
+sonElMismoProyecto :: Proyecto -> Proyecto -> Bool
+sonElMismoProyecto p1 p2 = nombreProyecto p1 == nombreProyecto p2
+
+-- Dada una empresa indica la cantidad de desarrolladores senior que posee.
+losDevSenior :: Empresa -> Int
+losDevSenior (ConsEmpresa []) = 0
+losDevSenior e = length (losDevSeniorPorRoles (empleados e))
+
+losDevSeniorPorRoles :: [Rol] -> [Rol]
+losDevSeniorPorRoles [] = []
+losDevSeniorPorRoles (x:xs) = if esDevSenior x then x : losDevSeniorPorRoles xs else losDevSeniorPorRoles xs
+
+esDevSenior :: Rol -> Bool
+esDevSenior (Developer Senior _) = True
+esDevSenior x = False
+
+--Indica la cantidad de empleados que trabajan en alguno de los proyectos dados.
+cantQueTrabajanEn :: [Proyecto] -> Empresa -> Int
+cantQueTrabajanEn [] _ = 0
+cantQueTrabajanEn (x:xs) e = length (trabajanEn (empleados e) x) + cantQueTrabajanEn xs e
+
+trabajanEn :: [Rol] -> Proyecto -> [Rol]
+trabajanEn [] _ = []
+trabajanEn (x:xs) p = if trabajaEn x p then x : trabajanEn xs p else trabajanEn xs p
+
+trabajaEn :: Rol -> Proyecto -> Bool
+trabajaEn r p = sonElMismoProyecto (proyecto r) p
+
+--Devuelve una lista de pares que representa a los proyectos (sin repetir) junto con su cantidad de personas involucradas.
+asignadosPorProyecto :: Empresa -> [(Proyecto, Int)]
