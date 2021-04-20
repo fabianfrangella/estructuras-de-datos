@@ -251,7 +251,7 @@ plantita = ConsPokemon Planta 40
 aguita = ConsPokemon Agua 20
 
 pokemones = [bulbasour, plantita, aguita]
-ash = ConsEntrenador "Ash Ketchup" [charizard, bulbasour, aguita, plantita]
+ash = ConsEntrenador "Ash Ketchup" [charizard, plantita, bulbasour, aguita, plantita]
 
 brook = ConsEntrenador "Ash Ketchup" [aguita, bulbasour]
 
@@ -306,12 +306,12 @@ existeTipoEn t (x:xs) = sonElMismoTipo t (tipoDe x) || existeTipoEn t xs
 
 --Dados dos entrenadores, indica la cantidad de Pokemon de cierto tipo, que le ganarían a los Pokemon del segundo entrenador.
 losQueLeGanan :: TipoDePokemon -> Entrenador -> Entrenador -> Int
-losQueLeGanan t e1 e2 = cantidadQueLeGananATodos (losPokemonesDeTipoDe t e1) (losPokemonesDeTipoDe t e2)
+losQueLeGanan t e1 e2 = cantidadQueLeGananATodos (losPokemonesDeTipoDe t e1) (pokemonesDe e2)
 
 cantidadQueLeGananATodos :: [Pokemon] -> [Pokemon] -> Int
 cantidadQueLeGananATodos [] _ = 0
 cantidadQueLeGananATodos xs [] = longitud xs
-cantidadQueLeGananATodos (x1:xs1) (x2:xs2) = if leGanaATodos x1 (x2:xs2) then 1 + cantidadQueLeGananATodos xs1 xs2 else cantidadQueLeGananATodos xs1 xs2
+cantidadQueLeGananATodos (x1:xs1) (x2:xs2) = if leGanaATodos x1 (x2:xs2) then 1 + cantidadQueLeGananATodos xs1 (x2:xs2) else cantidadQueLeGananATodos xs1 (x2:xs2)
 
 leGanaATodos :: Pokemon -> [Pokemon] -> Bool
 leGanaATodos p [] = True
@@ -336,8 +336,23 @@ esTipoSuperior Fuego Planta = True
 esTipoSuperior Planta Agua = True
 esTipoSuperior x y = False
 
+----------------- LOS QUE LE GANAN BIS --------------------------
 
+losQueLeGanan' :: TipoDePokemon -> Entrenador -> Entrenador -> Int
+losQueLeGanan' t e1 e2 = if sonTodosDeTipo (elTipoInferiorDe t) (pokemonesDe e2) then cantidadDeTipo t (pokemonesDe e1) else 0
 
+sonTodosDeTipo :: TipoDePokemon -> [Pokemon] -> Bool
+sonTodosDeTipo _ [] = True
+sonTodosDeTipo t (x:xs) = sonElMismoTipo t (tipoDe x) && sonTodosDeTipo t xs
+
+cantidadDeTipo :: TipoDePokemon -> [Pokemon] -> Int
+cantidadDeTipo _ [] = 0
+cantidadDeTipo t (x:xs) = if sonElMismoTipo t (tipoDe x) then 1 + cantidadDeTipo t xs else cantidadDeTipo t xs
+
+elTipoInferiorDe :: TipoDePokemon -> TipoDePokemon
+elTipoInferiorDe Agua = Fuego
+elTipoInferiorDe Planta = Agua
+elTipoInferiorDe Fuego = Planta
 
 {-
 El tipo de dato Rol representa los roles (desarollo o management) de empleados IT dentro
