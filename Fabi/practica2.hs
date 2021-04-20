@@ -336,6 +336,9 @@ discas = ConsProyecto "Discas"
 caterpillar = ConsProyecto "Caterpillar"
 quiena = ConsProyecto "Quiena"
 accenture = ConsProyecto "Accenture"
+
+tutu = ConsProyecto "Tutu"
+
 andy = Developer Senior discas
 juan = Developer Senior discas
 fabi = Developer Senior discas
@@ -345,6 +348,8 @@ gaston = Management Senior discas
 gabi = Developer Junior accenture
 
 losPibes = [andy,juan,fabi,fede,gonza,gaston, gabi]
+
+proyectosList = [discas,quiena]
 
 maniglie = ConsEmpresa losPibes
 
@@ -405,3 +410,11 @@ trabajaEn r p = sonElMismoProyecto (proyecto r) p
 
 --Devuelve una lista de pares que representa a los proyectos (sin repetir) junto con su cantidad de personas involucradas.
 asignadosPorProyecto :: Empresa -> [(Proyecto, Int)]
+asignadosPorProyecto e = asignadosPorProyectoPorListaDeProyectos (proyectos e) e
+
+asignadosPorProyectoPorListaDeProyectos :: [Proyecto] -> Empresa -> [(Proyecto, Int)]
+asignadosPorProyectoPorListaDeProyectos [] _ = []
+asignadosPorProyectoPorListaDeProyectos (x:xs) e = asignadosEnProyecto x e : asignadosPorProyectoPorListaDeProyectos xs e
+
+asignadosEnProyecto :: Proyecto -> Empresa -> (Proyecto, Int)
+asignadosEnProyecto p e = (p, length (trabajanEn (empleados e) p))
