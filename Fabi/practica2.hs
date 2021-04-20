@@ -253,7 +253,7 @@ aguita = ConsPokemon Agua 20
 pokemones = [bulbasour, plantita, aguita]
 ash = ConsEntrenador "Ash Ketchup" [charizard, bulbasour, aguita, plantita]
 
-brook = ConsEntrenador "Ash Ketchup" [charizard, bulbasour]
+brook = ConsEntrenador "Ash Ketchup" [aguita, bulbasour]
 
 
 cantPokemones :: Entrenador -> Int
@@ -303,6 +303,41 @@ existeTipoEn :: TipoDePokemon -> [Pokemon] -> Bool
 existeTipoEn t [] = False
 existeTipoEn t [a] = sonElMismoTipo t (tipoDe a)
 existeTipoEn t (x:xs) = sonElMismoTipo t (tipoDe x) || existeTipoEn t xs
+
+--Dados dos entrenadores, indica la cantidad de Pokemon de cierto tipo, que le ganarían a los Pokemon del segundo entrenador.
+losQueLeGanan :: TipoDePokemon -> Entrenador -> Entrenador -> Int
+losQueLeGanan t e1 e2 = cantidadQueLeGananATodos (losPokemonesDeTipoDe t e1) (losPokemonesDeTipoDe t e2)
+
+cantidadQueLeGananATodos :: [Pokemon] -> [Pokemon] -> Int
+cantidadQueLeGananATodos [] _ = 0
+cantidadQueLeGananATodos xs [] = longitud xs
+cantidadQueLeGananATodos (x1:xs1) (x2:xs2) = if leGanaATodos x1 (x2:xs2) then 1 + cantidadQueLeGananATodos xs1 xs2 else cantidadQueLeGananATodos xs1 xs2
+
+leGanaATodos :: Pokemon -> [Pokemon] -> Bool
+leGanaATodos p [] = True
+leGanaATodos p (x:xs) = leGana p x && leGanaATodos p xs
+
+losPokemonesDeTipoDe :: TipoDePokemon -> Entrenador -> [Pokemon]
+losPokemonesDeTipoDe t e = losDeTipo t (pokemonesDe e)
+
+losDeTipo :: TipoDePokemon -> [Pokemon] -> [Pokemon]
+losDeTipo _ [] = []
+losDeTipo t (x:xs) = if sonElMismoTipo t (tipoDe x) then x : losDeTipo t xs else losDeTipo t xs
+
+pokemonesDe :: Entrenador -> [Pokemon]
+pokemonesDe (ConsEntrenador _ xs) = xs
+
+leGana :: Pokemon -> Pokemon -> Bool
+leGana p1 p2 = esTipoSuperior (tipoDe p1) (tipoDe p2)
+
+esTipoSuperior :: TipoDePokemon -> TipoDePokemon -> Bool
+esTipoSuperior Agua Fuego = True
+esTipoSuperior Fuego Planta = True
+esTipoSuperior Planta Agua = True
+esTipoSuperior x y = False
+
+
+
 
 {-
 El tipo de dato Rol representa los roles (desarollo o management) de empleados IT dentro
