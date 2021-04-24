@@ -105,7 +105,120 @@ darUnPaso (Nada camino) = camino
 
 --alMenosNTesoros :: Int -> Camino -> Bool
 --Indica si hay al menos “n” tesoros en el camino.
+alMenosNTesoros :: Int -> Camino -> Bool
+alMenosNTesoros n camino = (cantTesoros camino) >= n
+
+cantTesoros :: Camino -> Int
+cantTesoros Fin = 0
+cantTesoros (Nada c) = 0
+cantTesoros (Cofre objetos camino) = cantTesorosEnObjetos objetos + cantTesoros camino
+
+cantTesorosEnObjetos :: [Objeto] -> Int
+cantTesorosEnObjetos [] = 0
+cantTesorosEnObjetos (x:xs) = if esTesoro x 
+                                then 1 + (cantTesorosEnObjetos xs)
+                                else (cantTesorosEnObjetos xs)
+
 --cantTesorosEntre :: Int -> Int -> Camino -> Int
 --Dado un rango de pasos, indica la cantidad de tesoros que hay en ese rango. Por ejemplo, si
 --el rango es 3 y 5, indica la cantidad de tesoros que hay entre hacer 3 pasos y hacer 5. Están
 --incluidos tanto 3 como 5 en el resultado.
+
+
+--2. Tipos arbóreos
+--2.1. Árboles binarios
+--Dada esta definición para árboles binarios
+data Tree a = EmptyT | NodeT a (Tree a) (Tree a) deriving Show
+
+tree :: Tree Int
+tree =
+    NodeT 10
+        (NodeT 20
+            (NodeT 30 EmptyT EmptyT)
+            (NodeT 30 EmptyT EmptyT))
+        (NodeT 20
+            (NodeT 50 EmptyT EmptyT)
+            (NodeT 100 EmptyT EmptyT))
+
+--defina las siguientes funciones utilizando recursión estructural según corresponda:
+--Dado un árbol binario de enteros devuelve la suma entre sus elementos.
+sumarT :: Tree Int -> Int
+sumarT EmptyT = 0
+sumarT (NodeT x ti td) = x + sumarT ti + sumarT td
+
+--Dado un árbol binario devuelve su cantidad de elementos, es decir, el tamaño del árbol (size
+--en inglés).
+sizeT :: Tree a -> Int
+sizeT EmptyT = 0
+sizeT (NodeT x ti td) = 1 + sizeT ti + sizeT td
+
+--Dado un árbol de enteros devuelve un árbol con el doble de cada número.
+mapDobleT :: Tree Int -> Tree Int
+mapDobleT EmptyT = EmptyT
+mapDobleT (NodeT x ti td) = NodeT (x * 2) (mapDobleT ti) (mapDobleT td)
+
+--Dados un elemento y un árbol binario devuelve True si existe un elemento igual a ese en el
+--árbol.
+perteneceT :: Eq a => a -> Tree a -> Bool
+perteneceT e EmptyT = False
+perteneceT e (NodeT x ti td) = x == e || perteneceT e ti || perteneceT e td
+
+--Dados un elemento e y un árbol binario devuelve la cantidad de elementos del árbol que son
+--iguales a e.
+aparicionesT :: Eq a => a -> Tree a -> Int
+aparicionesT e EmptyT = 0
+aparicionesT e (NodeT x ti td) = if e == x then
+                                 1 + aparicionesT e ti + aparicionesT e td
+                                 else aparicionesT e ti + aparicionesT e td
+
+--Dado un árbol devuelve los elementos que se encuentran en sus hojas
+leaves :: Tree a -> [a]
+leaves EmptyT = []
+leaves (NodeT x ti td) = if isLeave (NodeT x ti td)
+                            then x : (leaves ti ++ leaves td)
+                            else (leaves ti ++ leaves td)
+
+isLeave :: Tree a -> Bool
+isLeave (NodeT x EmptyT EmptyT) = True
+isLeave _ = False
+
+--Dado un árbol devuelve su altura.
+--Nota: la altura de un árbol (height en inglés), también llamada profundidad, es la cantidad
+--de niveles del árbol1
+-- La altura de un árbol vacío es cero y la de una hoja también.
+heightT :: Tree a -> Int
+heightT EmptyT = 0
+heightT (NodeT x ti td) = 1 + max (heightT ti) (heightT td)
+
+--Dado un árbol devuelve el árbol resultante de intercambiar el hijo izquierdo con el derecho,
+--en cada nodo del árbol.
+mirrorT :: Tree a -> Tree a
+mirrorT (NodeT x ti td) = (NodeT x td ti)
+
+--Dado un árbol devuelve una lista que representa el resultado de recorrerlo en modo in-order.
+--Nota: En el modo in-order primero se procesan los elementos del hijo izquierdo, luego la raiz
+--y luego los elementos del hijo derecho.
+toList :: Tree a -> [a]
+toList EmptyT = []
+toList (NodeT x ti td) = (toList ti ++ [x] ++ toList td)
+
+--Dados un número n y un árbol devuelve una lista con los nodos de nivel n. El nivel de un
+--nodo es la distancia que hay de la raíz hasta él. La distancia de la raiz a sí misma es 0, y la
+--distancia de la raiz a uno de sus hijos es 1.
+--Nota: El primer nivel de un árbol (su raíz) es 0.
+levelN :: Int -> Tree a -> [a]
+levelN 0 (NodeT x ti td) = [x]
+levelN n (NodeT x ti td) = if n == 0 
+                                then x : levelN (n-1) ti ++ levelN (n-1) td
+                                else levelN (n-1) ti ++ levelN (n-1) td
+
+--Dado un árbol devuelve una lista de listas en la que cada elemento representa un nivel de
+--dicho árbol.
+--listPerLevel :: Tree a -> [[a]]
+--listPerLevel EmptyT = []
+--listPerLevel (NodeT x ti td) = 
+
+--12. ramaMasLarga :: Tree a -> [a]
+--Devuelve los elementos de la rama más larga del árbol
+--13. todosLosCaminos :: Tree a -> [[a]]
+--Dado un árbol devuelve todos los caminos, es decir, los caminos desde la raiz hasta las hojas.
