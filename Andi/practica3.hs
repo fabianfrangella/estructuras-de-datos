@@ -51,10 +51,10 @@ data Camino = Fin
             | Cofre [Objeto] Camino 
             | Nada Camino deriving Show
 
-objetos = [Cacharro, Cacharro, Tesoro]
+conTesoro = [Cacharro, Cacharro, Tesoro]
 sinTesoro = [Cacharro, Cacharro]
 
-caminito = (Cofre (sinTesoro) (Cofre objetos (Cofre sinTesoro (Cofre objetos Fin)))) 
+caminito = (Cofre (sinTesoro) (Cofre conTesoro (Cofre sinTesoro (Cofre conTesoro Fin)))) 
 
 --Definir las siguientes funciones:
 --hayTesoro :: Camino -> Bool
@@ -85,13 +85,14 @@ pasosHastaTesoro (Cofre objetos camino) = if not (hayTesoroEnObjetos objetos)
 --Indica si hay un tesoro en una cierta cantidad exacta de pasos. Por ejemplo, si el número de
 --pasos es 5, indica si hay un tesoro en 5 pasos.
 --hayTesoroEn :: Int -> Camino -> Bool
-
---TODO: esto así no messi
 hayTesoroEn :: Int -> Camino -> Bool
 hayTesoroEn n Fin = False
-hayTesoroEn n (Cofre objetos camino) = pasosHastaTesoro (Cofre objetos camino) == n 
-                                        || hayTesoroEn n camino
+hayTesoroEn n camino = hayTesoroEnObjetos (objetos (caminar n camino))
 
+objetos :: Camino -> [Objeto]
+objetos Fin = []
+objetos (Nada c) = []
+objetos (Cofre objetos camino) = objetos
 
 caminar :: Int -> Camino -> Camino
 caminar 0 camino = camino
