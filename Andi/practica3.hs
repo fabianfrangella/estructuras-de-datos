@@ -123,7 +123,10 @@ cantTesorosEnObjetos (x:xs) = if esTesoro x
 --Dado un rango de pasos, indica la cantidad de tesoros que hay en ese rango. Por ejemplo, si
 --el rango es 3 y 5, indica la cantidad de tesoros que hay entre hacer 3 pasos y hacer 5. Están
 --incluidos tanto 3 como 5 en el resultado.
-
+cantTesorosEntre :: Int -> Int -> Camino -> Int
+cantTesorosEntre x y camino = if x <= y then 
+                                cantTesorosEnObjetos (objetos (caminar x camino)) + cantTesorosEntre (x+1) y camino
+                                else 0
 
 --2. Tipos arbóreos
 --2.1. Árboles binarios
@@ -137,7 +140,8 @@ tree =
             (NodeT 30 EmptyT EmptyT)
             (NodeT 30 EmptyT EmptyT))
         (NodeT 20
-            (NodeT 50 EmptyT EmptyT)
+            (NodeT 50 EmptyT 
+                (NodeT 75 EmptyT EmptyT))
             (NodeT 100 EmptyT EmptyT))
 
 --defina las siguientes funciones utilizando recursión estructural según corresponda:
@@ -218,7 +222,12 @@ levelN n (NodeT x ti td) = if n == 0
 --listPerLevel EmptyT = []
 --listPerLevel (NodeT x ti td) = 
 
---12. ramaMasLarga :: Tree a -> [a]
 --Devuelve los elementos de la rama más larga del árbol
---13. todosLosCaminos :: Tree a -> [[a]]
+ramaMasLarga :: Tree a -> [a]
+ramaMasLarga EmptyT = []
+ramaMasLarga (NodeT x ti td) = if heightT (ti) > heightT (td)
+                                    then x : ramaMasLarga ti
+                                    else x : ramaMasLarga td
+
 --Dado un árbol devuelve todos los caminos, es decir, los caminos desde la raiz hasta las hojas.
+--todosLosCaminos :: Tree a -> [[a]]
