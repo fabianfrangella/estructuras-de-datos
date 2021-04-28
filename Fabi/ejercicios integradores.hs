@@ -65,10 +65,12 @@ esQuesoOSalsa x = False
 --Recorre cada ingrediente y si es aceitunas duplica su cantidad
 duplicarAceitunas :: Pizza -> Pizza
 duplicarAceitunas Prepizza = Prepizza
-duplicarAceitunas (Capa i p) = if esAceituna i then (Capa (duplicarAceitunasEnIngrediente i) (duplicarAceitunas p)) else (Capa i (duplicarAceitunas p))
+duplicarAceitunas (Capa i p) = 
+	(Capa (duplicarAceitunasEnIngrediente i) (duplicarAceitunas p)) 
 
 duplicarAceitunasEnIngrediente :: Ingrediente -> Ingrediente
 duplicarAceitunasEnIngrediente (Aceitunas c) = (Aceitunas (c * 2))
+duplicarAceitunasEnIngrediente i = i
 
 esAceituna :: Ingrediente -> Bool
 esAceituna (Aceitunas _) = True
@@ -158,7 +160,10 @@ esTesoro _ = False
 hayTesoroEn :: [Dir] -> Mapa -> Bool
 hayTesoroEn [] (Bifurcacion c mi md) = hayTesoroEnCofre c
 hayTesoroEn [] (Fin cofre) = hayTesoroEnCofre cofre
-hayTesoroEn (x:xs) (Bifurcacion _ mi md) = if esDerecha x then hayTesoroEn xs md else hayTesoroEn xs mi
+hayTesoroEn (x:xs) (Bifurcacion _ mi md) = 
+	if esDerecha x 
+		then hayTesoroEn xs md 
+		else hayTesoroEn xs mi
 hayTesoroEn _ (Fin cofre) = False
 
 
@@ -169,16 +174,25 @@ esDerecha _ = False
 --Indica el camino al tesoro. Precondición: existe un tesoro y es único.
 caminoAlTesoro :: Mapa -> [Dir]
 caminoAlTesoro (Fin _) = []
-caminoAlTesoro (Bifurcacion c mi md) = if hayTesoro mi then (Izq:caminoAlTesoro mi)  else (Der:caminoAlTesoro md)
+caminoAlTesoro (Bifurcacion c mi md) = 
+	if hayTesoro mi 
+		then (Izq:caminoAlTesoro mi)  
+		else (Der:caminoAlTesoro md)
 
 --Indica el camino de la rama más larga.
 caminoDeLaRamaMasLarga :: Mapa -> [Dir]
 caminoDeLaRamaMasLarga (Fin _) = []
-caminoDeLaRamaMasLarga (Bifurcacion c mi md) = if heightMapa mi > heightMapa md then (Izq:caminoDeLaRamaMasLarga mi) else (Der:caminoDeLaRamaMasLarga md)
+caminoDeLaRamaMasLarga (Bifurcacion c mi md) = 
+	if heightMapa mi > heightMapa md 
+		then (Izq:caminoDeLaRamaMasLarga mi) 
+		else (Der:caminoDeLaRamaMasLarga md)
 
 heightMapa :: Mapa -> Int
 heightMapa (Fin _) = 0
-heightMapa (Bifurcacion c mi md) = if isLeaf (Bifurcacion c mi md) then max (heightMapa mi) (heightMapa md) else 1 + max (heightMapa mi) (heightMapa md)
+heightMapa (Bifurcacion c mi md) = 
+	if isLeaf (Bifurcacion c mi md) 
+		then max (heightMapa mi) (heightMapa md) 
+		else 1 + max (heightMapa mi) (heightMapa md)
 
 isLeaf :: Mapa -> Bool
 isLeaf (Fin _) = False
@@ -243,51 +257,70 @@ type Tripulante = String
 data Tree a = EmptyT | NodeT a (Tree a) (Tree a) deriving Show
 data Nave = N (Tree Sector) deriving Show
 
+nave :: Nave
 nave = N (NodeT (S "1" [(Motor 5), (Almacen [Comida, Oxigeno])] []) 
 			(NodeT (S "2" [(Motor 10), (Almacen [Comida, Oxigeno])] []) EmptyT EmptyT) 
 			(NodeT (S "3" [(Motor 20)] []) EmptyT EmptyT))
 
 --Propósito: Devuelve todos los sectores de la nave.
 sectores :: Nave -> [SectorId]
-sectores (N EmptyT) = []
-sectores (N (NodeT (S id _ _) sl sr)) = id : sectores (N sl) ++ sectores (N sr)
+sectores (N t) = sectoresT t
+
+sectoresT :: (Tree Sector) -> [SectorId]
+sectoresT EmptyT = []
+sectoresT (NodeT sector si sd) = 
+	(sectorId sector) : (sectoresT si) ++ (sectoresT sd)
+
+sectorId :: Sector -> SectorId
+sectorId (S sid _ _) = sid
+
 
 --Propósito: Devuelve la suma de poder de propulsión de todos los motores de la nave. Nota:
 --el poder de propulsión es el número que acompaña al constructor de motores.
 poderDePropulsion :: Nave -> Int
-poderDePropulsion (N EmptyT) = 0
-poderDePropulsion (N (NodeT (S id c _) sl sr)) = propulsionDeComponentes c + poderDePropulsion (N sl) + poderDePropulsion (N sr)
+poderDePropulsion (N t) = poderDePropulsionT t
 
-propulsionDeComponentes :: [Componente] -> Int
-propulsionDeComponentes [] = 0
-propulsionDeComponentes (x:xs) = if esMotor x then poderDeMotor x + propulsionDeComponentes xs else propulsionDeComponentes xs
+poderDePropulsionT :: (Tree Sector) -> Int
+poderDePropulsionT EmptyT = 0
+poderDePropulsionT (NodeT sector si sd) = 
+	poderDePropulsionSector sector + 
+	poderDePropulsionT si + 
+	poderDePropulsionT sd
 
-esMotor :: Componente -> Bool
-esMotor (Motor _) = True
-esMotor _ = False
+poderDePropulsionSector :: Sector -> Int
+poderDePropulsionSector (S _ xs _) = poderDePropulsionDeComponentes xs
 
-poderDeMotor :: Componente -> Int
-poderDeMotor (Motor p) = p
-poderDeMotor _ = error "no es un motor"
+poderDePropulsionDeComponentes :: [Componente] -> Int
+poderDePropulsionDeComponentes [] = 0
+poderDePropulsionDeComponentes (x:xs) = 
+	poderDePropulsionDeComponente x + 
+	poderDePropulsionDeComponentes xs
+
+poderDePropulsionDeComponente :: Componente -> Int
+poderDePropulsionDeComponente (Motor p) = p 
+poderDePropulsionDeComponente _ = 0
 
 --Propósito: Devuelve todos los barriles de la nave.
 barriles :: Nave -> [Barril]
-barriles (N EmptyT) = []
-barriles (N (NodeT (S id c _) sl sr)) = barrilesEnComponentes c ++ barriles (N sl) ++ barriles (N sr)
+barriles (N t) = barrilesT t 
 
-barrilesEnComponentes :: [Componente] -> [Barril]
-barrilesEnComponentes [] = []
-barrilesEnComponentes (x:xs) = if esAlmacen x then barrilesEnAlmacen x ++ barrilesEnComponentes xs else barrilesEnComponentes xs
+barrilesT :: Tree Sector -> [Barril]
+barrilesT EmptyT = []
+barrilesT (NodeT sector si sd) = barrilesSector sector ++ barrilesT si ++ barrilesT sd
 
-esAlmacen :: Componente -> Bool
-esAlmacen (Almacen _) = True
-esAlmacen _ = False
+barrilesSector :: Sector -> [Barril]
+barrilesSector (S _ xs _) = barrilesEnListaDeComponentes xs
 
-barrilesEnAlmacen :: Componente -> [Barril]
-barrilesEnAlmacen (Almacen xs) = xs
-barrilesEnAlmacen _ = error "No es un almacen"
+barrilesEnListaDeComponentes :: [Componente] -> [Barril]
+barrilesEnListaDeComponentes [] = []
+barrilesEnListaDeComponentes (x:xs) = barrilesEnComponente x ++ barrilesEnListaDeComponentes xs
+
+barrilesEnComponente :: Componente -> [Barril]
+barrilesEnComponente (Almacen xs) = xs
+barrilesEnComponente _ = []
+
 
 --Propósito: Añade una lista de componentes a un sector de la nave.
 --Nota: ese sector puede no existir, en cuyo caso no añade componentes.
-agregarASector :: [Componente] -> SectorId -> Nave -> Nave
-agregaASector [] _ _ = []
+--agregarASector :: [Componente] -> SectorId -> Nave -> Nave
+--agregaASector [] _ _ = []

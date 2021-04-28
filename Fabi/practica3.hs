@@ -201,7 +201,7 @@ Dado un árbol devuelve todos los caminos, es decir, los caminos desde la raiz h
 
 heightT :: Tree a -> Int
 heightT EmptyT = 0
-heightT (NodeT x tl tr) = if isLeaf (NodeT x tl tr) then max (heightT tl) (heightT tr) else 1 + max (heightT tl) (heightT tr)
+heightT (NodeT x tl tr) = 1 + max (heightT tl) (heightT tr)
 
 mirrorT :: Tree a -> Tree a
 mirrorT EmptyT = EmptyT
@@ -220,7 +220,8 @@ toList (NodeT e tl tr) = toList tl ++ [e] ++ toList tr
 levelN :: Int -> Tree a -> [a]
 levelN _ EmptyT = []
 levelN 0 (NodeT e tl tr) = [e]
-levelN n (NodeT e tl tr) = levelN (n - 1) tl ++ levelN (n - 1) tr
+levelN n (NodeT e tl tr) = 
+	levelN (n - 1) tl ++ levelN (n - 1) tr
 
 
 
@@ -250,11 +251,22 @@ juntarPorNiveles xss [] = xss
 juntarPorNiveles (xs:xss) (ys:yss) = (xs ++ ys) : juntarPorNiveles xss yss
 
 --Dado un árbol devuelve todos los caminos, es decir, los caminos desde la raiz hasta las hojas.
+--todosLosCaminos :: Tree a -> [[a]]
+--todosLosCaminos EmptyT = []
+--todosLosCaminos (NodeT e tl tr) = [e] : (todosLosCaminos tl) (todosLosCaminos tr)
+
 todosLosCaminos :: Tree a -> [[a]]
 todosLosCaminos EmptyT = []
-todosLosCaminos (NodeT e tl tr) = [e] : (todosLosCaminos tl) (todosLosCaminos tr)
+todosLosCaminos (NodeT x ti td) =
+	agregarA x (todosLosCaminos ti)
+	++
+	agregarA x (todosLosCaminos td)
 
-
+-- Proposito agrega n a cada lista
+agregarA :: a -> [[a]] -> [[a]]
+agregarA n [] = [[n]]
+agregarA n [x] = (n : x) : []
+agregarA n (xs:xss) = (n:xs) : agregarA n xss
 {-
 
 
