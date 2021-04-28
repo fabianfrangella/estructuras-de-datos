@@ -205,3 +205,89 @@ objetos (Cofre o) = o
 tesoros :: [Objeto] -> [Objeto]
 tesoros [] = []
 tesoros  (x:xs) = if esTesoro x then x : tesoros xs else tesoros xs
+
+{-
+modelaremos una Nave como un tipo algebraico, el cual nos permite construir una nave espacial,
+dividida en sectores, a los cuales podemos asignar tripulantes y componentes. La representación
+es la siguiente:
+data Componente = LanzaTorpedos | Motor Int | Almacen [Barril]
+data Barril = Comida | Oxigeno | Torpedo | Combustible
+data Sector = S SectorId [Componente] [Tripulante]
+type SectorId = String
+type Tripulante = String
+data Tree a = EmptyT | NodeT a (Tree a) (Tree a)
+data Nave = N (Tree Sector)
+Implementar las siguientes funciones utilizando recursión estructural:
+1. sectores :: Nave -> [SectorId]
+Propósito: Devuelve todos los sectores de la nave.
+2. poderDePropulsion :: Nave -> Int
+Propósito: Devuelve la suma de poder de propulsión de todos los motores de la nave. Nota:
+el poder de propulsión es el número que acompaña al constructor de motores.
+3. barriles :: Nave -> [Barril]
+Propósito: Devuelve todos los barriles de la nave.
+4. agregarASector :: [Componente] -> SectorId -> Nave -> Nave
+Propósito: Añade una lista de componentes a un sector de la nave.
+Nota: ese sector puede no existir, en cuyo caso no añade componentes.
+5. asignarTripulanteA :: Tripulante -> [SectorId] -> Nave ->\ Nave
+Propósito: Incorpora un tripulante a una lista de sectores de la nave.
+Precondición: Todos los id de la lista existen en la nave.
+6. sectoresAsignados :: Tripulante -> Nave -> [SectorId]
+Propósito: Devuelve los sectores en donde aparece un tripulante dado.
+-}
+
+data Componente = LanzaTorpedos | Motor Int | Almacen [Barril] deriving Show
+data Barril = Comida | Oxigeno | Torpedo | Combustible deriving Show
+data Sector = S SectorId [Componente] [Tripulante] deriving Show
+type SectorId = String
+type Tripulante = String
+data Tree a = EmptyT | NodeT a (Tree a) (Tree a) deriving Show
+data Nave = N (Tree Sector) deriving Show
+
+nave = N (NodeT (S "1" [(Motor 5), (Almacen [Comida, Oxigeno])] []) 
+			(NodeT (S "2" [(Motor 10), (Almacen [Comida, Oxigeno])] []) EmptyT EmptyT) 
+			(NodeT (S "3" [(Motor 20)] []) EmptyT EmptyT))
+
+--Propósito: Devuelve todos los sectores de la nave.
+sectores :: Nave -> [SectorId]
+sectores (N EmptyT) = []
+sectores (N (NodeT (S id _ _) sl sr)) = id : sectores (N sl) ++ sectores (N sr)
+
+--Propósito: Devuelve la suma de poder de propulsión de todos los motores de la nave. Nota:
+--el poder de propulsión es el número que acompaña al constructor de motores.
+poderDePropulsion :: Nave -> Int
+poderDePropulsion (N EmptyT) = 0
+poderDePropulsion (N (NodeT (S id c _) sl sr)) = propulsionDeComponentes c + poderDePropulsion (N sl) + poderDePropulsion (N sr)
+
+propulsionDeComponentes :: [Componente] -> Int
+propulsionDeComponentes [] = 0
+propulsionDeComponentes (x:xs) = if esMotor x then poderDeMotor x + propulsionDeComponentes xs else propulsionDeComponentes xs
+
+esMotor :: Componente -> Bool
+esMotor (Motor _) = True
+esMotor _ = False
+
+poderDeMotor :: Componente -> Int
+poderDeMotor (Motor p) = p
+poderDeMotor _ = error "no es un motor"
+
+--Propósito: Devuelve todos los barriles de la nave.
+barriles :: Nave -> [Barril]
+barriles (N EmptyT) = []
+barriles (N (NodeT (S id c _) sl sr)) = barrilesEnComponentes c ++ barriles (N sl) ++ barriles (N sr)
+
+barrilesEnComponentes :: [Componente] -> [Barril]
+barrilesEnComponentes [] = []
+barrilesEnComponentes (x:xs) = if esAlmacen x then barrilesEnAlmacen x ++ barrilesEnComponentes xs else barrilesEnComponentes xs
+
+esAlmacen :: Componente -> Bool
+esAlmacen (Almacen _) = True
+esAlmacen _ = False
+
+barrilesEnAlmacen :: Componente -> [Barril]
+barrilesEnAlmacen (Almacen xs) = xs
+barrilesEnAlmacen _ = error "No es un almacen"
+
+--Propósito: Añade una lista de componentes a un sector de la nave.
+--Nota: ese sector puede no existir, en cuyo caso no añade componentes.
+agregarASector :: [Componente] -> SectorId -> Nave -> Nave
+agregaASector [] _ _ = []

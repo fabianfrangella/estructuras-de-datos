@@ -167,6 +167,14 @@ sinLosPrimeros _ [] = []
 sinLosPrimeros n [] = []
 sinLosPrimeros n (x:xs) = sinLosPrimeros(n-1) xs
 
+ordenar :: [Int] -> [Int]
+ordenar [] = []
+ordenar (x:xs) = ponerOrdenado x (ordenar xs)
+
+ponerOrdenado :: Int -> [Int] -> [Int]
+ponerOrdenado n [] = [n]
+ponerOrdenado n (x:xs) = if n > x then x : ponerOrdenado n xs else n : x : xs  
+
 {-
 Definir el tipo de dato Persona, como un nombre y la edad de la persona. Realizar las
 siguientes funciones:
