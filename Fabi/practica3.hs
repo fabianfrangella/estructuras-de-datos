@@ -212,54 +212,22 @@ mirrorT (NodeT x tl tr) = (NodeT x tr tl)
 --y luego los elementos del hijo derecho.
 toList :: Tree a -> [a]
 toList EmptyT = []
-toList (NodeT e tl tr) = toList tl ++ [e] ++ toList tr -- RETOMAR
-
---toList :: Tree a -> [a]
---toList EmptyT = []
---toList (NodeT x ti td) = (toList ti ++ [x] ++ toList td)
-
+toList (NodeT e tl tr) = toList tl ++ [e] ++ toList tr 
 
 --Dados un número n y un árbol devuelve una lista con los nodos de nivel n. El nivel de un
 --nodo es la distancia que hay de la raíz hasta él. La distancia de la raiz a sí misma es 0, y la
 --distancia de la raiz a uno de sus hijos es 1.
 levelN :: Int -> Tree a -> [a]
 levelN _ EmptyT = []
-levelN n (NodeT e tl tr) = if n == 0 then [e] else levelN (n - 1) tl ++ levelN (n - 1) tr
+levelN 0 (NodeT e tl tr) = [e]
+levelN n (NodeT e tl tr) = levelN (n - 1) tl ++ levelN (n - 1) tr
 
---Dado un árbol devuelve una lista de listas en la que cada elemento representa un nivel de
---dicho árbol.
-
-listPerLevel :: Tree a -> [[a]]
-listPerLevel EmptyT = []
-listPerLevel tree = [[elemento tree]] ++ listPerLevelWithoutRoot tree
-
-listPerLevelWithoutRoot :: Tree a -> [[a]]
-listPerLevelWithoutRoot EmptyT = []
-listPerLevelWithoutRoot (NodeT e tl tr) = [listOfElementsInNextLevel (NodeT e tl tr)] ++ listPerLevelWithoutRoot tl ++ listPerLevelWithoutRoot tr
-
-
-	{-
-	if  
-		then [[e]] ++ [listOfElementsInNextLevel (NodeT e tl tr)] ++ listPerLevel tl ++ listPerLevel tr
-		else [listOfElementsInNextLevel (NodeT e tl tr)] ++ listPerLevel tl ++ listPerLevel tr
-	-}
-		
-listOfElementsInNextLevel :: Tree a -> [a]
-listOfElementsInNextLevel EmptyT = []
-listOfElementsInNextLevel (NodeT e EmptyT EmptyT)  = []
-listOfElementsInNextLevel (NodeT e tl EmptyT) = [elemento tl]
-listOfElementsInNextLevel (NodeT e EmptyT tr) = [elemento tr]
-listOfElementsInNextLevel (NodeT e tl tr) = elemento tl : elemento tr : []
-
-
-elemento :: Tree a -> a
-elemento (NodeT e _ _) = e
 
 
 --Devuelve los elementos de la rama más larga del árbol
 ramaMasLarga :: Tree a -> [a]
 ramaMasLarga EmptyT = []
-ramaMasLarga (NodeT e tl tr) = if heightT tl > heightT tr then elementosRamaIzquierda tl else elementosRamaDerecha tr
+ramaMasLarga (NodeT e tl tr) = if heightT tl >= heightT tr then elementosRamaIzquierda tl else elementosRamaDerecha tr
 
 elementosRamaIzquierda :: Tree a -> [a]
 elementosRamaIzquierda EmptyT = []
@@ -269,10 +237,51 @@ elementosRamaDerecha :: Tree a -> [a]
 elementosRamaDerecha EmptyT = []
 elementosRamaDerecha (NodeT e tl tr) = e : elementosRamaDerecha tr
 
+--Dado un árbol devuelve una lista de listas en la que cada elemento representa un nivel de
+--dicho árbol.
+listPerLevel :: Tree a -> [[a]]
+listPerLevel EmptyT = []
+listPerLevel (NodeT e tl tr) = [e] : juntarPorNiveles (listPerLevel tl) (listPerLevel tr)
+
+juntarPorNiveles :: [[a]] -> [[a]] -> [[a]]
+juntarPorNiveles [] [] = []
+juntarPorNiveles [] yss = yss
+juntarPorNiveles xss [] = xss
+juntarPorNiveles (xs:xss) (ys:yss) = (xs ++ ys) : juntarPorNiveles xss yss
+
 --Dado un árbol devuelve todos los caminos, es decir, los caminos desde la raiz hasta las hojas.
 todosLosCaminos :: Tree a -> [[a]]
 todosLosCaminos EmptyT = []
+todosLosCaminos (NodeT e tl tr) = [e] : (todosLosCaminos tl) (todosLosCaminos tr)
+
+
+{-
+
+
+elementosDeCamino :: [[a]] -> [[a]] -> [[a]]
+elementosDeCamino [] [] = []
+elementosDeCamino [] yss = yss
+elementosDeCamino xss [] = xss
+elementosDeCamino (xs:xss) (ys:yss) = 
+-}
 
 arbol :: Tree String
-arbol = NodeT "Raiz" (NodeT "Izquierdo lvl 1" (NodeT "Izquierdo lvl 2" EmptyT EmptyT) EmptyT) (NodeT "Derecho lvl 1" EmptyT EmptyT) 
+arbol = NodeT "Raiz" 
+		(NodeT "Izquierdo lvl 1" 
+			(NodeT "Izquierdo lvl 2" EmptyT EmptyT) 
+			(NodeT "Derecho lvl2" EmptyT EmptyT)) 
+		(NodeT "Derecho lvl 1" 
+			EmptyT 
+			(NodeT "Derecho lvl2-bis" 
+				EmptyT
+				(NodeT "Derecho lvl3" EmptyT EmptyT)))
+
+derecho = (NodeT "Derecho lvl 1" 
+			EmptyT 
+			(NodeT "Derecho lvl2-bis" 
+				(NodeT "Derecho lvl3" EmptyT EmptyT)
+				EmptyT))
+izquierdo = (NodeT "Izquierdo lvl 1" 
+			(NodeT "Izquierdo lvl 2" EmptyT EmptyT) 
+			(NodeT "Derecho lvl2" EmptyT EmptyT)) 
 
