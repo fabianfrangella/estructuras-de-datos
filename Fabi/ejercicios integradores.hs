@@ -503,7 +503,7 @@ superioresDelCazadorL nom (Cazador n xs l1 l2 l3) =
 esSubordinado :: Nombre -> Lobo -> Bool
 esSubordinado nom (Cria _) = False
 esSubordinado nom (Explorador _ _ l1 l2) = False
-esSubordinado nom (Cazador n _ l1 l2 l3) = esSubordinadoDirecto nom (Cazador n _ l1 l2 l3) || esSubordinado nom l1 || esSubordinado nom l2 || esSubordinado nom l3
+esSubordinado nom (Cazador n xs l1 l2 l3) = esSubordinadoDirecto nom (Cazador n xs l1 l2 l3) || esSubordinado nom l1 || esSubordinado nom l2 || esSubordinado nom l3
 
 esSubordinadoDirecto :: Nombre -> Lobo -> Bool
 esSubordinadoDirecto nom (Cria _) = False
