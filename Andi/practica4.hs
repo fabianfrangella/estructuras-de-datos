@@ -120,14 +120,49 @@ esTesoro :: Objeto -> Bool
 esTesoro Tesoro = True
 esTesoro _ = False
 
---2. hayTesoroEn :: [Dir] -> Mapa -> Bool
 --Indica si al final del camino hay un tesoro. Nota: el final de un camino se representa con una
 --lista vacía de direcciones.
---3. caminoAlTesoro :: Mapa -> [Dir]
+
+--Creo que funca pero me estoy cagando en la recursión estructural
+hayTesoroEn :: [Dir] -> Mapa -> Bool
+hayTesoroEn [] mapa = hayTesoro mapa
+hayTesoroEn xs mapa = hayTesoroEnCofre (cofre (caminar xs mapa))
+
+caminar :: [Dir] -> Mapa -> Mapa
+caminar [] mapa = mapa
+caminar (x:xs) (Bifurcacion c m1 m2) = if esIzquierda x then (caminar xs m1) else (caminar xs m2) 
+
+esIzquierda :: Dir -> Bool
+esIzquierda Izq = True
+esIzquierda _ = False
+
+cofre :: Mapa -> Cofre
+cofre (Fin c) = c
+cofre (Bifurcacion c m1 m2) = c
+
 --Indica el camino al tesoro. Precondición: existe un tesoro y es único.
---4. caminoDeLaRamaMasLarga :: Mapa -> [Dir]
+caminoAlTesoro :: Mapa -> [Dir]
+caminoAlTesoro (Fin c) = []
+caminoAlTesoro (Bifurcacion c m1 m2) = if hayTesoro m1 
+											then Izq : (caminoAlTesoro m1 ++ caminoAlTesoro m2)
+											else if hayTesoro m2
+												then Der : (caminoAlTesoro m1 ++ caminoAlTesoro m2)
+												else (caminoAlTesoro m1 ++ caminoAlTesoro m2)
+
 --Indica el camino de la rama más larga.
+caminoDeLaRamaMasLarga :: Mapa -> [Dir]
+caminoDeLaRamaMasLarga (Fin c) = []
+caminoDeLaRamaMasLarga (Bifurcacion c mi md) = 
+	if heightT (mi) > heightT (md) 
+		then Izq: (caminoDeLaRamaMasLarga mi)
+		else Der: (caminoDeLaRamaMasLarga md)
+
+heightT :: Mapa -> Int
+heightT (Fin c) = 0
+heightT (Bifurcacion c mi md)= 1 + max (heightT mi) (heightT md)
+
 --5. tesorosPorNivel :: Mapa -> [[Objeto]]
 --Devuelve los tesoros separados por nivel en el árbol.
+
 --6. todosLosCaminos :: Mapa -> [[Dir]]
 --Devuelve todos lo caminos en el mapa.
