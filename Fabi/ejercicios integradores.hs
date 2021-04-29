@@ -258,9 +258,9 @@ data Tree a = EmptyT | NodeT a (Tree a) (Tree a) deriving Show
 data Nave = N (Tree Sector) deriving Show
 
 nave :: Nave
-nave = N (NodeT (S "1" [(Motor 5), (Almacen [Comida, Oxigeno])] []) 
+nave = N (NodeT (S "1" [(Motor 5), (Almacen [Comida, Oxigeno])] ["Fabi"]) 
 			(NodeT (S "2" [(Motor 10), (Almacen [Comida, Oxigeno])] []) EmptyT EmptyT) 
-			(NodeT (S "3" [(Motor 20)] []) EmptyT EmptyT))
+			(NodeT (S "3" [(Motor 20)] ["Fabi"]) EmptyT EmptyT))
 
 --Propósito: Devuelve todos los sectores de la nave.
 sectores :: Nave -> [SectorId]
@@ -332,7 +332,10 @@ agregarASectorT _ _ EmptyT = EmptyT
 agregarASectorT xs sid (NodeT s si sd) = (NodeT (agregarComponentes xs sid s) (agregarASectorT xs sid si) (agregarASectorT xs sid sd))
 
 agregarComponentes :: [Componente] -> SectorId -> Sector -> Sector
-agregarComponentes xs sid (S ssid c t) = if sid == ssid then (S ssid (xs ++ c) t) else (S ssid c t)
+agregarComponentes xs sid (S ssid c t) = 
+	if sid == ssid 
+		then (S ssid (xs ++ c) t) 
+		else (S ssid c t)
 
 
 --Propósito: Incorpora un tripulante a una lista de sectores de la nave.
@@ -345,4 +348,26 @@ asignarTripulanteAT t xs EmptyT = EmptyT
 asignarTripulanteAT t (x:xs) (NodeT s sd si) = (NodeT (asignarTripulanteASector t x s) (asignarTripulanteAT t xs si) (asignarTripulanteAT t xs sd))
 
 asignarTripulanteASector :: Tripulante -> SectorId -> Sector -> Sector
-asignarTripulanteASector t sid (S ssid cs ts) = if sid == ssid then (S ssid cs (t: ts)) else (S ssid cs ts)
+asignarTripulanteASector t sid (S ssid cs ts) = 
+	if sid == ssid
+		then (S ssid cs (t: ts)) 
+		else (S ssid cs ts)
+
+--Propósito: Devuelve los sectores en donde aparece un tripulante dado.
+sectoresAsignados :: Tripulante -> Nave -> [SectorId]
+sectoresAsignados tr (N t) = sectoresAsignadosT tr t
+
+sectoresAsignadosT :: Tripulante -> Tree Sector -> [SectorId]
+sectoresAsignadosT _ EmptyT = []
+sectoresAsignadosT tr (NodeT s si sd) = 
+	if estaEnSector tr s 
+		then (sectorId s) : (sectoresAsignadosT tr si) ++ (sectoresAsignadosT tr sd)
+		else (sectoresAsignadosT tr si) ++ (sectoresAsignadosT tr sd)
+
+estaEnSector :: Tripulante -> Sector -> Bool
+estaEnSector t (S sid cs ts) = estaEnListaDeTripulantes t ts
+
+estaEnListaDeTripulantes :: Tripulante -> [Tripulante] -> Bool
+estaEnListaDeTripulantes _ [] = False
+estaEnListaDeTripulantes t (x:xs) = t == x || estaEnListaDeTripulantes t xs
+
