@@ -211,16 +211,22 @@ toList (NodeT x ti td) = (toList ti ++ [x] ++ toList td)
 --distancia de la raiz a uno de sus hijos es 1.
 --Nota: El primer nivel de un árbol (su raíz) es 0.
 levelN :: Int -> Tree a -> [a]
+levelN _ EmptyT = []
 levelN 0 (NodeT x ti td) = [x]
-levelN n (NodeT x ti td) = if n == 0 
-                                then x : levelN (n-1) ti ++ levelN (n-1) td
-                                else levelN (n-1) ti ++ levelN (n-1) td
+levelN n (NodeT x ti td) = levelN (n-1) ti ++ levelN (n-1) td
 
 --Dado un árbol devuelve una lista de listas en la que cada elemento representa un nivel de
 --dicho árbol.
---listPerLevel :: Tree a -> [[a]]
---listPerLevel EmptyT = []
---listPerLevel (NodeT x ti td) = 
+listPerLevel :: Tree a -> [[a]]
+listPerLevel EmptyT = []
+listPerLevel (NodeT x ti td) = [x] : juntarPorNiveles (listPerLevel ti)  (listPerLevel td)
+
+juntarPorNiveles :: [[a]] -> [[a]] -> [[a]]
+juntarPorNiveles [] [] = []
+juntarPorNiveles xss [] = xss
+juntarPorNiveles [] yss = yss
+juntarPorNiveles (xs:xss) (ys:yss) = (xs ++ ys) : juntarPorNiveles xss yss
+
 
 --Devuelve los elementos de la rama más larga del árbol
 ramaMasLarga :: Tree a -> [a]
