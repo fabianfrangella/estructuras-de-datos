@@ -414,7 +414,10 @@ manada = M (Cazador "Hunter" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf"]
 	(Explorador "Explorador 1" ["Canada"] (Cria "Juan") (Cria "Pepe"))
 	(Cazador "HunterAlfa" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf", "asdsa", "ajskfjkaldsf"]
 		(Explorador "Explorador 3" ["Canada"] (Cria "Juanzito") (Cria "Pepecito"))
-		(Explorador "Explorador 4" ["Estados Unidos"] (Cria "Carlitos") (Cria "Rubencito"))
+		((Cazador "Subordinado" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf", "asdsa", "ajskfjkaldsf"]
+			(Explorador "Explorador 3" ["Canada"] (Cria "Juanzito") (Cria "Pepecito"))
+			(Explorador "Explorador 4" ["Estados Unidos"] (Cria "Carlitos") (Cria "Rubencito"))
+		(Cria "Marcos")))
 	(Cria "Marcos"))
 	(Cria "Marquitos"))
 
@@ -466,9 +469,87 @@ cantidadDePresas :: Lobo -> Int
 cantidadDePresas (Cazador nom ps _ _ _) = length ps
 cantidadDePresas _ = 0
 
+--Propósito: dado un territorio y una manada, devuelve los nombres de los exploradores que pasaron por dicho territorio.
+losQueExploraron :: Territorio -> Manada -> [Nombre]
+losQueExploraron t (M l) = losQueExploraronL t l
+
+losQueExploraronL :: Territorio -> Lobo -> [Nombre]
+losQueExploraronL t (Cria _) = []
+losQueExploraronL t (Cazador _ _ l1 l2 l3) = losQueExploraronL t l1 ++ losQueExploraronL t l2 ++ losQueExploraronL t l3
+losQueExploraronL t (Explorador nom ts l1 l2) = 
+	if existeTerritorioEnLista t ts 
+		then nom : (losQueExploraronL t l1 ++ losQueExploraronL t l2) 
+		else (losQueExploraronL t l1 ++ losQueExploraronL t l2)
+
+existeTerritorioEnLista :: Territorio -> [Territorio] -> Bool
+existeTerritorioEnLista t [] = False
+existeTerritorioEnLista t (x:xs) = t == x || existeTerritorioEnLista t xs
+
+
+--Propósito: dado un nombre de cazador y una manada, indica el nombre de todos los
+--cazadores que tienen como subordinado al cazador dado (directa o indirectamente).
+--Precondición: hay un cazador con dicho nombre y es único.
+superioresDelCazador :: Nombre -> Manada -> [Nombre]
+superioresDelCazador nom (M l) = superioresDelCazadorL nom l
+
+superioresDelCazadorL :: Nombre -> Lobo -> [Nombre]
+superioresDelCazadorL nom (Cria _) = []
+superioresDelCazadorL nom (Explorador _ _ l1 l2) = superioresDelCazadorL nom l1 ++ superioresDelCazadorL nom l2
+superioresDelCazadorL nom (Cazador n xs l1 l2 l3) = 
+	if esSubordinado nom (Cazador n xs l1 l2 l3)
+		then n : superioresDelCazadorL nom l1 ++ superioresDelCazadorL nom l2 ++ superioresDelCazadorL nom l3
+		else superioresDelCazadorL nom l1 ++ superioresDelCazadorL nom l2 ++ superioresDelCazadorL nom l3
+
+esSubordinado :: Nombre -> Lobo -> Bool
+esSubordinado nom (Cria _) = False
+esSubordinado nom (Explorador _ _ l1 l2) = False
+esSubordinado nom (Cazador n _ l1 l2 l3) = esSubordinadoDirecto nom (Cazador n _ l1 l2 l3) || esSubordinado nom l1 || esSubordinado nom l2 || esSubordinado nom l3
+
+esSubordinadoDirecto :: Nombre -> Lobo -> Bool
+esSubordinadoDirecto nom (Cria _) = False
+esSubordinadoDirecto nom (Explorador _ _ l1 l2) = False
+esSubordinadoDirecto nom (Cazador n _ l1 l2 l3) = nom == nombreLobo l1 || nom == nombreLobo l2 || nom == nombreLobo l3
+
+nombreLobo :: Lobo -> Nombre
+nombreLobo (Cria n) = n 
+nombreLobo (Explorador n _ _ _) = n 
+nombreLobo (Cazador n _ _ _ _) = n
 {-
-elMinimo :: Ord a => [a] -> a
-elMinimo [] = error "No se puede pedir el minimo de una lista vacia"
-elMinimo [x] = x
-elMinimo (x:xs) = min x (elMinimo xs)
+Subordinado -> superiores -> [Hunter, HunterAlfa]
+-}
+{-
+--Propósito: dada una manada, denota la lista de los pares cuyo primer elemento es un territorio y cuyo segundo elemento es la lista de los nombres de los exploradores que exploraron
+--dicho territorio. Los territorios no deben repetirse.
+
+exploradoresPorTerritorio :: Manada -> [(Territorio, [Nombre])]
+exploradoresPorTerritorio (M l) = exploradoresPorTerritorioL l
+
+exploradoresPorTerritorioL :: Lobo -> [(Territorio, [Nombre])]
+exploradoresPorTerritorioL (Cria _) = []
+exploradoresPorTerritorioL (Cazador _ _ l1 l2 l3) = exploradoresPorTerritorioL l1 ++ exploradoresPorTerritorioL l2 ++ exploradoresPorTerritorioL l3
+exploradoresPorTerritorioL (Explorador nom ts l1 l2) = nombrePorTerritorio nom ts : juntarPorTerritorio (exploradoresPorTerritorioL l1) (exploradoresPorTerritorioL l2)
+
+nombrePorTerritorio :: Nombre -> [Territorio] -> [(Territorio, Nombre)]
+nombrePorTerritorio nom [] = []
+nombrePorTerritorio nom (x:xs) = (x, nom) : nombrePorTerritorio nom xs
+
+juntarPorTerritorio :: [(Territorio, Nombre)] -> [(Territorio, Nombre)] -> [(Territorio, Nombre)]
+juntarPorTerritorio [] [] = []
+juntarPorTerritorio [] yss = yss
+juntarPorTerritorio xss [] = xss
+juntarPorTerritorio (x:xs) (y:ys) = 
+
+
+juntarPorNiveles :: [[a]] -> [[a]] -> [[a]]
+juntarPorNiveles [] [] = []
+juntarPorNiveles [] yss = yss
+juntarPorNiveles xss [] = xss
+juntarPorNiveles (xs:xss) (ys:yss) = (xs ++ ys) : juntarPorNiveles xss yss
+-}
+
+{-
+[
+	("Canada", ["Explorador 1", Explorador 3]),
+	("Estados Unidos", ["Explorador 2", Explorador 4])
+]
 -}
