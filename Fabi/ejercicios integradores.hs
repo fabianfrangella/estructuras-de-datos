@@ -322,5 +322,27 @@ barrilesEnComponente _ = []
 
 --Propósito: Añade una lista de componentes a un sector de la nave.
 --Nota: ese sector puede no existir, en cuyo caso no añade componentes.
---agregarASector :: [Componente] -> SectorId -> Nave -> Nave
---agregaASector [] _ _ = []
+agregarASector :: [Componente] -> SectorId -> Nave -> Nave
+agregarASector [] _ nave = nave
+agregarASector xs sid (N t) = (N (agregarASectorT xs sid t))
+
+agregarASectorT :: [Componente] -> SectorId -> Tree Sector -> Tree Sector
+agregarASectorT [] _ s = s
+agregarASectorT _ _ EmptyT = EmptyT
+agregarASectorT xs sid (NodeT s si sd) = (NodeT (agregarComponentes xs sid s) (agregarASectorT xs sid si) (agregarASectorT xs sid sd))
+
+agregarComponentes :: [Componente] -> SectorId -> Sector -> Sector
+agregarComponentes xs sid (S ssid c t) = if sid == ssid then (S ssid (xs ++ c) t) else (S ssid c t)
+
+
+--Propósito: Incorpora un tripulante a una lista de sectores de la nave.
+--Precondición: Todos los id de la lista existen en la nave.
+asignarTripulanteA :: Tripulante -> [SectorId] -> Nave -> Nave
+asignarTripulanteA t xs (N tr) = (N (asignarTripulanteAT t xs tr ))
+
+asignarTripulanteAT :: Tripulante -> [SectorId] -> Tree Sector -> Tree Sector
+asignarTripulanteAT t xs EmptyT = EmptyT
+asignarTripulanteAT t (x:xs) (NodeT s sd si) = (NodeT (asignarTripulanteASector t x s) (asignarTripulanteAT t xs si) (asignarTripulanteAT t xs sd))
+
+asignarTripulanteASector :: Tripulante -> SectorId -> Sector -> Sector
+asignarTripulanteASector t sid (S ssid cs ts) = if sid == ssid then (S ssid cs (t: ts)) else (S ssid cs ts)
