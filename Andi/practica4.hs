@@ -283,13 +283,27 @@ agregarASectorS xs (S id cs ts) sid = if id == sid
 										then (S id (xs ++ cs) ts)
 										else (S id cs ts)
 
---5. asignarTripulanteA :: Tripulante -> [SectorId] -> Nave -> Nave
 --Propósito: Incorpora un tripulante a una lista de sectores de la nave.
 --Precondición: Todos los id de la lista existen en la nave.	
+asignarTripulanteA :: Tripulante -> [SectorId] -> Nave -> Nave
+asignarTripulanteA t sids (N ts) = N (asignarTripulanteATS t sids ts)
 
+asignarTripulanteATS :: Tripulante -> [SectorId] -> Tree Sector -> Tree Sector
+asignarTripulanteATS t sids EmptyT = EmptyT
+asignarTripulanteATS t sids (NodeT x ti td) = (NodeT (asignarTripulanteASIDS t sids x) (asignarTripulanteATS t sids ti) (asignarTripulanteATS t sids td))
 
+asignarTripulanteASIDS :: Tripulante -> [SectorId] -> Sector -> Sector
+asignarTripulanteASIDS t [] s = s
+asignarTripulanteASIDS t (x:xs) s = if x == sectorID s
+										then asignarT t s
+										else asignarTripulanteASIDS t xs s
+
+asignarT :: Tripulante -> Sector -> Sector
+asignarT t (S id cs ts) = (S id cs (t:ts))
 
 --6. sectoresAsignados :: Tripulante -> Nave -> [SectorId]
 --Propósito: Devuelve los sectores en donde aparece un tripulante dado.
+
+
 --7. tripulantes :: Nave -> [Tripulante]
 --Propósito: Devuelve la lista de tripulantes, sin elementos repetidos.
