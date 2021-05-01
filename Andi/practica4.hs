@@ -211,8 +211,8 @@ data Tree a = EmptyT | NodeT a (Tree a) (Tree a) deriving Show
 
 data Nave = N (Tree Sector) deriving Show
 
-nave = N (NodeT (S "1" [(Motor 5), (Almacen [Comida, Oxigeno])] ["Fabi"]) 
-			(NodeT (S "2" [(Motor 10), (Almacen [Comida, Oxigeno])] []) EmptyT EmptyT) 
+nave = N (NodeT (S "1" [(Motor 5), (Almacen [Comida, Oxigeno])] ["Fabi", "Andy"]) 
+			(NodeT (S "2" [(Motor 10), (Almacen [Comida, Oxigeno])] ["Andy", "Juan"]) EmptyT EmptyT) 
 			(NodeT (S "3" [(Motor 20)] ["Fabi"]) EmptyT EmptyT))
 
 --Implementar las siguientes funciones utilizando recursión estructural:
@@ -301,9 +301,40 @@ asignarTripulanteASIDS t (x:xs) s = if x == sectorID s
 asignarT :: Tripulante -> Sector -> Sector
 asignarT t (S id cs ts) = (S id cs (t:ts))
 
---6. sectoresAsignados :: Tripulante -> Nave -> [SectorId]
 --Propósito: Devuelve los sectores en donde aparece un tripulante dado.
+sectoresAsignados :: Tripulante -> Nave -> [SectorId]
+sectoresAsignados tp (N t) = sectoresAsignadosT tp t
 
+sectoresAsignadosT :: Tripulante -> Tree Sector -> [SectorId]
+sectoresAsignadosT t EmptyT = []
+sectoresAsignadosT t (NodeT x ti td) = if tieneAsignacion t x
+										then (sectorID x) : (sectoresAsignadosT t ti ++ sectoresAsignadosT t td)
+										else sectoresAsignadosT t ti ++ sectoresAsignadosT t td
 
---7. tripulantes :: Nave -> [Tripulante]
+tieneAsignacion :: Tripulante -> Sector -> Bool
+tieneAsignacion t (S id cs ts) = tieneAsignacion' t ts --pertenece
+
+tieneAsignacion' :: Tripulante -> [Tripulante] -> Bool
+tieneAsignacion' t [] = False
+tieneAsignacion' t (x:xs) = x == t || tieneAsignacion' t xs
+
 --Propósito: Devuelve la lista de tripulantes, sin elementos repetidos.
+tripulantes :: Nave -> [Tripulante]
+tripulantes (N t) = tripulantesT t
+
+tripulantesT :: Tree Sector -> [Tripulante]
+tripulantesT EmptyT = []
+tripulantesT (NodeT x ti td) = sinRepetidos (tripulantesS x ++ tripulantesT ti ++ tripulantesT td)
+
+tripulantesS :: Sector -> [Tripulante]
+tripulantesS (S id cs ts) = ts
+
+sinRepetidos :: [Tripulante] -> [Tripulante]
+sinRepetidos [] = []
+sinRepetidos (x:xs) = if estaEn x xs
+						then sinRepetidos xs
+						else x : sinRepetidos xs
+
+estaEn :: Tripulante -> [Tripulante] -> Bool --pertenece
+estaEn t [] = False
+estaEn t (x:xs) = t == x || estaEn t xs
