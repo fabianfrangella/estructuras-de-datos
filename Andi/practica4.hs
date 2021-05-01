@@ -338,3 +338,57 @@ sinRepetidos (x:xs) = if estaEn x xs
 estaEn :: Tripulante -> [Tripulante] -> Bool --pertenece
 estaEn t [] = False
 estaEn t (x:xs) = t == x || estaEn t xs
+
+--4. Manada de lobos
+--Modelaremos una manada de lobos, como un tipo Manada, que es un simple registro compuesto
+--de una estructura llamada Lobo, que representa una jerarquía entre estos animales.
+--Los diferentes casos de lobos que forman la jerarquía son los siguientes:
+--Los cazadores poseen nombre, una lista de especies de presas cazadas y 3 lobos a cargo.
+--Los exploradores poseen nombre, una lista de nombres de territorio explorado (nombres de
+--bosques, ríos, etc.), y poseen 2 lobos a cargo.
+--Las crías poseen sólo un nombre y no poseen lobos a cargo.
+--La estructura es la siguiente:
+
+type Presa = String  -- nombre de presa
+
+type Territorio = String  -- nombre de territorio
+
+type Nombre = String  -- nombre de lobo
+
+data Lobo = Cazador Nombre [Presa] Lobo Lobo Lobo 
+			| Explorador Nombre [Territorio] Lobo Lobo
+			| Cria Nombre deriving Show
+
+data Manada = M Lobo deriving Show
+
+manada = M (Cazador "Hunter" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf"] 
+	(Explorador "Explorador 1" ["Canada"] (Cria "Juan") (Cria "Pepe"))
+	(Cazador "HunterAlfa" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf", "asdsa", "ajskfjkaldsf"]
+		(Explorador "Explorador 3" ["Canada"] (Cria "Juanzito") (Cria "Pepecito"))
+		((Cazador "Subordinado" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf", "asdsa", "ajskfjkaldsf"]
+			(Explorador "Explorador 3" ["Canada"] (Cria "Juanzito") (Cria "Pepecito"))
+			(Explorador "Explorador 4" ["Estados Unidos"] (Cria "Carlitos") (Cria "Rubencito"))
+		(Cria "Marcos")))
+	(Cria "Marcos"))
+	(Cria "Marquitos"))
+
+--1. Construir un valor de tipo Manada que posea 1 cazador, 2 exploradores y que el resto sean
+--crías. Resolver las siguientes funciones utilizando recursión estructural sobre la estructura
+--que corresponda en cada caso:
+--2. buenaCaza :: Manada -> Bool
+--Propósito: dada una manada, indica si la cantidad de alimento cazado es mayor a la cantidad de crías.
+--3. elAlfa :: Manada -> (Nombre, Int)
+--Propósito: dada una manada, devuelve el nombre del lobo con más presas cazadas, junto
+--con su cantidad de presas. Nota: se considera que los exploradores y crías tienen cero presas
+--cazadas, y que podrían formar parte del resultado si es que no existen cazadores con más de
+--cero presas.
+--4. losQueExploraron :: Territorio -> Manada -> [Nombre]
+--Propósito: dado un territorio y una manada, devuelve los nombres de los exploradores que
+--pasaron por dicho territorio.
+--5. exploradoresPorTerritorio :: Manada -> [(Territorio, [Nombre])]
+--Propósito: dada una manada, denota la lista de los pares cuyo primer elemento es un territorio y cuyo segundo elemento es la lista de los nombres de los exploradores que exploraron
+--dicho territorio. Los territorios no deben repetirse.
+--6. superioresDelCazador :: Nombre -> Manada -> [Nombre]
+--Propósito: dado un nombre de cazador y una manada, indica el nombre de todos los
+--cazadores que tienen como subordinado al cazador dado (directa o indirectamente).
+--Precondición: hay un cazador con dicho nombre y es único.
