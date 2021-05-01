@@ -266,12 +266,29 @@ barrilesC :: Componente -> [Barril]
 barrilesC (Almacen bs) = bs
 barrilesC _ = []
 
---4. agregarASector :: [Componente] -> SectorId -> Nave -> Nave
 --Propósito: Añade una lista de componentes a un sector de la nave.
 --Nota: ese sector puede no existir, en cuyo caso no añade componentes.
+agregarASector :: [Componente] -> SectorId -> Nave -> Nave
+agregarASector xs sid (N t) = agregarASectorT xs sid t
+
+agregarASectorT :: [Componente] -> SectorId -> Tree Sector -> Nave
+agregarASectorT xs sid tree= N (agregarASectorT' xs sid tree)
+
+agregarASectorT' :: [Componente] -> SectorId -> Tree Sector -> Tree Sector
+agregarASectorT' xs sid EmptyT = EmptyT
+agregarASectorT' xs sid (NodeT x ti td) = (NodeT (agregarASectorS xs x sid) (agregarASectorT' xs sid ti) (agregarASectorT' xs sid td))
+
+agregarASectorS :: [Componente] -> Sector -> SectorId -> Sector
+agregarASectorS xs (S id cs ts) sid = if id == sid
+										then (S id (xs ++ cs) ts)
+										else (S id cs ts)
+
 --5. asignarTripulanteA :: Tripulante -> [SectorId] -> Nave -> Nave
 --Propósito: Incorpora un tripulante a una lista de sectores de la nave.
---Precondición: Todos los id de la lista existen en la nave.
+--Precondición: Todos los id de la lista existen en la nave.	
+
+
+
 --6. sectoresAsignados :: Tripulante -> Nave -> [SectorId]
 --Propósito: Devuelve los sectores en donde aparece un tripulante dado.
 --7. tripulantes :: Nave -> [Tripulante]
