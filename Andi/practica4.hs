@@ -375,16 +375,56 @@ manada = M (Cazador "Hunter" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf"]
 --1. Construir un valor de tipo Manada que posea 1 cazador, 2 exploradores y que el resto sean
 --crías. Resolver las siguientes funciones utilizando recursión estructural sobre la estructura
 --que corresponda en cada caso:
---2. buenaCaza :: Manada -> Bool
+
 --Propósito: dada una manada, indica si la cantidad de alimento cazado es mayor a la cantidad de crías.
---3. elAlfa :: Manada -> (Nombre, Int)
+buenaCaza :: Manada -> Bool
+buenaCaza (M l) = cantPresas l > cantCrias l
+
+cantPresas :: Lobo -> Int
+cantPresas (Cria n) = 0
+cantPresas (Explorador n tt l1 l2) = cantPresas l1 + cantPresas l2
+cantPresas (Cazador n ps l1 l2 l3) = length ps + cantPresas l1 + cantPresas l2 + cantPresas l3
+
+cantCrias :: Lobo -> Int
+cantCrias (Cria n) = 1
+cantCrias (Explorador n t l1 l2) = cantCrias l1 + cantCrias l2
+cantCrias (Cazador n ps l1 l2 l3) = cantCrias l1 + cantCrias l2 + cantCrias l3
+
 --Propósito: dada una manada, devuelve el nombre del lobo con más presas cazadas, junto
 --con su cantidad de presas. Nota: se considera que los exploradores y crías tienen cero presas
 --cazadas, y que podrían formar parte del resultado si es que no existen cazadores con más de
 --cero presas.
---4. losQueExploraron :: Territorio -> Manada -> [Nombre]
+
+--No sé si está bien porque suma también las presas de los lobos a cargo
+elAlfa :: Manada -> (Nombre, Int)
+elAlfa (M l) = elAlfaL l
+
+elAlfaL :: Lobo -> (Nombre, Int)
+elAlfaL (Cria n) = (n, 0)
+elAlfaL (Explorador n t l1 l2) = maxP (elAlfaL l2) (maxP (n, 0) (elAlfaL l1))
+elAlfaL (Cazador n ps l1 l2 l3) = maxP (n, length ps) (maxP (elAlfaL l1) (maxP (elAlfaL l2) (elAlfaL l3)))
+
+maxP :: (Nombre, Int) -> (Nombre, Int) -> (Nombre, Int)
+maxP (x, y) (a, b) = if y > b then (x, y) else (a, b)
+
 --Propósito: dado un territorio y una manada, devuelve los nombres de los exploradores que
 --pasaron por dicho territorio.
+losQueExploraron :: Territorio -> Manada -> [Nombre]
+losQueExploraron t (M l) = losQueExploraronL t l
+
+losQueExploraronL :: Territorio -> Lobo -> [Nombre]
+losQueExploraronL t (Cria n) = []
+losQueExploraronL t (Explorador n tt l1 l2) = 
+	if exploroT t tt 
+		then n : (losQueExploraronL t l1 ++ losQueExploraronL t l2)
+		else (losQueExploraronL t l1 ++ losQueExploraronL t l2)
+losQueExploraronL t (Cazador n ps l1 l2 l3) = 
+	(losQueExploraronL t l1 ++ losQueExploraronL t l2 ++ losQueExploraronL t l3)
+
+exploroT :: Territorio -> [Territorio] -> Bool
+exploroT t [] = False
+exploroT t (x:xs) = t == x || exploroT t xs
+
 --5. exploradoresPorTerritorio :: Manada -> [(Territorio, [Nombre])]
 --Propósito: dada una manada, denota la lista de los pares cuyo primer elemento es un territorio y cuyo segundo elemento es la lista de los nombres de los exploradores que exploraron
 --dicho territorio. Los territorios no deben repetirse.
