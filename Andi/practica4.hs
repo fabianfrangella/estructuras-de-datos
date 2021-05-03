@@ -329,13 +329,13 @@ tripulantesT (NodeT x ti td) = sinRepetidos (tripulantesS x ++ tripulantesT ti +
 tripulantesS :: Sector -> [Tripulante]
 tripulantesS (S id cs ts) = ts
 
-sinRepetidos :: [Tripulante] -> [Tripulante]
+sinRepetidos :: Eq a => [a] -> [a]
 sinRepetidos [] = []
 sinRepetidos (x:xs) = if estaEn x xs
 						then sinRepetidos xs
 						else x : sinRepetidos xs
 
-estaEn :: Tripulante -> [Tripulante] -> Bool --pertenece
+estaEn :: Eq a => a -> [a] -> Bool --pertenece
 estaEn t [] = False
 estaEn t (x:xs) = t == x || estaEn t xs
 
@@ -362,7 +362,7 @@ data Lobo = Cazador Nombre [Presa] Lobo Lobo Lobo
 data Manada = M Lobo deriving Show
 
 manada = M (Cazador "Hunter" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf"] 
-	(Explorador "Explorador 1" ["Canada"] (Cria "Juan") (Cria "Pepe"))
+	(Explorador "Explorador 1" ["Canada", "Estados Unidos"] (Cria "Juan") (Cria "Pepe"))
 	(Cazador "HunterAlfa" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf", "asdsa", "ajskfjkaldsf"]
 		(Explorador "Explorador 3" ["Canada"] (Cria "Juanzito") (Cria "Pepecito"))
 		((Cazador "Subordinado" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf", "asdsa", "ajskfjkaldsf"]
@@ -425,9 +425,44 @@ exploroT :: Territorio -> [Territorio] -> Bool
 exploroT t [] = False
 exploroT t (x:xs) = t == x || exploroT t xs
 
---5. exploradoresPorTerritorio :: Manada -> [(Territorio, [Nombre])]
---Propósito: dada una manada, denota la lista de los pares cuyo primer elemento es un territorio y cuyo segundo elemento es la lista de los nombres de los exploradores que exploraron
+--Propósito: dada una manada, denota la lista de los pares cuyo primer elemento es un territorio 
+--y cuyo segundo elemento es la lista de los nombres de los exploradores que exploraron
 --dicho territorio. Los territorios no deben repetirse.
+exploradoresPorTerritorio :: 
+   Manada -> [(Territorio, [Nombre])]
+exploradoresPorTerritorio (M l) = 
+	expPorTL l
+
+expPorTL :: Lobo -> [(Territorio, [Nombre])]
+expPorTL (Cazador n ps l1 l2 l3) = 
+	unirL (expPorTL l1)
+	      (unirL (expPorTL l2)
+	             (expPorTL l3))
+expPorTL (Explorador n ts l1 l2) = 
+	unirL 
+	  (unirL (agregarTerritorios n ts) 
+	  	     (expPorTL l1))
+	  (expPorTL l2)
+expPorTL (Cria n) = []
+
+-- Propósito: arma una lista de tuplas donde
+-- la primera componente es cada territorio
+-- y la segunda componente es el nombre dado por parámetro
+agregarTerritorios :: Nombre -> [Territorio] -> [(Territorio, [Nombre])]
+agregarTerritorios n [] = []
+agregarTerritorios n (x:xs) = (x, [n]) : agregarTerritorios n xs
+
+-- Propósito: une dos listas por territorio, 
+-- donde para un mismo territorio se juntan las listas de nombres
+unirL :: [(Territorio, [Nombre])] -> [(Territorio, [Nombre])] -> [(Territorio, [Nombre])]
+unirL [] [] = []
+unirL xs [] = xs
+unirL [] xs = xs
+unirL (x:xs) (y:ys) = 
+	if fst x == fst y 
+		then ((fst x), (snd x) ++ (snd y)) : unirL xs ys
+		else ((fst x), (snd x)) : [((fst y), (snd y))] ++ unirL xs ys
+
 --6. superioresDelCazador :: Nombre -> Manada -> [Nombre]
 --Propósito: dado un nombre de cazador y una manada, indica el nombre de todos los
 --cazadores que tienen como subordinado al cazador dado (directa o indirectamente).
