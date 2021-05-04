@@ -362,15 +362,15 @@ data Lobo = Cazador Nombre [Presa] Lobo Lobo Lobo
 data Manada = M Lobo deriving Show
 
 manada = M (Cazador "Hunter" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf"] 
-	(Explorador "Explorador 1" ["Canada", "Estados Unidos"] (Cria "Juan") (Cria "Pepe"))
-	(Cazador "HunterAlfa" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf", "asdsa", "ajskfjkaldsf"]
-		(Explorador "Explorador 3" ["Canada"] (Cria "Juanzito") (Cria "Pepecito"))
-		((Cazador "Subordinado" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf", "asdsa", "ajskfjkaldsf"]
-			(Explorador "Explorador 3" ["Canada"] (Cria "Juanzito") (Cria "Pepecito"))
-			(Explorador "Explorador 4" ["Estados Unidos"] (Cria "Carlitos") (Cria "Rubencito"))
-		(Cria "Marcos")))
-	(Cria "Marcos"))
-	(Cria "Marquitos"))
+				(Explorador "Explorador 1" ["Canada", "Estados Unidos"] (Cria "Juan") (Cria "Pepe"))
+				(Cazador "HunterAlfa" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf", "asdsa", "ajskfjkaldsf"]
+					(Explorador "Explorador 3" ["Canada"] (Cria "Juanzito") (Cria "Pepecito"))
+					((Cazador "Subordinado" ["Conejo", "asd", "asasdd", "asfkadf", "asdfadf", "asdsa", "ajskfjkaldsf"]
+						(Explorador "Explorador 3" ["Canada"] (Cria "Juanzito") (Cria "Pepecito"))
+						(Explorador "Explorador 4" ["Estados Unidos"] (Cria "Carlitos") (Cria "Rubencito"))
+					(Cria "Marcos")))
+				(Cria "Marcos"))
+				(Cria "Marquitos"))
 
 --1. Construir un valor de tipo Manada que posea 1 cazador, 2 exploradores y que el resto sean
 --crías. Resolver las siguientes funciones utilizando recursión estructural sobre la estructura
@@ -463,7 +463,32 @@ unirL (x:xs) (y:ys) =
 		then ((fst x), (snd x) ++ (snd y)) : unirL xs ys
 		else ((fst x), (snd x)) : [((fst y), (snd y))] ++ unirL xs ys
 
---6. superioresDelCazador :: Nombre -> Manada -> [Nombre]
 --Propósito: dado un nombre de cazador y una manada, indica el nombre de todos los
 --cazadores que tienen como subordinado al cazador dado (directa o indirectamente).
 --Precondición: hay un cazador con dicho nombre y es único.
+superioresDelCazador :: Nombre -> Manada -> [Nombre]
+superioresDelCazador n (M l) = superiores n l
+
+superiores :: Nombre -> Lobo -> [Nombre]
+superiores cz (Cria n) = []
+superiores cz (Explorador n t l1 l2) = 
+	superiores cz l1 ++
+	superiores cz l2
+superiores cz (Cazador n ps l1 l2 l3) = 
+	if esSubordinado cz (Cazador n ps l1 l2 l3) && (cz /= n)
+		then n :
+			(superiores cz l1 ++
+			superiores cz l2 ++
+			superiores cz l3)
+		else (superiores cz l1 ++
+			superiores cz l2 ++
+			superiores cz l3)
+
+esSubordinado :: Nombre -> Lobo -> Bool
+esSubordinado cz (Cria n) = False
+esSubordinado cz (Explorador n t l1 l2) = False 
+esSubordinado cz (Cazador n ps l1 l2 l3) =
+	cz == n ||
+	esSubordinado cz l1 ||
+	esSubordinado cz l2 ||
+	esSubordinado cz l3
