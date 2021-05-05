@@ -236,4 +236,15 @@ ramaMasLarga (NodeT x ti td) = if heightT (ti) > heightT (td)
                                     else x : ramaMasLarga td
 
 --Dado un árbol devuelve todos los caminos, es decir, los caminos desde la raiz hasta las hojas.
---todosLosCaminos :: Tree a -> [[a]]
+todosLosCaminos :: Tree a -> [[a]]
+todosLosCaminos EmptyT = []
+todosLosCaminos (NodeT x EmptyT EmptyT) = [[x]]
+todosLosCaminos (NodeT x ti td) =
+    agregarATodas x
+    (todosLosCaminos ti ++
+    todosLosCaminos td )
+
+agregarATodas :: a -> [[a]] -> [[a]]
+agregarATodas a [] = []
+agregarATodas a (xs:xss) =
+    (a : xs) : (agregarATodas a xss)

@@ -182,8 +182,16 @@ juntarPorNiveles xss [] = xss
 juntarPorNiveles (x:xss) (y:yss) = (x ++ y) : (juntarPorNiveles xss yss)
 
 
---6. todosLosCaminos :: Mapa -> [[Dir]]
 --Devuelve todos lo caminos en el mapa.
+todosLosCaminos :: Mapa -> [[Dir]]
+todosLosCaminos (Fin c) = [[]]
+todosLosCaminos (Bifurcacion c mi md) =
+	(agregarATodas Izq (todosLosCaminos mi)) ++
+	(agregarATodas Der (todosLosCaminos md))
+
+agregarATodas :: Dir -> [[Dir]] -> [[Dir]]
+agregarATodas d [] = []
+agregarATodas d (xs:xss) = (d : xs) : (agregarATodas d xss)  
 
 ------------------------------------------------------------------------
 
