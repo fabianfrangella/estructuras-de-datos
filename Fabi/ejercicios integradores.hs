@@ -220,6 +220,8 @@ tesoros :: [Objeto] -> [Objeto]
 tesoros [] = []
 tesoros  (x:xs) = if esTesoro x then x : tesoros xs else tesoros xs
 
+
+
 {-
 modelaremos una Nave como un tipo algebraico, el cual nos permite construir una nave espacial,
 dividida en sectores, a los cuales podemos asignar tripulantes y componentes. La representación
@@ -332,7 +334,7 @@ agregarASectorT _ _ EmptyT = EmptyT
 agregarASectorT xs sid (NodeT s si sd) = (NodeT (agregarComponentes xs sid s) (agregarASectorT xs sid si) (agregarASectorT xs sid sd))
 
 agregarComponentes :: [Componente] -> SectorId -> Sector -> Sector
-agregarComponentes xs sid (S ssid c t) = 
+agregarComponentes xs sid (S ssid c t) =  
 	if sid == ssid 
 		then (S ssid (xs ++ c) t) 
 		else (S ssid c t)
@@ -496,19 +498,18 @@ superioresDelCazadorL :: Nombre -> Lobo -> [Nombre]
 superioresDelCazadorL nom (Cria _) = []
 superioresDelCazadorL nom (Explorador _ _ l1 l2) = superioresDelCazadorL nom l1 ++ superioresDelCazadorL nom l2
 superioresDelCazadorL nom (Cazador n xs l1 l2 l3) = 
-	if esSubordinado nom (Cazador n xs l1 l2 l3)
+	if esSubordinado nom (Cazador n xs l1 l2 l3) && n /= nom
 		then n : superioresDelCazadorL nom l1 ++ superioresDelCazadorL nom l2 ++ superioresDelCazadorL nom l3
 		else superioresDelCazadorL nom l1 ++ superioresDelCazadorL nom l2 ++ superioresDelCazadorL nom l3
 
 esSubordinado :: Nombre -> Lobo -> Bool
 esSubordinado nom (Cria _) = False
 esSubordinado nom (Explorador _ _ l1 l2) = False
-esSubordinado nom (Cazador n xs l1 l2 l3) = esSubordinadoDirecto nom (Cazador n xs l1 l2 l3) || esSubordinado nom l1 || esSubordinado nom l2 || esSubordinado nom l3
-
-esSubordinadoDirecto :: Nombre -> Lobo -> Bool
-esSubordinadoDirecto nom (Cria _) = False
-esSubordinadoDirecto nom (Explorador _ _ l1 l2) = False
-esSubordinadoDirecto nom (Cazador n _ l1 l2 l3) = nom == nombreLobo l1 || nom == nombreLobo l2 || nom == nombreLobo l3
+esSubordinado nom (Cazador n xs l1 l2 l3) = 
+	nom == n
+	|| esSubordinado nom l1 
+	|| esSubordinado nom l2 
+	|| esSubordinado nom l2
 
 nombreLobo :: Lobo -> Nombre
 nombreLobo (Cria n) = n 
