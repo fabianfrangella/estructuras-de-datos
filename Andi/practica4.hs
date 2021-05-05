@@ -500,3 +500,36 @@ esSubordinado cz (Cazador n ps l1 l2 l3) =
 	esSubordinado cz l1 ||
 	esSubordinado cz l2 ||
 	esSubordinado cz l3
+
+superioresDelCazador' :: Nombre -> Manada -> [Nombre]
+superioresDelCazador' n (M l) = superiores n l
+
+superiores' :: Nombre -> Lobo -> [Nombre]
+superiores' cz (Cria n) = []
+superiores' cz (Explorador n t l1 l2) = 
+	superiores' cz l1 ++
+	superiores' cz l2
+superiores' cz (Cazador n ps l1 l2 l3) = 
+	if esSubordinado' cz [l1, l2, l3]
+		then n :
+			(superiores' cz l1 ++
+			superiores' cz l2 ++
+			superiores' cz l3)
+		else (superiores' cz l1 ++
+			superiores' cz l2 ++
+			superiores' cz l3)
+
+esSubordinado' :: Nombre -> [Lobo] -> Bool
+esSubordinado' cz [] = False
+esSubordinado' cz (x:xs) =
+	perteneceLobo cz x ||
+	esSubordinado' cz xs
+
+perteneceLobo :: Nombre -> Lobo -> Bool
+perteneceLobo cz (Cria n) = False
+perteneceLobo cz (Explorador n t l1 l2) = False
+perteneceLobo cz (Cazador n ps l1 l2 l3) =
+	cz == n ||
+	perteneceLobo cz l1 ||
+	perteneceLobo cz l2 ||
+	perteneceLobo cz l3
