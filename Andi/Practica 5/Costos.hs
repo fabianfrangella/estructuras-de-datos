@@ -29,7 +29,7 @@ pertenece :: Eq a => a -> [a] -> Bool
 pertenece n [] = False
 pertenece n (x:xs) = n == x || pertenece n xs
 
---Costo: O(n^2) ?
+--Costo: O(n^2)
 sinRepetidos :: Eq a => [a] -> [a]
 sinRepetidos [] = []
 sinRepetidos (x:xs) =
@@ -48,19 +48,20 @@ concatenar :: [String] -> String
 concatenar [] = []
 concatenar (x:xs) = x ++ concatenar xs
 
---Costo: O(n^2) ?
+--Costo: O(n)
 takeN :: Int -> [a] -> [a]
 takeN 0 xs = []
 takeN n [] = []
 takeN n (x:xs) = x : takeN (n-1) xs
 
---Costo: O(n^2) ?
+--Costo: O(n)
 dropN :: Int -> [a] -> [a]
 dropN 0 xs = xs
 dropN n [] = []
 dropN n (x:xs) = dropN (n-1) xs
 
---Costo: O(n^2) ?
+--Costo: O(n)
+-- donde n es la cantidad de elementos
 partir :: Int -> [a] -> ([a], [a])
 partir n xs = (takeN n xs, dropN n xs)
 
