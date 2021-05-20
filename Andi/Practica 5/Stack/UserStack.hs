@@ -21,7 +21,8 @@ import Stack1
 
 --Dada una lista devuelve una pila sin alterar el orden de los elementos.
 apilar :: [a] -> Stack a
-apilar (x:xs) = undefined --TODO
+apilar [] = emptyS
+apilar (x:xs) = push x (apilar xs)
 
 --Dada una pila devuelve una lista sin alterar el orden de los elementos.
 desapilar :: Stack a -> [a]
@@ -32,4 +33,8 @@ desapilar s =
 
 --Dada una posicion válida en la stack y un elemento, ubica dicho elemento en dicha
 --posición (se desapilan elementos hasta dicha posición y se inserta en ese lugar).
---insertarEnPos :: Int -> a -> Stack a -> Stack a
+insertarEnPos :: Int -> a -> Stack a -> Stack a
+insertarEnPos n e st =
+    if n == 0
+        then push e st
+        else insertarEnPos (n-1) e (pop st)
