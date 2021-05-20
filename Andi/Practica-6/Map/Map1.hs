@@ -1,0 +1,28 @@
+--2. Map (diccionario)
+--Ejercicio 3
+--La interfaz del tipo abstracto Map es la siguiente:
+--
+--emptyM :: Map k v
+--Propósito: devuelve un map vacío
+--
+--assocM :: Eq k => k -> v -> Map k v -> Map k v
+--Propósito: agrega una asociación clave-valor al map.
+--
+--lookupM :: Eq k => k -> Map k v -> Maybe v
+--Propósito: encuentra un valor dado una clave.
+--
+--deleteM :: Eq k => k -> Map k v -> Map k v
+--Propósito: borra una asociación dada una clave.
+--
+--keys :: Map k v -> [k]
+--Propósito: devuelve las claves del map.
+
+--Ejercicio 4
+--
+--Implemente las siguientes variantes del tipo Map, indicando los costos obtenidos para cada ope-
+--ración:
+--
+--1. Como una lista de pares-clave valor sin claves repetidas
+--2. Como una lista de pares-clave valor con claves repetidas
+--3. Como dos listas, una de claves y otra de valores, donde la clave ubicada en la posición i está
+--asociada al valor en la misma posición, pero de la otra lista.
