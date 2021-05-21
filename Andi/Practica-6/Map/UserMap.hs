@@ -1,5 +1,16 @@
+import Map1
+--import Map2
+--import Map3
+
+-- Interfaz
+-- emptyM :: Map k v
+-- assocM :: Eq k => k -> v -> Map k v -> Map k v
+-- lookupM :: Eq k => k -> Map k v -> Maybe v
+-- deleteM :: Eq k => k -> Map k v -> Map k v
+-- keys :: Map k v -> [k]
+
 --Implementar como usuario del tipo abstracto Map las siguientes funciones:
---
+
 --1. valuesM :: Eq k => Map k v -> [Maybe v]
 --Propósito: obtiene los valores asociados a cada clave del map.
 --

@@ -1,3 +1,13 @@
+module Map3
+  (
+    Map,
+    emptyM,
+    assocM,
+    lookupM,
+    deleteM,
+    keys
+  ) where
+      
 --2. Map (diccionario)
 
 --Ejercicio 3
@@ -56,7 +66,3 @@ delete k (k':ks) (v':vs) =
 --Propósito: devuelve las claves del map.
 keys :: Eq k => Map k v -> [k]
 keys (M ks vs) = ks
-
-----Ejercicio 4
-
---Implemente las siguientes variantes del tipo Map, indicando los costos obtenidos para cada operación:

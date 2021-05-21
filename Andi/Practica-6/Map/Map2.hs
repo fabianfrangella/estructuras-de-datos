@@ -1,3 +1,13 @@
+module Map2
+  (
+    Map,
+    emptyM,
+    assocM,
+    lookupM,
+    deleteM,
+    keys
+  ) where
+
 --2. Map (diccionario)
 
 --Ejercicio 3
@@ -53,10 +63,3 @@ sinRepetidos (k:ks) =
   if elem k ks
      then sinRepetidos ks
      else k : sinRepetidos ks
-
---Ejercicio 4
-
---Implemente las siguientes variantes del tipo Map, indicando los costos obtenidos para cada operación:
-
---3. Como dos listas, una de claves y otra de valores, donde la clave ubicada en la posición i está
---asociada al valor en la misma posición, pero de la otra lista.

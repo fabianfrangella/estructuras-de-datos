@@ -1,3 +1,13 @@
+module Map1
+  (
+    Map,
+    emptyM,
+    assocM,
+    lookupM,
+    deleteM,
+    keys
+  ) where
+
 --2. Map (diccionario)
 
 --Ejercicio 3
@@ -52,11 +62,3 @@ keys (M xs) = keys' xs
 keys' :: [(k, v)] -> [k]
 keys' [] = []
 keys' (x:xs) = fst x : keys' xs
-
---Ejercicio 4
-
---Implemente las siguientes variantes del tipo Map, indicando los costos obtenidos para cada operación:
-
---2. Como una lista de pares-clave valor con claves repetidas
---3. Como dos listas, una de claves y otra de valores, donde la clave ubicada en la posición i está
---asociada al valor en la misma posición, pero de la otra lista.
