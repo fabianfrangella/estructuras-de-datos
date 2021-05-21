@@ -1,28 +1,62 @@
 --2. Map (diccionario)
+
 --Ejercicio 3
 --La interfaz del tipo abstracto Map es la siguiente:
---
---emptyM :: Map k v
+
+--1. Como una lista de pares-clave valor sin claves repetidas 
+data Map k v = M [(k, v)] deriving Show
+
+tel = M [("juan", 44441231), ("pedro", 1231312)] 
+
 --Propósito: devuelve un map vacío
---
---assocM :: Eq k => k -> v -> Map k v -> Map k v
+emptyM :: Map k v
+emptyM = M []
+
 --Propósito: agrega una asociación clave-valor al map.
---
---lookupM :: Eq k => k -> Map k v -> Maybe v
+assocM :: Eq k => k -> v -> Map k v -> Map k v
+assocM k v (M xs) = M (replace k v xs)
+
+replace :: Eq k => k -> v -> [(k,v)] -> [(k,v)]
+replace k v [] = [(k,v)]
+replace k v (x:xs) =
+    if k == fst x
+        then (k,v) : xs
+        else x : replace k v xs
+
 --Propósito: encuentra un valor dado una clave.
---
---deleteM :: Eq k => k -> Map k v -> Map k v
+lookupM :: Eq k => k -> Map k v -> Maybe v
+lookupM k (M xs) = find k xs
+
+find :: Eq k => k -> [(k, v)] -> Maybe v
+find k [] = Nothing
+find k (x:xs) =
+    if k == fst x
+        then Just (snd x)
+        else find k xs
+
 --Propósito: borra una asociación dada una clave.
---
---keys :: Map k v -> [k]
+deleteM :: Eq k => k -> Map k v -> Map k v
+deleteM k (M xs) = M (delete k xs)
+
+delete :: Eq k => k -> [(k, v)] -> [(k, v)]
+delete k [] = error "no esite"
+delete k (x:xs) =
+    if k == fst x
+        then xs
+        else x : delete k xs
+
 --Propósito: devuelve las claves del map.
+keys :: Map k v -> [k]
+keys (M xs) = keys' xs
+
+keys' :: [(k, v)] -> [k]
+keys' [] = []
+keys' (x:xs) = fst x : keys' xs
 
 --Ejercicio 4
---
---Implemente las siguientes variantes del tipo Map, indicando los costos obtenidos para cada ope-
---ración:
---
---1. Como una lista de pares-clave valor sin claves repetidas
+
+--Implemente las siguientes variantes del tipo Map, indicando los costos obtenidos para cada operación:
+
 --2. Como una lista de pares-clave valor con claves repetidas
 --3. Como dos listas, una de claves y otra de valores, donde la clave ubicada en la posición i está
 --asociada al valor en la misma posición, pero de la otra lista.
