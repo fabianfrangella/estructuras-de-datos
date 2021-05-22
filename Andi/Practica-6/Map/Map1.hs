@@ -6,7 +6,8 @@ module Map1
     lookupM,
     deleteM,
     keys,
-    personas,
+    p1,
+    p2,
     notas
   ) where
 
@@ -19,7 +20,8 @@ module Map1
 data Map k v = M [(k, v)] deriving Show
 
 tel = M [("juan", 44441231), ("pedro", 1231312)]
-personas = M [(1, "juan"), (2, "pepe"), (3, "mauro")]
+p1 = M [(1, "juan"), (2, "pepe"), (3, "mauro")]
+p2 = M [(4, "andy"), (5, "fafa"), (6, "fafafafa")]
 
 notas :: Map String Int
 notas = M [("juan", 9), ("andy", 8), ("fabi", 9), ("fede", 8)]
