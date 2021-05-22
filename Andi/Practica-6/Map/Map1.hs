@@ -5,7 +5,8 @@ module Map1
     assocM,
     lookupM,
     deleteM,
-    keys
+    keys,
+    personas
   ) where
 
 --2. Map (diccionario)
@@ -16,7 +17,8 @@ module Map1
 --1. Como una lista de pares-clave valor sin claves repetidas 
 data Map k v = M [(k, v)] deriving Show
 
-tel = M [("juan", 44441231), ("pedro", 1231312)] 
+tel = M [("juan", 44441231), ("pedro", 1231312)]
+personas = M [(1, "juan"), (2, "pepe"), (3, "mauro")]
 
 --Propósito: devuelve un map vacío
 emptyM :: Map k v

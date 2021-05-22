@@ -11,18 +11,36 @@ import Map1
 
 --Implementar como usuario del tipo abstracto Map las siguientes funciones:
 
---1. valuesM :: Eq k => Map k v -> [Maybe v]
 --Propósito: obtiene los valores asociados a cada clave del map.
---
---2. todasAsociadas :: Eq k => [k] -> Map k v -> Bool
+valuesM :: Eq k => Map k v -> [Maybe v]
+valuesM m = values (keys m) m
+
+values :: Eq k => [k] -> Map k v -> [Maybe v]
+values [] m = []
+values (x:xs) m = lookupM x m : (values xs m)
+
 --Propósito: indica si en el map se encuenrtan todas las claves dadas.
---
---3. listToMap :: Eq k => [(k, v)] -> Map k v
+todasAsociadas :: Eq k => [k] -> Map k v -> Bool
+todasAsociadas [] m = True
+todasAsociadas (x:xs) m = elem x (keys m) && todasAsociadas xs m
+
 --Propósito: convierte una lista de pares clave valor en un map.
---
---4. mapToList :: Eq k => Map k v -> [(k, v)]
+listToMap :: Eq k => [(k, v)] -> Map k v
+listToMap [] = emptyM
+listToMap (x:xs) = assocM (fst x) (snd x) (listToMap xs)
+
 --Propósito: convierte un map en una lista de pares clave valor.
---
+mapToList :: Eq k => Map k v -> [(k, v)]
+mapToList m = toList (keys m) m
+
+toList :: Eq k => [k] -> Map k v -> [(k, v)]
+toList [] m = []
+toList (x:xs) m = (x, valor (lookupM x m)) : toList xs m
+
+valor :: Maybe v -> v
+valor Nothing = error "no se obtener un valor"
+valor (Just x) = x
+
 --5. agruparEq :: Eq k => [(k, v)] -> Map k [v]
 --Propósito: dada una lista de pares clave valor, agrupa los valores de los pares que compartan
 --la misma clave.
