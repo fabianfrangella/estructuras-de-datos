@@ -41,14 +41,20 @@ valor :: Maybe v -> v
 valor Nothing = error "no se obtener un valor"
 valor (Just x) = x
 
+--Picante
 --5. agruparEq :: Eq k => [(k, v)] -> Map k [v]
 --Propósito: dada una lista de pares clave valor, agrupa los valores de los pares que compartan
 --la misma clave.
---
---6. incrementar :: Eq k => [k] -> Map k Int -> Map k Int
+
 --Propósito: dada una lista de claves de tipo k y un mapa que va de k a int, le suma uno a
 --cada número asociado con dichas claves.
---
+incrementar :: Eq k => [k] -> Map k Int -> Map k Int
+incrementar [] m = m
+incrementar (x:xs) m =
+    if elem x (keys m)
+        then assocM x (valor (lookupM x m) + 1) (incrementar xs m) 
+        else assocM x (valor (lookupM x m)) (incrementar xs m) 
+
 --7. mergeMaps:: Eq k => Map k v -> Map k v -> Map k v
 --Propósito: dado dos maps se agregan las claves y valores del primer map en el segundo. Si
 --una clave del primero existe en el segundo, es reemplazada por la del primero.

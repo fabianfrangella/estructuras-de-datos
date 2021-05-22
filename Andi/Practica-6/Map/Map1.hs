@@ -6,7 +6,8 @@ module Map1
     lookupM,
     deleteM,
     keys,
-    personas
+    personas,
+    notas
   ) where
 
 --2. Map (diccionario)
@@ -19,6 +20,9 @@ data Map k v = M [(k, v)] deriving Show
 
 tel = M [("juan", 44441231), ("pedro", 1231312)]
 personas = M [(1, "juan"), (2, "pepe"), (3, "mauro")]
+
+notas :: Map String Int
+notas = M [("juan", 9), ("andy", 8), ("fabi", 9), ("fede", 8)]
 
 --Propósito: devuelve un map vacío
 emptyM :: Map k v
