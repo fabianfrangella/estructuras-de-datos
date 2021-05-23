@@ -1,5 +1,5 @@
---import Map1
-import Map2
+import Map1
+--import Map2
 --import Map3
 
 -- Interfaz
@@ -61,17 +61,25 @@ incrementar (x:xs) m =
 --una clave del primero existe en el segundo, es reemplazada por la del primero.
 --Indicar los ordenes de complejidad en peor caso de cada función implementada.
 
--- la idea esta pero no funca (?)
 mergeMaps:: Eq k => Map k v -> Map k v -> Map k v
-mergeMaps m1 emptyM = m1
-mergeMaps emptyM m2 = m2
-mergeMaps m1 m2 = mergeMaps' (keys m1) (keys m2) m1 m2
+mergeMaps m1 m2 = mergeMaps' (keys m1) (keys (deleteM2 m2 m1)) m1 m2
 
 mergeMaps' :: Eq k => [k] -> [k] -> Map k v -> Map k v -> Map k v
+mergeMaps' [] [] m1 m2 = emptyM
+mergeMaps' [] xs m1 m2 = m2
+mergeMaps' xs [] m1 m2 = m1
 mergeMaps' (x:xs) (y:ys) m1 m2 =
-    if elem x ys
-        then assocM x (valor(lookupM x m2)) (mergeMaps' xs ys m1 m2)
-        else assocM x (valor(lookupM x m1)) (assocM y (valor (lookupM y m2)) (mergeMaps' xs ys m1 m2))
+    assocM x (valor(lookupM x m1)) (assocM y (valor (lookupM y m2)) (mergeMaps' xs ys m1 m2))
+
+deleteM2 :: Eq k => Map k v -> Map k v -> Map k v
+deleteM2 m1 m2 = deleteIfExists (keys m1) (keys m2) m1 m2
+
+deleteIfExists :: Eq k => [k] -> [k] -> Map k v -> Map k v -> Map k v
+deleteIfExists [] ys m1 m2 = emptyM
+deleteIfExists (x:xs) ys m1 m2 =
+    if elem x ys 
+        then deleteIfExists xs ys m1 m2
+        else assocM x (valor(lookupM x m1)) (deleteIfExists xs ys m1 m2)
 
 --Ejercicio 5
 --Implemente estas otras funciones como usuario de Map:

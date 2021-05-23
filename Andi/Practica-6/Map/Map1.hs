@@ -21,7 +21,7 @@ data Map k v = M [(k, v)] deriving Show
 
 tel = M [("juan", 44441231), ("pedro", 1231312)]
 p1 = M [(1, "juan"), (2, "pepe"), (3, "mauro")]
-p2 = M [(4, "andy"), (5, "fafa"), (6, "fafafafa")]
+p2 = M [(3, "andy"), (5, "fafa"), (6, "fafafafa")]
 
 notas :: Map String Int
 notas = M [("juan", 9), ("andy", 8), ("fabi", 9), ("fede", 8)]
