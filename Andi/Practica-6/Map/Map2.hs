@@ -5,7 +5,9 @@ module Map2
     assocM,
     lookupM,
     deleteM,
-    keys
+    keys,
+    p1,
+    p2
   ) where
 
 --2. Map (diccionario)
@@ -18,6 +20,8 @@ module Map2
 data Map k v = M [(k, v)] deriving Show
 
 tel = M [("juan", 44441231), ("pedro", 1231312), ("juan", 11111)] 
+p1 = M [(3, "juan"), (5, "pepe"), (6, "mauro")]
+p2 = M [(3, "andy"), (5, "fafa"), (6, "fafafafa")]
 
 --Propósito: devuelve un map vacío
 emptyM :: Map k v

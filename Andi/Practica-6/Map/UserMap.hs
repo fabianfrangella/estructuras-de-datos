@@ -42,9 +42,11 @@ valor Nothing = error "no se obtener un valor"
 valor (Just x) = x
 
 --Picante
---5. agruparEq :: Eq k => [(k, v)] -> Map k [v]
 --Propósito: dada una lista de pares clave valor, agrupa los valores de los pares que compartan
 --la misma clave.
+agruparEq :: Eq k => [(k, v)] -> Map k [v]
+agruparEq [] = emptyM
+agruparEq (x:xs) = undefined
 
 --Propósito: dada una lista de claves de tipo k y un mapa que va de k a int, le suma uno a
 --cada número asociado con dichas claves.
@@ -55,18 +57,55 @@ incrementar (x:xs) m =
         then assocM x (valor (lookupM x m) + 1) (incrementar xs m) 
         else assocM x (valor (lookupM x m)) (incrementar xs m) 
 
---7. mergeMaps:: Eq k => Map k v -> Map k v -> Map k v
 --Propósito: dado dos maps se agregan las claves y valores del primer map en el segundo. Si
 --una clave del primero existe en el segundo, es reemplazada por la del primero.
 --Indicar los ordenes de complejidad en peor caso de cada función implementada.
 
+mergeMaps:: Eq k => Map k v -> Map k v -> Map k v
+mergeMaps m1 m2 = mergeMaps' (keys m1) (keys (deleteM2 m2 m1)) m1 m2
+
+mergeMaps' :: Eq k => [k] -> [k] -> Map k v -> Map k v -> Map k v
+mergeMaps' [] [] m1 m2 = emptyM
+mergeMaps' [] xs m1 m2 = m2
+mergeMaps' xs [] m1 m2 = m1
+mergeMaps' (x:xs) (y:ys) m1 m2 =
+    assocM x (valor(lookupM x m1)) (assocM y (valor (lookupM y m2)) (mergeMaps' xs ys m1 m2))
+
+deleteM2 :: Eq k => Map k v -> Map k v -> Map k v
+deleteM2 m1 m2 = deleteIfExists (keys m1) (keys m2) m1 m2
+
+deleteIfExists :: Eq k => [k] -> [k] -> Map k v -> Map k v -> Map k v
+deleteIfExists [] ys m1 m2 = emptyM
+deleteIfExists (x:xs) ys m1 m2 =
+    if elem x ys 
+        then deleteIfExists xs ys m1 m2
+        else assocM x (valor(lookupM x m1)) (deleteIfExists xs ys m1 m2)
+
 --Ejercicio 5
 --Implemente estas otras funciones como usuario de Map:
---indexar :: [a] -> Map Int a
 --Propósito: dada una lista de elementos construye un map que relaciona cada elemento con
 --su posición en la lista.
---
---ocurrencias :: String -> Map Char Int
+
+-- Le mande un reverse porque el assocM lo arma al reves (turbina)
+indexar :: [a] -> Map Int a
+indexar [] = emptyM
+indexar xs = indexar' (reverse xs)
+
+indexar' :: [a] -> Map Int a
+indexar' [] = emptyM
+indexar' (x:xs) = assocM (length xs) x (indexar xs)
+
 --Propósito: dado un string, devuelve un map donde las claves son los caracteres que aparecen
 --en el string, y los valores la cantidad de veces que aparecen en el mismo.
 --Indicar los ordenes de complejidad en peor caso de cada función de la interfaz y del usuario.
+ocurrencias :: String -> Map Char Int
+ocurrencias "" = emptyM
+ocurrencias (x:xs) = 
+    assocM (x) (contar x (x:xs)) (ocurrencias xs)
+
+contar :: Char -> String -> Int
+contar c "" = 0
+contar c (x:xs) = 
+    if c == x 
+        then 1 + contar c xs
+        else contar c xs
