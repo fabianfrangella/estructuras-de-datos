@@ -34,6 +34,14 @@ egresarExpertos edm =
 esExperto :: Mago -> EscuelaDeMagia -> Bool
 esExperto m edm = leFaltanAprender (nombre m) edm == 0
 
+--Bonus
+--m) Dar una posible representación para el tipo Mago, de manera de que se pueda cumplir con el orden dado para cada operación
+--de la interfaz, pero sin implementarlas.
+
+data Mago = ConsM Nombre (BST Hechizo) (Set Hechizo)
+
+
+
 {-
 Anexo de interfaces
 Mago, siendo H la cantidad de hechizos que sabe:
