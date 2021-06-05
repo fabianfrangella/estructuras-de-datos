@@ -1,0 +1,195 @@
+--Torres
+--Una torre de bloques de cemento puede tener bloques de diferentes colores. 
+--Para representarla se utilizarán los siguientes tipos
+--de datos. El tipo Color cumple la restricción Eq, por lo tanto puede ser comparado usando ==.
+
+data Color = Azul | Verde | Rojo deriving (Show, Eq)
+
+data Torre = Base
+            | Bloque Color Torre deriving Show
+
+torre = Bloque Rojo (Bloque Azul (Bloque Azul Base))
+torre2 = Bloque Rojo (Bloque Azul (Bloque Azul (Bloque Verde (Bloque Azul Base))))
+torre3 = Bloque Azul (Bloque Azul (Bloque Azul Base))
+
+--Resolver las siguientes funciones utilizando recursión estructural.
+--a) cantidadDeBloques :: Torre -> Int
+--Propósito: dada una torre, indica la cantidad de bloques que contiene.
+cantidadDeBloques :: Torre -> Int
+cantidadDeBloques Base = 0
+cantidadDeBloques (Bloque c t) = 1 + cantidadDeBloques t
+
+--b) todos :: Color -> Torre -> Bool
+--Propósito: dados un color c y una torre, indica si todos los bloques de la torre son de color c.
+todos :: Color -> Torre -> Bool
+todos c Base = True
+todos c (Bloque col t) = esMismoColor c col && todos c t
+
+esMismoColor :: Color -> Color -> Bool
+esMismoColor Azul Azul = True
+esMismoColor Verde Verde = True
+esMismoColor Rojo Rojo = True
+esMismoColor _ _ = False
+
+--c) agregarOtrosN :: Int -> Color -> Torre -> Torre
+--Propósito: dados un número n, un color c y una torre, agrega n bloques de cemento de color c a la torre, 
+--luego del primer bloque de color c.
+--Precondición: hay al menos un bloque de color c.
+agregarOtrosN :: Int -> Color -> Torre -> Torre
+agregarOtrosN 0 c t = t
+agregarOtrosN n c (Bloque col t) =
+    if c == col
+        then (Bloque col (agregarN n c t)) 
+        else (Bloque col (agregarOtrosN n c t)) 
+
+agregar :: Color -> Torre -> Torre
+agregar c Base = Bloque c Base
+agregar c (Bloque col t) = Bloque c (agregar col t) 
+
+agregarN :: Int -> Color -> Torre -> Torre
+agregarN 0 c t = t
+agregarN n c t = agregarN (n-1) c (agregar c t)
+
+--d) sinColores :: [Color] -> Torre -> Torre
+--Propósito: dada una lista de colores y una torre, quita de la torre todos los bloques cuyo color sea alguno de los de la lista.
+sinColores :: [Color] -> Torre -> Torre
+sinColores [] t = t
+sinColores (x:xs) t = sinColores xs (sacarTodos x t)
+
+sacarC :: Color -> Torre -> Torre
+sacarC c Base = Base
+sacarC c (Bloque col t) = if esMismoColor c col then t else Bloque col (sacarC c t)
+
+-- Propósito: Saca todas los colores de una torre (no llegué)
+sacarTodos :: Color -> Torre -> Torre
+sacarTodos c Base = Base
+sacarTodos c (Bloque col t) = sacarTodos c t
+
+--e) aparicionesDeColores :: Torre -> [(Color,Int)]
+--Propósito: dada una torre, denota la lista de pares donde el primer elemento es un color
+-- y el segundo elemento es la cantidad de veces que aparece dicho color.
+--Nota: si el color no aparece, no hace falta que esté en la lista.
+
+aparicionesDeColores :: Torre -> [(Color,Int)]
+aparicionesDeColores t =
+    [apariciones Rojo t] ++ 
+    [apariciones Verde t] ++
+    [apariciones Azul t]
+
+apariciones :: Color -> Torre -> (Color, Int)
+apariciones c t = (c, (apariciones' c t))
+
+apariciones' :: Color -> Torre -> Int
+apariciones' c Base = 0
+apariciones' c (Bloque col t) =
+    if c == col
+        then 1 + apariciones' c t
+        else apariciones' c t
+
+----------------------------------------------------------------------------------
+
+--Escenarios
+--Un escenario de un juego está compuesto diferentes puntos en los que hay dispositivos, paredes en las que también hay
+--dispositivos, y accesos que pueden ser abiertos con determinada clave. Los dispositivos tienen claves que serán necesarias para
+--abrir accesos, y para obtener las claves de un dispositivo se debe conectar un extractor. Este extractor tiene una capacidad de
+--energía que disminuye en cada extracción, teniendo cada dispositivo un consumo determinado de energía. Al abrir un acceso se
+--pasa al siguiente escenario, y en caso de no poseer la clave que corresponde al acceso, no será posible pasar.
+
+type Energia = Int
+
+type Clave = Int
+
+data Direccion = Izquierda | Centro | Derecha deriving Show
+
+data Dispositivo = Dispositivo Energia [Clave] deriving Show
+
+data Escenario = Acceso Clave
+                | Pared Dispositivo
+                | Punto Dispositivo Escenario Escenario Escenario deriving Show
+
+--Resolver las siguientes funciones utilizando recursión estructural.
+
+--a) cantidadDeAccesos :: Escenario -> Int
+--Propósito: dado un escenario, denota la cantidad de accesos que contiene.
+cantidadDeAccesos :: Escenario -> Int
+cantidadDeAccesos (Acceso c) = 1
+cantidadDeAccesos (Pared d) = 0
+cantidadDeAccesos (Punto d e1 e2 e3) = 
+    cantidadDeAccesos e1 +
+    cantidadDeAccesos e2 +
+    cantidadDeAccesos e3
+
+--Propósito: dado un escenario, denota la lista sin repetidos de todas las claves que hay en él.
+todasLasClaves :: Escenario -> [Clave]
+todasLasClaves (Acceso c) = [c]
+todasLasClaves (Pared d) = sinRepetidos (claves d)
+todasLasClaves (Punto d e1 e2 e3) =
+    sinRepetidos (claves d ++
+    todasLasClaves e1 ++
+    todasLasClaves e2 ++
+    todasLasClaves e3)
+
+claves :: Dispositivo -> [Clave]
+claves (Dispositivo e c) = c
+
+sinRepetidos :: Eq a => [a] -> [a]
+sinRepetidos [] = []
+sinRepetidos (x:xs) = if estaEn x xs
+						then sinRepetidos xs
+						else x : sinRepetidos xs
+
+estaEn :: Eq a => a -> [a] -> Bool --pertenece
+estaEn t [] = False
+estaEn t (x:xs) = t == x || estaEn t xs
+
+--c) sePuedeSalirCon :: Energía -> Escenario -> Bool
+--Propósito: dada una cantidad de energía y un escenario, indica si es posible pasar de escenario con esa cantidad energía.
+sePuedeSalirCon :: Energia -> Escenario -> Bool
+sePuedeSalirCon n (Acceso c) = True
+sePuedeSalirCon n (Pared d) = n > energia d
+sePuedeSalirCon n (Punto d e1 e2 e3) =
+    n > energia d &&
+    sePuedeSalirCon n e1 &&
+    sePuedeSalirCon n e1 &&
+    sePuedeSalirCon n e1
+
+energia :: Dispositivo -> Energia
+energia (Dispositivo e c) = e
+
+--d) caminoGanador :: [Dirección] -> Escenario -> Bool
+--Propósito: dado un camino y un escenario, indica si siguiendo el camino se pasa de escenario.
+--Precondición: el camino es válido en el escenario.
+--Nota: se asume suficiente cantidad de energía.
+caminoGanador :: [Direccion] -> Escenario -> Bool
+caminoGanador [] (Acceso c) = True
+caminoGanador [] (Pared d) = False
+caminoGanador [] (Punto d e1 e2 e3) = False
+caminoGanador (x:xs) (Punto d e1 e2 e3) = 
+    if esIzquierda x 
+        then caminoGanador xs e1
+        else if esCentro x
+            then caminoGanador xs e2
+            else caminoGanador xs e3
+
+esIzquierda :: Direccion -> Bool
+esIzquierda Izquierda = True
+esIzquierda _ = False
+
+esCentro :: Direccion -> Bool
+esCentro Centro = True
+esCentro _ = False
+
+--e) todosLosCaminos :: Escenario -> [[Dirección]]
+--Propósito: dado un escenario, indica todos los caminos que pueden tomarse en él.
+--Nota: un camino puede terminar en un acceso o en una pared.
+todosLosCaminos :: Escenario -> [[Direccion]]
+todosLosCaminos (Acceso c) = [[]]
+todosLosCaminos (Pared d) = [[]]
+todosLosCaminos (Punto d e1 e2 e3) =
+    (agregarATodas Derecha (todosLosCaminos e1)) ++
+    (agregarATodas Centro (todosLosCaminos e2)) ++
+    (agregarATodas Izquierda (todosLosCaminos e3))
+
+agregarATodas :: Direccion -> [[Direccion]] -> [[Direccion]]
+agregarATodas d [] = []
+agregarATodas d (xs:xss) = (d : xs) : (agregarATodas d xss)  
