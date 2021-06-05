@@ -98,16 +98,4 @@ asignarASectorMH nom sid mh =
         then insertH (asignarS sid tripulante) (deleteMaxH mh)
         else insertH (maxH mh) (asignarASectorMH nom sid (deleteMaxH mh))
 
-{-
-Usuario
-Implementar las siguientes funciones como usuario del tipo Nave, indicando la eficiencia obtenida para cada operación:
-
-i) sectores :: Nave -> Set SectorId
-Propósito: Devuelve todos los sectores no vacíos (con tripulantes asignados).
-j) sinSectoresAsignados :: Nave ->[Tripulante]
-Propósito: Devuelve los tripulantes que no poseen sectores asignados.
-k) barriles :: Nave -> [Barril]
-Propósito: Devuelve todos los barriles de los sectores asignados de la nave.
--}
-
 
