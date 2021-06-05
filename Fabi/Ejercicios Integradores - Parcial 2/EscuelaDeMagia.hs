@@ -1,4 +1,6 @@
-module EscuelaDeMagia () where
+module EscuelaDeMagia (
+    estaVacia, fundarEscuela, registrar, magos, hechizosDe, leFaltanAprender, egresarUno, enseñar
+) where
 
 import Map
 import PriorityQueue
@@ -82,6 +84,8 @@ enseñar :: Hechizo -> Nombre -> EscuelaDeMagia -> EscuelaDeMagia
 enseñar h n (EDM set map pq) = 
     let mago = lookupM mago map
     in EDM (addS h) (assocM (nombre mago) (aprender h mago) map) (insertPQ mago pq)
+
+
 {-
 Anexo de interfaces
 Mago, siendo H la cantidad de hechizos que sabe:
