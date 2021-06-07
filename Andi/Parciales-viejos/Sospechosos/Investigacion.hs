@@ -1,3 +1,18 @@
+module Investigacion (
+    Investigacion,
+    Nombre,
+    Evidencia,
+    comenzarInvestigacion,
+    cantEvidenciaIngresada,
+    evidenciaIngresada,
+    nombresIngresados,
+    casoCerrado,
+    esSospechoso,
+    posiblesInocentes,
+    ingresarPersonas,
+    ingresarEvidencia
+) where
+
 import PriorityQueue
 import Map1
 import Persona
@@ -29,7 +44,6 @@ data Investigacion = ConsI (Map Nombre Persona)
 -- de forma eficiente de mayor a menor en base a la cantidad de evidencia en su contra.
 -- Un Int que indica la cantidad de evidencia diferente en la investigación.
 
--- i = ingresarPersonas ["andi", "pepe"] comenzarInvestigacion
 andi = crearP "andi"
 pepe = crearP "pepe"
 m1 = assocM "andi" andi (assocM "pepe" pepe emptyM)
@@ -41,7 +55,10 @@ i = ConsI m1 me1 pqp 1
 -- Invariantes
 -- a) Dar invariantes de representación válidos según la descripción de la estructura.
 -- Puntaje: 0.75
-
+    -- Los nombres del map Evidencia [Nombre] deben existir en el map Nombre Persona
+    -- Los nombres del map Nombre Persona deben existir en la Priority Queue y viceversa
+    -- La cantidad de Evidencia debe ser igual a la longitud de las keys del map Evidencia [Nombre]
+    -- La cantidad de Evidencia no puede ser negativa
 
 -- Implementación
 -- Implementar la siguiente interfaz de Investigacion, utilizando la representación y los costos dados y calculando los costos

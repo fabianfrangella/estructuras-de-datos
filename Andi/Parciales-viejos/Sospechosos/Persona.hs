@@ -12,6 +12,10 @@ module Persona (
 type Nombre = String
 type Evidencia = String
 
+-- Representación
+-- n) Dar una posible representación para el tipo Persona, de manera de que se pueda cumplir con el orden dado para cada
+-- operación de la interfaz, pero sin implementarlas.
+
 data Persona = P Nombre [Evidencia] Int deriving Show
 
 instance Eq Persona where
