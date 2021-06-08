@@ -48,7 +48,7 @@ sectoresAsignados :: Nombre -> Nave -> Set SectorId
 --Propósito: Devuelve los sectores asignados a un tripulante.
 --Precondición: Existe un tripulante con dicho nombre.
 --Eficiencia: O(log M)
-sectoresAsignados nom (N _ m _) = sectoresT (lookupM nom m)
+sectoresAsignados nom (N _ m _) = sectoresT (fromJust (lookupM nom m))
         
 
 datosDeSector :: SectorId -> Nave -> (Set Nombre, [Componente])
@@ -61,7 +61,7 @@ datosDeSector sid (N ms mt mh) =
 
 tripulantesN :: Nave -> [Tripulante]
 --Propósito: Devuelve la lista de tripulantes ordenada por rango, de mayor a menor.
---Eficiencia: O(log T)
+--Eficiencia: O(T . log T)
 tripulantesN (N ms mt mh) = 
     if isEmptyH mh
         then []
