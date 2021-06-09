@@ -17,4 +17,6 @@ todosInocentes i =
 -- Propósito: Indica si la evidencia en la lista es suficiente para cerrar el caso.
 -- Puntaje: 1
 terminaCerrado :: [(Evidencia, Nombre)] -> Investigacion -> Bool
-terminaCerrado ls i = undefined -- No entiendo que pide
+terminaCerrado [] i = casoCerrado i
+terminaCerrado (x:xs) i =
+    terminaCerrado xs (ingresarEvidencia (fst x) (snd x) i) 
