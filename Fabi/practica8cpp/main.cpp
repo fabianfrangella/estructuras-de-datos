@@ -156,6 +156,40 @@ int aparicionesRecursive(char c, string s) {
         : aparicionesRecursive(c, s.substr(1));
 }
 
+struct Fraccion {
+    float numerador;
+    float denominador;
+};
+// Suponer que el denominador no es cero
+// Propósito: construye una fraccion
+Fraccion consFraccion(float numerador, float denominador) {
+    Fraccion f = *new Fraccion();
+    f.numerador = numerador;
+    f.denominador = denominador;
+}
+// Propósito: devuelve el numerador
+float numerador(Fraccion f) {
+    return f.numerador;
+}
+// Propósito: devuelve el denominador
+float denominador(Fraccion f) {
+    return f.denominador;
+}
+// Propósito: devuelve el resultado de hacer la división
+float division(Fraccion f) {
+    return f.numerador / f.denominador;
+}
+// Propósito: devuelve una fracción que resulta de multiplicar las fracciones
+// (sin simplificar)
+Fraccion multF(Fraccion f1, Fraccion f2) {
+    return consFraccion(f1.numerador * f2.numerador, f1.denominador * f2.denominador);
+}
+// Propósito: devuelve una fracción que resulta
+// de simplificar la dada por parámetro
+Fraccion simplificada(Fraccion p);
+
+Fraccion sumF(Fraccion f1, Fraccion f2);
+
 int main() {
     cout << aparicionesRecursive('a',"Fabian Frangellacz");
     return 0;
