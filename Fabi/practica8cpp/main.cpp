@@ -7,10 +7,7 @@ struct Par {
 };
 // Propósito: construye un par
 Par consPar(int x, int y) {
-    Par par = *new Par();
-    par.x = x;
-    par.y = y;
-    return par;
+    return {x, y};
 }
 // Propósito: devuelve la primera componente
 int fst(Par p) {
@@ -163,9 +160,7 @@ struct Fraccion {
 // Suponer que el denominador no es cero
 // Propósito: construye una fraccion
 Fraccion consFraccion(float numerador, float denominador) {
-    Fraccion f = *new Fraccion();
-    f.numerador = numerador;
-    f.denominador = denominador;
+    return {numerador, denominador};
 }
 // Propósito: devuelve el numerador
 float numerador(Fraccion f) {
@@ -186,11 +181,15 @@ Fraccion multF(Fraccion f1, Fraccion f2) {
 }
 // Propósito: devuelve una fracción que resulta
 // de simplificar la dada por parámetro
-Fraccion simplificada(Fraccion p);
+Fraccion simplificada(Fraccion p) {
+    return {1,2};
+}
 
-Fraccion sumF(Fraccion f1, Fraccion f2);
+Fraccion sumF(Fraccion f1, Fraccion f2) {
+    return {1, 2};
+}
 
 int main() {
-    cout << aparicionesRecursive('a',"Fabian Frangellacz");
+    cout << consPar(1,2).x;
     return 0;
 }
