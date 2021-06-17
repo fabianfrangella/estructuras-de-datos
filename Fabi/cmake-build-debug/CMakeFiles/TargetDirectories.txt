@@ -1,0 +1,3 @@
+C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/cmake-build-debug/CMakeFiles/Fabi.dir
+C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/cmake-build-debug/CMakeFiles/edit_cache.dir
