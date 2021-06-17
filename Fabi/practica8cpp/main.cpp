@@ -48,12 +48,10 @@ void printN(int n, string s) {
     }
 }
 void printNRecursive(int n, string s) {
-    if (n > 1) {
+    if (n > 0) {
         cout << s << endl;
         printNRecursive(n - 1, s);
-        return;
     }
-    cout << s << endl;
 }
 
 //Propósito: imprime los números desde n hasta 0, separados por saltos de línea.
@@ -64,12 +62,10 @@ void cuentaRegresiva(int n) {
 }
 
 void cuentaRegresivaRecursive(int n) {
-    if (n > 0) {
+    if (n >= 0) {
         cout << n << endl;
         cuentaRegresivaRecursive(n - 1);
-        return;
     }
-    cout << n << endl;
 }
 //Propósito: imprime los números de 0 hasta n, separados por saltos de línea.
 void desdeCeroHastaN(int n) {
@@ -79,12 +75,10 @@ void desdeCeroHastaN(int n) {
 }
 
 void desdeNaM(int n, int m) {
-    if (n < m) {
+    if (n <= m) {
         cout << n << endl;
         desdeNaM(n + 1, m);
-        return;
     }
-    cout << n << endl;
 }
 
 void desdeCeroHastaNRecursive(int n) {
@@ -101,10 +95,10 @@ int mult(int n, int m) {
 }
 int multRecursive(int n, int m) {
     int resultado = 0;
-    if (m > 1) {
+    if (m > 0) {
         resultado = multRecursive(n, m - 1);
     }
-    return n + resultado;
+    return resultado;
 }
 //Propósito: imprime los primeros n char del string s, separados por un salto de línea.
 //Precondición: el string tiene al menos n char.
@@ -115,12 +109,10 @@ void primerosN(int n, string s) {
 }
 
 void primerosNRecursive(int n, string s) {
-    if (n > 1) {
+    if (n > 0) {
         cout << s[0] << endl;
         primerosNRecursive(n - 1, s.substr(1));
-        return;
     }
-    cout << s[0] << endl;
 }
 //Propósito: indica si un char c aparece en el string s.
 int pertenece(char c, string s) {
@@ -190,6 +182,6 @@ Fraccion sumF(Fraccion f1, Fraccion f2) {
 }
 
 int main() {
-    cout << consPar(1,2).x;
+    cout << perteneceRecursive('n', "asdfn");
     return 0;
 }
