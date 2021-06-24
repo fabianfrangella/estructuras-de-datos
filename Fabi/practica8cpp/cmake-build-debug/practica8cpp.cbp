@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/Practica9/arraylist.cpp">
+			<Option target="practica8cpp"/>
+		</Unit>
+		<Unit filename="C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/Practica9/arraylist.h">
+			<Option target="practica8cpp"/>
+		</Unit>
 		<Unit filename="C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/Practica9/persona.cpp">
 			<Option target="practica8cpp"/>
 		</Unit>

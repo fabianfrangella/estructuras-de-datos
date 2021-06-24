@@ -126,6 +126,33 @@ practica8cpp\fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica8cpp.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica8cpp.dir\build
 .PHONY : practica8cpp\fast
 
+Practica9\arraylist.obj: Practica9\arraylist.cpp.obj
+
+.PHONY : Practica9\arraylist.obj
+
+# target to build an object file
+Practica9\arraylist.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica8cpp.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica8cpp.dir\Practica9\arraylist.cpp.obj
+.PHONY : Practica9\arraylist.cpp.obj
+
+Practica9\arraylist.i: Practica9\arraylist.cpp.i
+
+.PHONY : Practica9\arraylist.i
+
+# target to preprocess a source file
+Practica9\arraylist.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica8cpp.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica8cpp.dir\Practica9\arraylist.cpp.i
+.PHONY : Practica9\arraylist.cpp.i
+
+Practica9\arraylist.s: Practica9\arraylist.cpp.s
+
+.PHONY : Practica9\arraylist.s
+
+# target to generate assembly for a file
+Practica9\arraylist.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica8cpp.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica8cpp.dir\Practica9\arraylist.cpp.s
+.PHONY : Practica9\arraylist.cpp.s
+
 Practica9\persona.obj: Practica9\persona.cpp.obj
 
 .PHONY : Practica9\persona.obj
@@ -216,6 +243,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... practica8cpp
+	@echo ... Practica9/arraylist.obj
+	@echo ... Practica9/arraylist.i
+	@echo ... Practica9/arraylist.s
 	@echo ... Practica9/persona.obj
 	@echo ... Practica9/persona.i
 	@echo ... Practica9/persona.s

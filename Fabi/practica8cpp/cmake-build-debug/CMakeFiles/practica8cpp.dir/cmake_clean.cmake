@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/practica8cpp.dir/Practica9/arraylist.cpp.obj"
   "CMakeFiles/practica8cpp.dir/Practica9/persona.cpp.obj"
   "CMakeFiles/practica8cpp.dir/Practica9/pokemon.cpp.obj"
   "CMakeFiles/practica8cpp.dir/main.cpp.obj"
