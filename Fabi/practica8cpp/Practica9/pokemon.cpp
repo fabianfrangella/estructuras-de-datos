@@ -17,6 +17,7 @@ Pokemon consPokemon(TipoDePokemon tipo) {
     PokemonSt* p = new PokemonSt;
     p->tipo = tipo;
     p->vida = 100;
+    return p;
 }
 //Devuelve el tipo de un pokemon.
 TipoDePokemon tipoDePokemon(Pokemon p) {
@@ -33,12 +34,12 @@ void perderEnergia(int energia, Pokemon p) {
 //Dados dos pokémon indica si el primero, en base al tipo, es superior al segundo. Agua supera
 //a fuego, fuego a planta y planta a agua. Y cualquier otro caso es falso.
 bool superaA(Pokemon p1, Pokemon p2) {
-    if (tipoDePokemon(p1) == "agua") {
-        return tipoDePokemon(p2) == "fuego";
-    } else if (tipoDePokemon(p1) == "fuego") {
-        return tipoDePokemon(p2) == "planta";
-    } else if (tipoDePokemon(p1) == "planta") {
-        return tipoDePokemon(p2) == "agua";
+    if (tipoDePokemon(p1) == "Agua") {
+        return tipoDePokemon(p2) == "Fuego";
+    } else if (tipoDePokemon(p1) == "Fuego") {
+        return tipoDePokemon(p2) == "Planta";
+    } else if (tipoDePokemon(p1) == "Planta") {
+        return tipoDePokemon(p2) == "Agua";
     }
     return false;
 }
@@ -73,7 +74,7 @@ int cantidadDePokemonDe(TipoDePokemon tipo, Entrenador e) {
 //Devuelve el pokémon número i de los pokemones del entrenador.
 //Precondición: existen al menos i − 1 pokemones.
 Pokemon pokemonNro(int i, Entrenador e) {
-    return e->pokemon[i];
+    return e->pokemon[i - 1];
 }
 // Indica si algun pokemon del entrenador e le gana al pokemon p
 bool algunoLeGana(Pokemon p, Entrenador e) {
@@ -98,3 +99,31 @@ bool leGanaATodos(Entrenador e1, Entrenador e2) {
    return esGanador;
 }
 
+int main() {
+    Pokemon p1 = consPokemon("Fuego");
+    Pokemon p2 = consPokemon("Agua");
+    Pokemon p3 = consPokemon("Planta");
+    Pokemon p4 = consPokemon("Planta");
+
+    Pokemon* ps1 = new Pokemon[2];
+    Pokemon* ps2 = new Pokemon[2];
+    ps1[0] = p1;
+    ps1[1] = p2;
+    ps2[0] = p3;
+    ps2[1] = p4;
+
+    Entrenador e1 = consEntrenador("Ash", 2, ps1);
+    Entrenador e2 = consEntrenador("Brook", 2, ps2);
+
+    //cout << pokemonNro(1, e1)->tipo << endl;
+    //cout << pokemonNro(2, e1)->tipo << endl;
+    //cout << pokemonNro(1, e2)->tipo << endl;
+    //cout << pokemonNro(2, e2)->tipo << endl;
+
+    //cout << cantidadDePokemon(e1) << endl;
+    //cout << cantidadDePokemonDe("Planta", e2) << endl;
+
+    //cout << leGanaATodos(e1, e2) << endl;
+    //cout << leGanaATodos(e2, e1) << endl;
+    return 0;
+}

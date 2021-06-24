@@ -187,8 +187,10 @@ Fraccion sumF(Fraccion f1, Fraccion f2) {
     return {1, 2};
 }
 
+/*
 int main() {
     string p = perteneceRecursive('c', "abfd") ? "SI" : "NO";
     cout << p << endl;
     return 0;
 }
+ */

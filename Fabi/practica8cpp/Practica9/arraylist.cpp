@@ -35,6 +35,7 @@ int get(int i, ArrayList xs) {
 //Reemplaza el iésimo elemento por otro dado.
 int set(int i, int x, ArrayList xs) {
     xs->elementos[i] = x;
+    return x;
 }
 //Decrementa o aumenta la capacidad del array.
 //Nota: en caso de decrementarla, se pierden los elementos del final de la lista.
