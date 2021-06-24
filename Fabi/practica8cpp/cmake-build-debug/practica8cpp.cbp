@@ -80,6 +80,18 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/Practica9/persona.cpp">
+			<Option target="practica8cpp"/>
+		</Unit>
+		<Unit filename="C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/Practica9/persona.h">
+			<Option target="practica8cpp"/>
+		</Unit>
+		<Unit filename="C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/Practica9/pokemon.cpp">
+			<Option target="practica8cpp"/>
+		</Unit>
+		<Unit filename="C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/Practica9/pokemon.h">
+			<Option target="practica8cpp"/>
+		</Unit>
 		<Unit filename="C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/main.cpp">
 			<Option target="practica8cpp"/>
 		</Unit>

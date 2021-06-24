@@ -4,6 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/Practica9/persona.cpp" "C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/cmake-build-debug/CMakeFiles/practica8cpp.dir/Practica9/persona.cpp.obj"
+  "C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/Practica9/pokemon.cpp" "C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/cmake-build-debug/CMakeFiles/practica8cpp.dir/Practica9/pokemon.cpp.obj"
   "C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/main.cpp" "C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp/cmake-build-debug/CMakeFiles/practica8cpp.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "MSVC")

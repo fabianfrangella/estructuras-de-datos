@@ -115,21 +115,27 @@ void primerosNRecursive(int n, string s) {
     }
 }
 //Propósito: indica si un char c aparece en el string s.
-int pertenece(char c, string s) {
-    int i = 1;
-    bool encontrado = c == s[0];
-    while (!encontrado && i < s.length()) {
-        encontrado = c == s[i];
+bool pertenece(char c, string s) {
+    int i = 0;
+    while (c != s[i] && i < s.length()) {
         i++;
     }
-    return encontrado ? 0 : 1;
+    return i < s.length();
 }
 
-int perteneceRecursive(char c, string s) {
-    return c == s[0] ? 0
-        : s.length() == 0 ? 1
-        : perteneceRecursive(c, s.substr(1));
+string sinLosPrimerosN(int n, string s) {
+    string str;
+    for (int i = n; i < s.length(); i++) {
+        str += s[i];
+    }
+    return str;
 }
+
+bool perteneceRecursive(char c, string s) {
+    return s.length() > 0 &&
+            (c == s[0] || perteneceRecursive(c, sinLosPrimerosN(1, s)));
+}
+
 //Propósito: devuelve la cantidad de apariciones de un char c en el string s.
 int apariciones(char c, string s) {
     int apariciones = 0;
@@ -182,6 +188,7 @@ Fraccion sumF(Fraccion f1, Fraccion f2) {
 }
 
 int main() {
-    cout << perteneceRecursive('n', "asdfn");
+    string p = perteneceRecursive('c', "abfd") ? "SI" : "NO";
+    cout << p << endl;
     return 0;
 }

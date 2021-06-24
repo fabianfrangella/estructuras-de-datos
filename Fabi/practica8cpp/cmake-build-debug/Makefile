@@ -126,6 +126,60 @@ practica8cpp\fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica8cpp.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica8cpp.dir\build
 .PHONY : practica8cpp\fast
 
+Practica9\persona.obj: Practica9\persona.cpp.obj
+
+.PHONY : Practica9\persona.obj
+
+# target to build an object file
+Practica9\persona.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica8cpp.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica8cpp.dir\Practica9\persona.cpp.obj
+.PHONY : Practica9\persona.cpp.obj
+
+Practica9\persona.i: Practica9\persona.cpp.i
+
+.PHONY : Practica9\persona.i
+
+# target to preprocess a source file
+Practica9\persona.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica8cpp.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica8cpp.dir\Practica9\persona.cpp.i
+.PHONY : Practica9\persona.cpp.i
+
+Practica9\persona.s: Practica9\persona.cpp.s
+
+.PHONY : Practica9\persona.s
+
+# target to generate assembly for a file
+Practica9\persona.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica8cpp.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica8cpp.dir\Practica9\persona.cpp.s
+.PHONY : Practica9\persona.cpp.s
+
+Practica9\pokemon.obj: Practica9\pokemon.cpp.obj
+
+.PHONY : Practica9\pokemon.obj
+
+# target to build an object file
+Practica9\pokemon.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica8cpp.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica8cpp.dir\Practica9\pokemon.cpp.obj
+.PHONY : Practica9\pokemon.cpp.obj
+
+Practica9\pokemon.i: Practica9\pokemon.cpp.i
+
+.PHONY : Practica9\pokemon.i
+
+# target to preprocess a source file
+Practica9\pokemon.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica8cpp.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica8cpp.dir\Practica9\pokemon.cpp.i
+.PHONY : Practica9\pokemon.cpp.i
+
+Practica9\pokemon.s: Practica9\pokemon.cpp.s
+
+.PHONY : Practica9\pokemon.s
+
+# target to generate assembly for a file
+Practica9\pokemon.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica8cpp.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica8cpp.dir\Practica9\pokemon.cpp.s
+.PHONY : Practica9\pokemon.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -162,6 +216,12 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... practica8cpp
+	@echo ... Practica9/persona.obj
+	@echo ... Practica9/persona.i
+	@echo ... Practica9/persona.s
+	@echo ... Practica9/pokemon.obj
+	@echo ... Practica9/pokemon.i
+	@echo ... Practica9/pokemon.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
