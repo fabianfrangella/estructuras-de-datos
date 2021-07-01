@@ -17,9 +17,9 @@ struct LinkedListSt {
 //Crea una lista vacía.
 LinkedList nil() {
     LinkedListSt* ls = new LinkedListSt;
-    ls->actual = NULL;
-    ls->primero = NULL;
-    ls->ultimo = NULL;
+    ls->actual = nullptr;
+    ls->primero = nullptr;
+    ls->ultimo = nullptr;
     ls->cantidad = 0;
     return ls;
 }
@@ -38,7 +38,7 @@ void cons(int x, LinkedList xs) {
     node->siguiente = xs->primero;
     xs->primero = node;
     xs->cantidad++;
-    if (xs->ultimo == NULL) {
+    if (xs->ultimo == nullptr) {
         xs->ultimo = node;
     }
 }
@@ -49,8 +49,8 @@ void tail(LinkedList xs) {
     delete tmp;
     xs->cantidad--;
 
-    if (xs->primero == NULL) {
-        xs->ultimo = NULL;
+    if (xs->primero == nullptr) {
+        xs->ultimo = nullptr;
     }
 }
 //Devuelve la cantidad de elementos.
@@ -61,9 +61,9 @@ int length(LinkedList xs) {
 void snoc(int x, LinkedList xs) {
     NodoL* node = new NodoL;
     node->elem = x;
-    node->siguiente = NULL;
+    node->siguiente = nullptr;
     xs->cantidad++;
-    if (xs->ultimo == NULL) {
+    if (xs->ultimo == nullptr) {
         xs->ultimo = node;
         xs->primero = node;
         return;
@@ -89,7 +89,7 @@ void next(LinkedList xs) {
 }
 //Indica si el recorrido ha terminado.
 bool finished(LinkedList xs) {
-    return xs->actual == NULL;
+    return xs->actual == nullptr;
 }
 //Libera la memoria ocupada por la lista.
 void destroyL(LinkedList xs) {

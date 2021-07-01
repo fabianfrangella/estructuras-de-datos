@@ -69,5 +69,5 @@ LinkedList copy(LinkedList xs) {
 //Agrega todos los elementos de la segunda lista al final de los de la primera.
 //Nota: notar que el costo mejoraría si snoc fuese O(1), ¿cómo podría serlo?
 void append(LinkedList xs, LinkedList ys) {
-    
+
 }

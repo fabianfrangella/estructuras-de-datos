@@ -1,6 +1,11 @@
 #include <iostream>
+#include "linkedList.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    LinkedList list = nil();
+    cons(10, list);
+    cons(20, list);
+
+    std::cout << head(list) << std::endl;
     return 0;
 }
