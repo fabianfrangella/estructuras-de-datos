@@ -153,6 +153,33 @@ linkedList.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica10.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica10.dir\linkedList.cpp.s
 .PHONY : linkedList.cpp.s
 
+linkedListUser.obj: linkedListUser.cpp.obj
+
+.PHONY : linkedListUser.obj
+
+# target to build an object file
+linkedListUser.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica10.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica10.dir\linkedListUser.cpp.obj
+.PHONY : linkedListUser.cpp.obj
+
+linkedListUser.i: linkedListUser.cpp.i
+
+.PHONY : linkedListUser.i
+
+# target to preprocess a source file
+linkedListUser.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica10.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica10.dir\linkedListUser.cpp.i
+.PHONY : linkedListUser.cpp.i
+
+linkedListUser.s: linkedListUser.cpp.s
+
+.PHONY : linkedListUser.s
+
+# target to generate assembly for a file
+linkedListUser.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica10.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica10.dir\linkedListUser.cpp.s
+.PHONY : linkedListUser.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -192,6 +219,9 @@ help:
 	@echo ... linkedList.obj
 	@echo ... linkedList.i
 	@echo ... linkedList.s
+	@echo ... linkedListUser.obj
+	@echo ... linkedListUser.i
+	@echo ... linkedListUser.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

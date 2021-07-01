@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/ejercicios-c/practica10/linkedList.cpp" "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/ejercicios-c/practica10/cmake-build-debug/CMakeFiles/practica10.dir/linkedList.cpp.obj"
+  "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/ejercicios-c/practica10/linkedListUser.cpp" "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/ejercicios-c/practica10/cmake-build-debug/CMakeFiles/practica10.dir/linkedListUser.cpp.obj"
   "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/ejercicios-c/practica10/main.cpp" "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/ejercicios-c/practica10/cmake-build-debug/CMakeFiles/practica10.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "MSVC")

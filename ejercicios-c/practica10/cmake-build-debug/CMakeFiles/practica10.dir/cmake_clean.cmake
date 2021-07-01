@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/practica10.dir/linkedList.cpp.obj"
+  "CMakeFiles/practica10.dir/linkedListUser.cpp.obj"
   "CMakeFiles/practica10.dir/main.cpp.obj"
   "practica10.exe"
   "practica10.exe.manifest"
