@@ -1,0 +1,177 @@
+module Torneo (equipo,equipoDe, equipoGoleador, jugadores, comenzarTorneo, equipos, registrarGol, ingresarJugador, sinEquipoGoleador) where
+
+import Equipo
+
+--                  k: Nombre v: Equipo - k: Jugador v:Equipo   
+data Torneo = ConsT (Map Nombre Equipo) (Map Nombre Nombre) (PriorityQueue Equipo)
+
+
+--a) Invariantes de representacion:
+--   Todo Equipo que existe en una estructura debe existir en las 3
+
+--Propósito: dado un nombre de equipo devuelve al equipo con dicho nombre.
+--Eficiencia: O(log N)
+equipo :: Nombre -> Torneo -> Maybe Equipo
+equipo nom (ConsT me mj pq) = lookupM nom me
+
+
+
+--Propósito: dado un nombre de jugador devuelve el equipo en el que juega.
+--Nota: el jugador puede no existir, pero si existe, su equipo también.
+-- Eficiencia: O(log N)
+equipoDe :: Nombre -> Torneo -> Maybe Equipo
+equipoDe nom (ConstT me mj pq) = lookupM (fromJust (lookupM nom mj)) me
+
+--Propósito: denota la lista de jugadores del torneo.
+--Eficiencia: O(N)
+jugadores :: Torneo -> [Nombre]
+jugadores (ConsT me mj pq) = 
+    if isEmptyPQ pq
+        then []
+        else jugadores (maxPQ pq) ++ jugadores (deleteMaxPQ pq)
+
+--Propósito: indica el equipo que más goles anotó.
+--Precondición: existe al menos un equipo en el torneo.
+--Eficiencia: O(1)
+equipoGoleador :: Torneo -> Equipo
+equipoGoleador (ConsT me mj pq) = maxPQ pq
+
+--Propósito: devuelve un torneo en el que participan los equipos dados.
+--Nota: los equipos ya poseen jugadores, no olvidar sumarlos a la estructura.
+--Eficiencia: O(N2)
+comenzarTorneo :: [Equipo] -> Torneo
+comenzarTorneo xs = 
+    ConsT (agregarEquiposM xs) (agregarJugadoresM xs) (agregarEquiposPQ xs) 
+
+-- Eficiencia: O(N . Log N)
+agregarEquiposM :: [Equipo] -> Map Nombre Equipo
+agregarEquiposM [] = emptyM
+agregarEquiposM (e:es) = assocM (nombre e) e (agregarEquiposM es)
+
+-- Eficiencia: O(N2)
+agregarJugadoresM :: [Equipo] -> Map Nombre Nombre
+agregarJugadoresM xs = agregarJugadoresM' xs emptyM
+
+-- Eficiencia: O(N2)
+agregarJugadoresM' :: [Equipo] -> Map Nombre Nombre -> Map Nombre Nombre
+agregarJugadoresM' [] m = m
+agregarJugadoresM' (x:xs) m = agregarJugadoresM' xs (agregarJugadoresEQ (jugadores x) x)
+
+-- Eficiencia: O(N . Log N)
+agregarJugadoresEQ :: [Nombre] -> Equipo ->  Map Nombre Nombre
+agregarJugadoresEQ [] e = emptyM
+agregarJugadoresEQ (x:xs) e = assocM x e (agregarJugadoresEQ xs e)
+
+-- Eficiencia: O(N . log N)
+agregarEquiposPQ :: [Equipo] -> PriorityQueue Equipo
+agregarEquiposPQ [] = emptyPQ
+agregarEquiposPQ (x:xs) = insertPQ x (agregarEquiposPQ xs)
+
+
+--Propósito: denota la lista de equipos del torneo.
+--Eficiencia: O(N log N)
+equipos :: Torneo -> [Equipo]
+equipos (ConsT me mj pq) = 
+    if isEmptyPQ pq 
+        then []
+        else [maxPQ pq] ++ equipos (deleteMaxPQ pq)
+
+--Propósito: dados un nombre de jugador y un nombre de equipo, ingresa un gol anotado por el jugador dado para el equipo
+--dado.
+--Precondición: existe un jugador y un equipo con dichos nombres.
+--Eficiencia: O(N log N)
+registrarGol :: Nombre -> Nombre -> Torneo -> Torneo
+registrarGol nj ne (ConsT me mj pq) = ConsT (registrarGolM nj ne me) mj (registrarGolPQ nj ne pq)
+
+-- Eficiencia: O (log N)
+registrarGolM :: Nombre -> Nombre -> Map Nombre Equipo -> Map Nombre Equipo
+registrarGolM nj ne m = assocM ne (anotarGol nj (fromJust (lookupM ne m)))
+
+-- Eficiencia: O(N log N)
+registrarGolPQ :: Nombre -> Nombre -> PriorityQueue Equipo
+registrarGolPQ nj ne pq = 
+    let equipo = maxPQ pq in
+        if nombre (equipo) == ne
+            then insertPQ (anotarGol nj equipo) (deleteMaxPQ pq)
+            else insertPQ equipo (deleteMaxPQ pq)
+
+--Propósito: dado un nombre de jugador y un nombre de equipo, ingresa al torneo dicho jugador, con cero goles, agregándolo
+--al equipo dado.
+--Eficiencia: O(N log N)
+ingresarJugador :: Nombre -> Nombre -> Torneo -> Torneo
+ingresarJugador nj ne (ConsT me mj pq) = 
+    let equipo = fichar nj (fromJust (lookupM ne me)) in 
+        ConsT (assocM ne equipo) (assocM nj ne) (reemplazarEquipo equipo pq)
+
+-- Eficiencia: O(N log N)
+reemplazarEquipo :: Equipo -> PriorityQueue Equipo
+reemplazarEquipo eq pq = 
+    let max = maxPQ pq in
+        if nombre eq == nombre max
+            then insertPQ eq (deleteMaxPQ pq)
+            else insertPQ max (reemplazarEquipo deleteMaxPQ pq)
+
+--Propósito: devuelve un torneo donde se ha quitado al equipo con más goles anotados.
+--Eficiencia: O(N log N)
+sinEquipoGoleador :: Torneo -> Torneo
+sinEquipoGoleador (ConsT me mj pq) = 
+    let goleador = maxPQ pq in
+        ConsT (deleteM (nombre goleador) me) (eliminarJugadoresDeEquipo goleador mj) (deleteMaxPQ pq)
+
+-- Eficiencia: O(N log N)
+eliminarJugadoresDeEquipo :: Equipo -> Map Nombre Nombre -> Map Nombre Nombre
+eliminarJugadoresDeEquipo eq map = eliminarJugadores (jugadores eq) map
+
+-- Eficiencia: O(N log N)
+eliminarJugadores :: [Nombre] -> Map Nombre Nombre
+eliminarJugadores [] m = m 
+eliminarJugadores (x:xs) = 
+    if existeJugador (nombre x) m 
+        then deleteM (nombre x) (eliminarJugadores xs m)
+        else eliminarJugadores xs m
+
+-- Eficiencia: O(log n)
+existeJugador :: Nombre -> Map Nombre Nombre
+existeJugador nom map = isJust (lookupM nom map)
+
+-- Eficiencia: O(1)
+isJust :: Maybe a -> Bool
+isJust Just a = True
+isJust _ = False
+
+---- FUNCIONES DE USUARIO
+
+import Torneo
+
+--Propósito: dada una lista de pares de nombre de jugador (primera componente) y nombre de equipo (segunda componente),
+--anota un gol en el torneo por cada elemento en la lista.
+-- Eficiencia: O(N2)
+anotarGoles :: [(Nombre, Nombre)] -> Torneo -> Torneo
+anotarGoles [] t = t 
+anotarGoles (x:xs) t = anotarGoles xs (registrarGol (fst x) (snd x) t)
+
+--Propósito: dado un número n denota a los n equipos más goleadores, ordenados por cantidad de goles de mayor a menor.
+--Precondición: existen al menos n equipos en el torneo.
+--Eficiencia: O(N log N)
+mejoresEquipos :: Int -> Torneo -> [Equipo]
+mejoresEquipos 0 t = []
+mejoresEquipos n t = [equipoGoleador t] ++ mejoresEquipos (n - 1) (sinEquipoGoleador t)
+
+--Propósito: denota la lista de jugadores del torneo junto con sus respectivos goles.
+--Eficiencia: O(N log N)
+jugadoresYGoles :: Torneo -> [(Nombre, Int)]
+jugadoresYGoles t = 
+    let js = jugadores t in 
+        jugadoresYGoles' js t
+
+-- Eficiencia: O(N log N)
+jugadoresYGoles' :: [Nombre] -> Torneo -> [(Nombre, Int)]
+jugadoresYGoles [] t = []
+jugadoresYGoles (x:xs) t = 
+    let equipo = fromJust((equipoDe x t)) in 
+        [x, (golesDe x equipo)] ++ jugadoresYGoles xs t
+
+-- n) Dar una posible representación para el tipo Equipo, de manera de que se pueda cumplir con el orden dado para cada
+--operación de la interfaz, pero sin implementarlas.
+         
+data Equipo = ConsE Nombre (Map Nombre Int) [Nombre]
