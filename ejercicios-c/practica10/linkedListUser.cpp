@@ -2,6 +2,7 @@
 #include <iostream>
 
 //Devuelve la suma de todos los elementos.
+// O(n)
 int sumatoria(LinkedList xs) {
     int resultado = 0;
     initialize(xs);
@@ -12,6 +13,7 @@ int sumatoria(LinkedList xs) {
     return resultado;
 }
 //Incrementa en uno todos los elementos.
+// O(n)
 void sucesores(LinkedList xs) {
     initialize(xs);
     while (!finished(xs)) {
@@ -20,6 +22,7 @@ void sucesores(LinkedList xs) {
     }
 }
 //Indica si el elemento pertenece a la lista.
+// O(n)
 bool pertenece(int x, LinkedList xs) {
     bool existe = false;
     initialize(xs);
@@ -30,6 +33,7 @@ bool pertenece(int x, LinkedList xs) {
     return existe;
 }
 //Indica la cantidad de elementos iguales a x.
+// O(n)
 int apariciones(int x, LinkedList xs) {
     int i = 0;
     initialize(xs);
@@ -40,6 +44,7 @@ int apariciones(int x, LinkedList xs) {
     return i;
 }
 //Devuelve el elemento más chico de la lista.
+// O(n)
 int minimo(LinkedList xs) {
     int resultado = head(xs);
     initialize(xs);
@@ -51,7 +56,18 @@ int minimo(LinkedList xs) {
 }
 //Dada una lista genera otra con los mismos elementos, en el mismo orden.
 //Nota: notar que el costo mejoraría si snoc fuese O(1), ¿cómo podría serlo?
-LinkedList copy(LinkedList xs);
+// O(n)
+LinkedList copy(LinkedList xs) {
+    LinkedList list = nil();
+    initialize(xs);
+    while(!finished(xs)) {
+        snoc(current(xs), list);
+        next(xs);
+    }
+    return list;
+}
 //Agrega todos los elementos de la segunda lista al final de los de la primera.
 //Nota: notar que el costo mejoraría si snoc fuese O(1), ¿cómo podría serlo?
-void append(LinkedList xs, LinkedList ys);
+void append(LinkedList xs, LinkedList ys) {
+    
+}
