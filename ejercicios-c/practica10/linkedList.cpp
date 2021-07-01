@@ -93,9 +93,7 @@ bool finished(LinkedList xs) {
 }
 //Libera la memoria ocupada por la lista.
 void destroyL(LinkedList xs) {
-    initialize(xs);
-    while (!finished(xs)) {
-        next(xs);
+    while (!isEmpty(xs)) {
         tail(xs);
     }
     delete xs;

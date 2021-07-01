@@ -126,6 +126,33 @@ practica10\fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica10.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica10.dir\build
 .PHONY : practica10\fast
 
+Set.obj: Set.cpp.obj
+
+.PHONY : Set.obj
+
+# target to build an object file
+Set.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica10.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica10.dir\Set.cpp.obj
+.PHONY : Set.cpp.obj
+
+Set.i: Set.cpp.i
+
+.PHONY : Set.i
+
+# target to preprocess a source file
+Set.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica10.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica10.dir\Set.cpp.i
+.PHONY : Set.cpp.i
+
+Set.s: Set.cpp.s
+
+.PHONY : Set.s
+
+# target to generate assembly for a file
+Set.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\practica10.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\practica10.dir\Set.cpp.s
+.PHONY : Set.cpp.s
+
 linkedList.obj: linkedList.cpp.obj
 
 .PHONY : linkedList.obj
@@ -216,6 +243,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... practica10
+	@echo ... Set.obj
+	@echo ... Set.i
+	@echo ... Set.s
 	@echo ... linkedList.obj
 	@echo ... linkedList.i
 	@echo ... linkedList.s

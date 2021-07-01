@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/practica10.dir/Set.cpp.obj"
   "CMakeFiles/practica10.dir/linkedList.cpp.obj"
   "CMakeFiles/practica10.dir/linkedListUser.cpp.obj"
   "CMakeFiles/practica10.dir/main.cpp.obj"
