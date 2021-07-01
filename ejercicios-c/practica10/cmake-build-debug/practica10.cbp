@@ -80,6 +80,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/ejercicios-c/practica10/Queue.cpp">
+			<Option target="practica10"/>
+		</Unit>
+		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/ejercicios-c/practica10/Queue.h">
+			<Option target="practica10"/>
+		</Unit>
 		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/ejercicios-c/practica10/Set.cpp">
 			<Option target="practica10"/>
 		</Unit>
