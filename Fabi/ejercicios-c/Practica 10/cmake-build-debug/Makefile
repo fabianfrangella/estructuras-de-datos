@@ -114,7 +114,7 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named practica10
+# Target rules for targets named Practica 10
 
 # Build rule for target.
 practica10: cmake_check_build_system

@@ -114,7 +114,7 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named practica8cpp
+# Target rules for targets named Practica 8
 
 # Build rule for target.
 practica8cpp: cmake_check_build_system

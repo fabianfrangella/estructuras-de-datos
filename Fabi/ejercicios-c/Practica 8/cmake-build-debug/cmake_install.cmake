@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/practica8cpp
+# Install script for directory: C:/Users/fabia/Desktop/estructuras-de-datos/Fabi/Practica 8
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

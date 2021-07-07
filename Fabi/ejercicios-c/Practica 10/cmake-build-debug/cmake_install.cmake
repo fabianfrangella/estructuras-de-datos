@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/ejercicios-c/practica10
+# Install script for directory: C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/ejercicios-c/Practica 10
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
