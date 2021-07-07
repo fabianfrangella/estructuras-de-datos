@@ -38,19 +38,19 @@ NULL=nul
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = C:\Users\fabia\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\211.7442.42\bin\cmake\win\bin\cmake.exe
+CMAKE_COMMAND = "C:\Users\Fabian Frangella\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\211.7442.42\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = C:\Users\fabia\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\211.7442.42\bin\cmake\win\bin\cmake.exe -E rm -f
+RM = "C:\Users\Fabian Frangella\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\211.7442.42\bin\cmake\win\bin\cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\fabia\Desktop\estructuras-de-datos\Fabi
+CMAKE_SOURCE_DIR = "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\fabia\Desktop\estructuras-de-datos\Fabi\cmake-build-debug
+CMAKE_BINARY_DIR = "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\cmake-build-debug"
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -77,14 +77,14 @@ clean: CMakeFiles\Fabi.dir\clean
 CMakeFiles\Fabi.dir\all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Fabi.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Fabi.dir\depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Fabi.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Fabi.dir\build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\fabia\Desktop\estructuras-de-datos\Fabi\cmake-build-debug\CMakeFiles --progress-num=1,2 "Built target Fabi"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\cmake-build-debug\CMakeFiles" --progress-num=1,2 "Built target Fabi"
 .PHONY : CMakeFiles\Fabi.dir\all
 
 # Build rule for subdir invocation for target.
 CMakeFiles\Fabi.dir\rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\fabia\Desktop\estructuras-de-datos\Fabi\cmake-build-debug\CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\cmake-build-debug\CMakeFiles" 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) CMakeFiles\Fabi.dir\all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\fabia\Desktop\estructuras-de-datos\Fabi\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\cmake-build-debug\CMakeFiles" 0
 .PHONY : CMakeFiles\Fabi.dir\rule
 
 # Convenience name for target.

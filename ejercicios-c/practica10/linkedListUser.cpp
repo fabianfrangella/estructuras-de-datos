@@ -43,6 +43,7 @@ int apariciones(int x, LinkedList xs) {
     }
     return i;
 }
+
 //Devuelve el elemento más chico de la lista.
 // O(n)
 int minimo(LinkedList xs) {
@@ -53,21 +54,4 @@ int minimo(LinkedList xs) {
         next(xs);
     }
     return resultado;
-}
-//Dada una lista genera otra con los mismos elementos, en el mismo orden.
-//Nota: notar que el costo mejoraría si snoc fuese O(1), ¿cómo podría serlo?
-// O(n)
-LinkedList copy(LinkedList xs) {
-    LinkedList list = nil();
-    initialize(xs);
-    while(!finished(xs)) {
-        snoc(current(xs), list);
-        next(xs);
-    }
-    return list;
-}
-//Agrega todos los elementos de la segunda lista al final de los de la primera.
-//Nota: notar que el costo mejoraría si snoc fuese O(1), ¿cómo podría serlo?
-void append(LinkedList xs, LinkedList ys) {
-
 }

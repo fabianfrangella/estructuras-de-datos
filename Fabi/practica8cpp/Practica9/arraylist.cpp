@@ -13,7 +13,7 @@ ArrayList newArrayList() {
     ArrayListSt* arr = new ArrayListSt;
     arr->cantidad = 0;
     arr->capacidad = 16;
-    arr->elementos = new int;
+    arr->elementos = new int[16];
     return arr;
 }
 //Crea una lista con 0 elementos y una capacidad dada por parámetro.
@@ -21,7 +21,7 @@ ArrayList newArrayListWith(int capacidad) {
     ArrayListSt* arr = new ArrayListSt;
     arr->cantidad = 0;
     arr->capacidad = capacidad;
-    arr->elementos = new int;
+    arr->elementos = new int[capacidad];
     return arr;
 }
 //Devuelve la cantidad de elementos existentes.

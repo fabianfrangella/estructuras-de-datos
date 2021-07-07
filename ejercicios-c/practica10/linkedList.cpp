@@ -98,3 +98,22 @@ void destroyL(LinkedList xs) {
     }
     delete xs;
 }
+
+//Dada una lista genera otra con los mismos elementos, en el mismo orden.
+//Nota: notar que el costo mejoraría si snoc fuese O(1), ¿cómo podría serlo?
+// O(n)
+LinkedList copy(LinkedList xs) {
+    LinkedList list = nil();
+    initialize(xs);
+    while(!finished(xs)) {
+        snoc(current(xs), list);
+        next(xs);
+    }
+    return list;
+}
+
+void append(LinkedList xs, LinkedList ys) {
+    xs->ultimo->siguiente = ys->primero;
+    xs->ultimo = ys->ultimo;
+    delete ys;
+}
