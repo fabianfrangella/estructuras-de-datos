@@ -5,7 +5,11 @@
 void printArr(ArrayList arr) {
     std:: cout << "[";
     for (int i = 0; i < lengthAL(arr); i ++) {
-        std::cout << get(i, arr) << ", ";
+        if (i + 1 != lengthAL(arr)) {
+            std::cout << get(i, arr) << ",";
+            continue;
+        }
+        std::cout << get(i, arr) << "";
     }
     std:: cout << "]" << std::endl;
 }
