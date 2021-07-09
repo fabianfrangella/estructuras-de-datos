@@ -50,7 +50,8 @@ void resize(int capacidad, ArrayList xs) {
 
 //Agrega un elemento al final de la lista.
 void add(int x, ArrayList xs) {
-    xs->elementos[xs->cantidad + 1] = x;
+    xs->elementos[xs->cantidad] = x;
+    xs->cantidad++;
 }
 //Borra el último elemento de la lista.
 void remove(ArrayList xs) {

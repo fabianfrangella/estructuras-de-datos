@@ -9,8 +9,7 @@ struct NodeT {
 };
 
 Tree emptyT() {
-    Tree t = new NodeT;
-    return t;
+    return nullptr;
 }
 Tree nodeT(int elem, Tree left, Tree right) {
     Tree t = new NodeT;
