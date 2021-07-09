@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/ArrayList.cpp
+ArrayList.h
+C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/ArrayList.h
+iostream
+-
+
+C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/ArrayList.h
+
