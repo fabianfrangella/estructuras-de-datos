@@ -1,1 +1,0 @@
-CMakeLists.txt not found in C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\ejercicios-c\practica10 Select CMakeLists.txt

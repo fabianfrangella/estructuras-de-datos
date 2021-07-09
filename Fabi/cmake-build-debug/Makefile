@@ -126,6 +126,87 @@ Fabi\fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Fabi.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Fabi.dir\build
 .PHONY : Fabi\fast
 
+ejercicios-c\Practica_11\Tree.obj: ejercicios-c\Practica_11\Tree.cpp.obj
+
+.PHONY : ejercicios-c\Practica_11\Tree.obj
+
+# target to build an object file
+ejercicios-c\Practica_11\Tree.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Fabi.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\Tree.cpp.obj
+.PHONY : ejercicios-c\Practica_11\Tree.cpp.obj
+
+ejercicios-c\Practica_11\Tree.i: ejercicios-c\Practica_11\Tree.cpp.i
+
+.PHONY : ejercicios-c\Practica_11\Tree.i
+
+# target to preprocess a source file
+ejercicios-c\Practica_11\Tree.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Fabi.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\Tree.cpp.i
+.PHONY : ejercicios-c\Practica_11\Tree.cpp.i
+
+ejercicios-c\Practica_11\Tree.s: ejercicios-c\Practica_11\Tree.cpp.s
+
+.PHONY : ejercicios-c\Practica_11\Tree.s
+
+# target to generate assembly for a file
+ejercicios-c\Practica_11\Tree.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Fabi.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\Tree.cpp.s
+.PHONY : ejercicios-c\Practica_11\Tree.cpp.s
+
+ejercicios-c\Practica_11\TreeFunctions.obj: ejercicios-c\Practica_11\TreeFunctions.cpp.obj
+
+.PHONY : ejercicios-c\Practica_11\TreeFunctions.obj
+
+# target to build an object file
+ejercicios-c\Practica_11\TreeFunctions.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Fabi.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\TreeFunctions.cpp.obj
+.PHONY : ejercicios-c\Practica_11\TreeFunctions.cpp.obj
+
+ejercicios-c\Practica_11\TreeFunctions.i: ejercicios-c\Practica_11\TreeFunctions.cpp.i
+
+.PHONY : ejercicios-c\Practica_11\TreeFunctions.i
+
+# target to preprocess a source file
+ejercicios-c\Practica_11\TreeFunctions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Fabi.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\TreeFunctions.cpp.i
+.PHONY : ejercicios-c\Practica_11\TreeFunctions.cpp.i
+
+ejercicios-c\Practica_11\TreeFunctions.s: ejercicios-c\Practica_11\TreeFunctions.cpp.s
+
+.PHONY : ejercicios-c\Practica_11\TreeFunctions.s
+
+# target to generate assembly for a file
+ejercicios-c\Practica_11\TreeFunctions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Fabi.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\TreeFunctions.cpp.s
+.PHONY : ejercicios-c\Practica_11\TreeFunctions.cpp.s
+
+ejercicios-c\Practica_11\main.obj: ejercicios-c\Practica_11\main.cpp.obj
+
+.PHONY : ejercicios-c\Practica_11\main.obj
+
+# target to build an object file
+ejercicios-c\Practica_11\main.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Fabi.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\main.cpp.obj
+.PHONY : ejercicios-c\Practica_11\main.cpp.obj
+
+ejercicios-c\Practica_11\main.i: ejercicios-c\Practica_11\main.cpp.i
+
+.PHONY : ejercicios-c\Practica_11\main.i
+
+# target to preprocess a source file
+ejercicios-c\Practica_11\main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Fabi.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\main.cpp.i
+.PHONY : ejercicios-c\Practica_11\main.cpp.i
+
+ejercicios-c\Practica_11\main.s: ejercicios-c\Practica_11\main.cpp.s
+
+.PHONY : ejercicios-c\Practica_11\main.s
+
+# target to generate assembly for a file
+ejercicios-c\Practica_11\main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Fabi.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\main.cpp.s
+.PHONY : ejercicios-c\Practica_11\main.cpp.s
+
 practica8.obj: practica8.cpp.obj
 
 .PHONY : practica8.obj
@@ -162,6 +243,15 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Fabi
+	@echo ... ejercicios-c/Practica_11/Tree.obj
+	@echo ... ejercicios-c/Practica_11/Tree.i
+	@echo ... ejercicios-c/Practica_11/Tree.s
+	@echo ... ejercicios-c/Practica_11/TreeFunctions.obj
+	@echo ... ejercicios-c/Practica_11/TreeFunctions.i
+	@echo ... ejercicios-c/Practica_11/TreeFunctions.s
+	@echo ... ejercicios-c/Practica_11/main.obj
+	@echo ... ejercicios-c/Practica_11/main.i
+	@echo ... ejercicios-c/Practica_11/main.s
 	@echo ... practica8.obj
 	@echo ... practica8.i
 	@echo ... practica8.s

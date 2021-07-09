@@ -1,4 +1,7 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Fabi.dir/ejercicios-c/Practica_11/Tree.cpp.obj"
+  "CMakeFiles/Fabi.dir/ejercicios-c/Practica_11/TreeFunctions.cpp.obj"
+  "CMakeFiles/Fabi.dir/ejercicios-c/Practica_11/main.cpp.obj"
   "CMakeFiles/Fabi.dir/practica8.cpp.obj"
   "Fabi.exe"
   "Fabi.exe.manifest"

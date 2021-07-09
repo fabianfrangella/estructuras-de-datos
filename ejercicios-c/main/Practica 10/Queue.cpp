@@ -67,8 +67,15 @@ int lengthQ(Queue q) {
 //Nota: Si bien se libera memoria de q2, no necesariamente la de sus nodos.
 //Costo: O(1).
 void mergeQ(Queue q1, Queue q2) {
-    
+    q1->ultimo->siguiente = q2->primero;
+    q1->ultimo = q2->ultimo;
+    delete q2;
 }
 //Libera la memoria ocupada por la lista.
 //Costo: O(n).
-void destroyQ(Queue q);
+void destroyQ(Queue q) {
+    while (!isEmptyQ(q)) {
+        dequeue(q);
+    }
+    delete q;
+}

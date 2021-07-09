@@ -79,17 +79,80 @@ CMakeFiles\Fabi.dir\practica8.cpp.s: cmake_force
  /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\Fabi.dir\practica8.cpp.s /c "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\practica8.cpp"
 <<
 
+CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\Tree.cpp.obj: CMakeFiles\Fabi.dir\flags.make
+CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\Tree.cpp.obj: "..\ejercicios-c\Practica 11\Tree.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Fabi.dir/ejercicios-c/Practica_11/Tree.cpp.obj"
+	C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\Fabi.dir\ejercicios-c\Practica_11\Tree.cpp.obj /FdCMakeFiles\Fabi.dir\ /FS -c "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\ejercicios-c\Practica 11\Tree.cpp"
+<<
+
+CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\Tree.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Fabi.dir/ejercicios-c/Practica_11/Tree.cpp.i"
+	C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe > CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\Tree.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\ejercicios-c\Practica 11\Tree.cpp"
+<<
+
+CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\Tree.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Fabi.dir/ejercicios-c/Practica_11/Tree.cpp.s"
+	C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\Fabi.dir\ejercicios-c\Practica_11\Tree.cpp.s /c "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\ejercicios-c\Practica 11\Tree.cpp"
+<<
+
+CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\TreeFunctions.cpp.obj: CMakeFiles\Fabi.dir\flags.make
+CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\TreeFunctions.cpp.obj: "..\ejercicios-c\Practica 11\TreeFunctions.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Fabi.dir/ejercicios-c/Practica_11/TreeFunctions.cpp.obj"
+	C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\Fabi.dir\ejercicios-c\Practica_11\TreeFunctions.cpp.obj /FdCMakeFiles\Fabi.dir\ /FS -c "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\ejercicios-c\Practica 11\TreeFunctions.cpp"
+<<
+
+CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\TreeFunctions.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Fabi.dir/ejercicios-c/Practica_11/TreeFunctions.cpp.i"
+	C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe > CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\TreeFunctions.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\ejercicios-c\Practica 11\TreeFunctions.cpp"
+<<
+
+CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\TreeFunctions.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Fabi.dir/ejercicios-c/Practica_11/TreeFunctions.cpp.s"
+	C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\Fabi.dir\ejercicios-c\Practica_11\TreeFunctions.cpp.s /c "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\ejercicios-c\Practica 11\TreeFunctions.cpp"
+<<
+
+CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\main.cpp.obj: CMakeFiles\Fabi.dir\flags.make
+CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\main.cpp.obj: "..\ejercicios-c\Practica 11\main.cpp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Fabi.dir/ejercicios-c/Practica_11/main.cpp.obj"
+	C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\Fabi.dir\ejercicios-c\Practica_11\main.cpp.obj /FdCMakeFiles\Fabi.dir\ /FS -c "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\ejercicios-c\Practica 11\main.cpp"
+<<
+
+CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Fabi.dir/ejercicios-c/Practica_11/main.cpp.i"
+	C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe > CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\main.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\ejercicios-c\Practica 11\main.cpp"
+<<
+
+CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Fabi.dir/ejercicios-c/Practica_11/main.cpp.s"
+	C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\Fabi.dir\ejercicios-c\Practica_11\main.cpp.s /c "C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\ejercicios-c\Practica 11\main.cpp"
+<<
+
 # Object files for target Fabi
 Fabi_OBJECTS = \
-"CMakeFiles\Fabi.dir\practica8.cpp.obj"
+"CMakeFiles\Fabi.dir\practica8.cpp.obj" \
+"CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\Tree.cpp.obj" \
+"CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\TreeFunctions.cpp.obj" \
+"CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\main.cpp.obj"
 
 # External object files for target Fabi
 Fabi_EXTERNAL_OBJECTS =
 
 Fabi.exe: CMakeFiles\Fabi.dir\practica8.cpp.obj
+Fabi.exe: CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\Tree.cpp.obj
+Fabi.exe: CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\TreeFunctions.cpp.obj
+Fabi.exe: CMakeFiles\Fabi.dir\ejercicios-c\Practica_11\main.cpp.obj
 Fabi.exe: CMakeFiles\Fabi.dir\build.make
 Fabi.exe: CMakeFiles\Fabi.dir\objects1.rsp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Fabi.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable Fabi.exe"
 	"C:\Users\Fabian Frangella\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\211.7442.42\bin\cmake\win\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\Fabi.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100177~1.0\x86\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100177~1.0\x86\mt.exe --manifests -- C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1428~1.293\bin\Hostx86\x86\link.exe /nologo @CMakeFiles\Fabi.dir\objects1.rsp @<<
  /out:Fabi.exe /implib:Fabi.lib /pdb:"C:\Users\Fabian Frangella\Desktop\Facultad\estructuras-de-datos\Fabi\cmake-build-debug\Fabi.pdb" /version:0.0 /machine:X86 /debug /INCREMENTAL /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib 
 <<
