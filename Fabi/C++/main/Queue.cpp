@@ -17,6 +17,7 @@ Queue emptyQ() {
     queue->primero = nullptr;
     queue->ultimo = nullptr;
     queue->cantidad = 0;
+    return queue;
 }
 //Indica si la lista está vacía.
 //Costo: O(1).
