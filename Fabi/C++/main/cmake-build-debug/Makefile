@@ -207,6 +207,33 @@ TreeFunctions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\main.dir\TreeFunctions.cpp.s
 .PHONY : TreeFunctions.cpp.s
 
+TreeQueue.obj: TreeQueue.cpp.obj
+
+.PHONY : TreeQueue.obj
+
+# target to build an object file
+TreeQueue.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\main.dir\TreeQueue.cpp.obj
+.PHONY : TreeQueue.cpp.obj
+
+TreeQueue.i: TreeQueue.cpp.i
+
+.PHONY : TreeQueue.i
+
+# target to preprocess a source file
+TreeQueue.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\main.dir\TreeQueue.cpp.i
+.PHONY : TreeQueue.cpp.i
+
+TreeQueue.s: TreeQueue.cpp.s
+
+.PHONY : TreeQueue.s
+
+# target to generate assembly for a file
+TreeQueue.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\main.dir\TreeQueue.cpp.s
+.PHONY : TreeQueue.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -252,6 +279,9 @@ help:
 	@echo ... TreeFunctions.obj
 	@echo ... TreeFunctions.i
 	@echo ... TreeFunctions.s
+	@echo ... TreeQueue.obj
+	@echo ... TreeQueue.i
+	@echo ... TreeQueue.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

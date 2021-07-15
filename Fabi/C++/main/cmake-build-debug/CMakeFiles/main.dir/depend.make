@@ -11,6 +11,11 @@ CMakeFiles\main.dir\TreeFunctions.cpp.obj: ..\ArrayList.h
 CMakeFiles\main.dir\TreeFunctions.cpp.obj: ..\Tree.h
 CMakeFiles\main.dir\TreeFunctions.cpp.obj: ..\TreeFunctions.cpp
 CMakeFiles\main.dir\TreeFunctions.cpp.obj: ..\TreeFunctions.h
+CMakeFiles\main.dir\TreeFunctions.cpp.obj: ..\TreeQueue.h
+
+CMakeFiles\main.dir\TreeQueue.cpp.obj: ..\Tree.h
+CMakeFiles\main.dir\TreeQueue.cpp.obj: ..\TreeQueue.cpp
+CMakeFiles\main.dir\TreeQueue.cpp.obj: ..\TreeQueue.h
 
 CMakeFiles\main.dir\main.cpp.obj: ..\ArrayList.h
 CMakeFiles\main.dir\main.cpp.obj: ..\Tree.h

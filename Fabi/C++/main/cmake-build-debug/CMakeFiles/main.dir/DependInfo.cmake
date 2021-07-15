@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/ArrayList.cpp" "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/cmake-build-debug/CMakeFiles/main.dir/ArrayList.cpp.obj"
   "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/Tree.cpp" "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/cmake-build-debug/CMakeFiles/main.dir/Tree.cpp.obj"
   "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/TreeFunctions.cpp" "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/cmake-build-debug/CMakeFiles/main.dir/TreeFunctions.cpp.obj"
+  "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/TreeQueue.cpp" "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/cmake-build-debug/CMakeFiles/main.dir/TreeQueue.cpp.obj"
   "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/main.cpp" "C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/cmake-build-debug/CMakeFiles/main.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "MSVC")

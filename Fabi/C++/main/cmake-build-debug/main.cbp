@@ -98,6 +98,12 @@
 		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/TreeFunctions.h">
 			<Option target="main"/>
 		</Unit>
+		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/TreeQueue.cpp">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/TreeQueue.h">
+			<Option target="main"/>
+		</Unit>
 		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/main.cpp">
 			<Option target="main"/>
 		</Unit>

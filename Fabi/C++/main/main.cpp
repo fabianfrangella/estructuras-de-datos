@@ -22,15 +22,16 @@ int main() {
                     nodeT(3,
                           nodeT(5, emptyT(), emptyT()),
                           nodeT(6, emptyT(), emptyT())));
+    std::cout << "------Recursivos------" << std::endl;
     ArrayList treeList = toList(t2);
     ArrayList leavesList = leaves(t2);
     ArrayList levelNList = levelN(2, t2);
-    std::cout << sumarT(t2) << std::endl;
-    std::cout << sizeT(t2) << std::endl;
-    std::cout << perteneceT(4, t2) << std::endl;
-    std::cout << aparicionesT(1, t2) << std::endl;
-    std::cout << heightT(t2) << std::endl;
-    std::cout << lengthAL(treeList) << std::endl;
+    std::cout << "suma: " << sumarT(t2) << std::endl;
+    std::cout << "size: " <<sizeT(t2) << std::endl;
+    std::cout << "pertenece: " <<perteneceT(4, t2) << std::endl;
+    std::cout << "apariciones: " <<aparicionesT(1, t2) << std::endl;
+    std::cout << "height: " <<heightT(t2) << std::endl;
+    std::cout << "lenght: " <<lengthAL(treeList) << std::endl;
 
     printArr(treeList);
 
@@ -38,6 +39,13 @@ int main() {
 
     printArr(levelNList);
 
+    std::cout << "------Iterativos------" << std::endl;
+    std::cout << "suma: " <<sumarTBFS(t2) << std::endl;
+    std::cout << "size: " <<sizeTBFS(t2) << std::endl;
+    std::cout << "pertenece: " <<perteneceTBFS(4, t2) << std::endl;
+    std::cout << "apariciones: " <<aparicionesTBFS(1, t2) << std::endl;
+    ArrayList treeListBFS = toListBFS(t2);
+    printArr(treeListBFS);
     return 0;
 }
 

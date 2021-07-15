@@ -27,3 +27,9 @@ ArrayList toList(Tree t);
 ArrayList leaves(Tree t);
 //Dados un número n y un árbol devuelve una lista con los nodos de nivel n.
 ArrayList levelN(int n, Tree t);
+
+int sumarTBFS(Tree t);
+int sizeTBFS(Tree t);
+bool perteneceTBFS(int e, Tree t);
+int aparicionesTBFS(int e, Tree t);
+ArrayList toListBFS(Tree t);
