@@ -86,6 +86,12 @@
 		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/ArrayList.h">
 			<Option target="main"/>
 		</Unit>
+		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/Set.cpp">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/Set.h">
+			<Option target="main"/>
+		</Unit>
 		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/Tree.cpp">
 			<Option target="main"/>
 		</Unit>
@@ -102,6 +108,12 @@
 			<Option target="main"/>
 		</Unit>
 		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/TreeQueue.h">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/linkedList.cpp">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/linkedList.h">
 			<Option target="main"/>
 		</Unit>
 		<Unit filename="C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/main.cpp">

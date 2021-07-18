@@ -50,6 +50,9 @@ void resize(int capacidad, ArrayList xs) {
 
 //Agrega un elemento al final de la lista.
 void add(int x, ArrayList xs) {
+    if (xs->cantidad >= xs->capacidad) {
+        resize(xs->capacidad * 2, xs);
+    }
     xs->elementos[xs->cantidad] = x;
     xs->cantidad++;
 }

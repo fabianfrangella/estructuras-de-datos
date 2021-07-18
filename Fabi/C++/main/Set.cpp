@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Set.h"
+#include "linkedList.h"
+using namespace std;
 
 struct NodoS {
     int elem; // valor del nodo
@@ -49,20 +51,20 @@ void addS(int x, Set s) {
 
 //Quita un elemento dado.
 void removeS(int x, Set s) {
-    NodoS* actual = s->primero;
+    if (!belongsS(x, s)) return;
+    NodoS *actual = s->primero;
+    if (actual == nullptr) return;
     if (actual->elem == x) {
         s->primero = actual->siguiente;
         delete actual;
-        s->cantidad--;
         return;
     }
-    while (actual != nullptr && actual->elem != x) {
-        NodoS* siguiente = actual->siguiente;
-        if (actual->elem == x) {
-            delete actual;
-        }
-        actual = siguiente;
-        s->cantidad--;
+    while (actual != nullptr && actual->siguiente->elem != x) {
+        actual = actual->siguiente;
+    }
+    if (actual != nullptr) {
+        actual->siguiente = actual->siguiente->siguiente;
+        delete actual->siguiente;
     }
 }
 //Devuelve la cantidad de elementos.
@@ -90,4 +92,17 @@ void destroyS(Set s) {
     delete s;
 }
 
+void imprimirS(Set s) {
+    NodoS* actual = s->primero;
+    cout << "[";
+    if (actual != nullptr) {
+        while (actual->siguiente != nullptr) {
+            cout << actual->elem;
+            cout << ", ";
+            actual = actual->siguiente;
+        }
+        cout << actual->elem;
+    }
+    cout << "]" << endl;
+}
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Tree.h"
 #include "TreeFunctions.h"
+#include "Set.h"
 
 void printArr(ArrayList arr) {
     std:: cout << "[";
@@ -16,6 +17,7 @@ void printArr(ArrayList arr) {
 
 int main() {
     Tree t = emptyT();
+
     Tree t2 = nodeT(1,
                     nodeT(1,
                           nodeT(8, emptyT(), emptyT()), emptyT()),
@@ -46,6 +48,20 @@ int main() {
     std::cout << "apariciones: " <<aparicionesTBFS(1, t2) << std::endl;
     ArrayList treeListBFS = toListBFS(t2);
     printArr(treeListBFS);
+
+    Set s = emptyS();
+    imprimirS(s);
+    addS(1, s);
+    addS(2, s);
+    addS(3, s);
+    addS(3, s);
+    imprimirS(s);
+
+    removeS(1, s);
+    removeS(5, s);
+
+    imprimirS(s);
+
     return 0;
 }
 

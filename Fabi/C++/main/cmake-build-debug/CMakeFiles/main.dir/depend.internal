@@ -4,6 +4,10 @@
 CMakeFiles/main.dir/ArrayList.cpp.obj
  C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/ArrayList.cpp
  C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/ArrayList.h
+CMakeFiles/main.dir/Set.cpp.obj
+ C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/Set.cpp
+ C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/Set.h
+ C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/linkedList.h
 CMakeFiles/main.dir/Tree.cpp.obj
  C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/Tree.cpp
  C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/Tree.h
@@ -17,8 +21,13 @@ CMakeFiles/main.dir/TreeQueue.cpp.obj
  C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/Tree.h
  C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/TreeQueue.cpp
  C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/TreeQueue.h
+CMakeFiles/main.dir/linkedList.cpp.obj
+ C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/linkedList.cpp
+ C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/linkedList.h
 CMakeFiles/main.dir/main.cpp.obj
  C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/ArrayList.h
+ C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/Set.h
  C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/Tree.h
  C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/TreeFunctions.h
+ C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/linkedList.h
  C:/Users/Fabian Frangella/Desktop/Facultad/estructuras-de-datos/Fabi/C++/main/main.cpp

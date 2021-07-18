@@ -153,6 +153,33 @@ ArrayList.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\main.dir\ArrayList.cpp.s
 .PHONY : ArrayList.cpp.s
 
+Set.obj: Set.cpp.obj
+
+.PHONY : Set.obj
+
+# target to build an object file
+Set.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\main.dir\Set.cpp.obj
+.PHONY : Set.cpp.obj
+
+Set.i: Set.cpp.i
+
+.PHONY : Set.i
+
+# target to preprocess a source file
+Set.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\main.dir\Set.cpp.i
+.PHONY : Set.cpp.i
+
+Set.s: Set.cpp.s
+
+.PHONY : Set.s
+
+# target to generate assembly for a file
+Set.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\main.dir\Set.cpp.s
+.PHONY : Set.cpp.s
+
 Tree.obj: Tree.cpp.obj
 
 .PHONY : Tree.obj
@@ -234,6 +261,33 @@ TreeQueue.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\main.dir\TreeQueue.cpp.s
 .PHONY : TreeQueue.cpp.s
 
+linkedList.obj: linkedList.cpp.obj
+
+.PHONY : linkedList.obj
+
+# target to build an object file
+linkedList.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\main.dir\linkedList.cpp.obj
+.PHONY : linkedList.cpp.obj
+
+linkedList.i: linkedList.cpp.i
+
+.PHONY : linkedList.i
+
+# target to preprocess a source file
+linkedList.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\main.dir\linkedList.cpp.i
+.PHONY : linkedList.cpp.i
+
+linkedList.s: linkedList.cpp.s
+
+.PHONY : linkedList.s
+
+# target to generate assembly for a file
+linkedList.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\main.dir\linkedList.cpp.s
+.PHONY : linkedList.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -273,6 +327,9 @@ help:
 	@echo ... ArrayList.obj
 	@echo ... ArrayList.i
 	@echo ... ArrayList.s
+	@echo ... Set.obj
+	@echo ... Set.i
+	@echo ... Set.s
 	@echo ... Tree.obj
 	@echo ... Tree.i
 	@echo ... Tree.s
@@ -282,6 +339,9 @@ help:
 	@echo ... TreeQueue.obj
 	@echo ... TreeQueue.i
 	@echo ... TreeQueue.s
+	@echo ... linkedList.obj
+	@echo ... linkedList.i
+	@echo ... linkedList.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

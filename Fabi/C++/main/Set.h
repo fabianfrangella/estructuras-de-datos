@@ -23,3 +23,5 @@ int sizeS(Set s);
 LinkedList setToList(Set s);
 //Libera la memoria ocupada por el conjunto.
 void destroyS(Set s);
+
+void imprimirS(Set s);
